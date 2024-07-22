@@ -1,0 +1,342 @@
+body,
+html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.home {
+    padding-top: 70px;
+    /* Adjust this value to match your header height */
+    width: 100vw;
+    max-width: 100%;
+}
+
+.hero-image-container {
+    width: 100vw;
+    height: calc(100vh - 80px);
+    /* Adjust 70px to match your header height */
+    overflow: hidden;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+ margin-bottom: 0;
+}
+
+.hero-image {
+    width: 100%;
+    height: 90%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.gradient-overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 90%;
+    width: 50%;
+    /* Adjust this to control how much of the image is covered */
+    background: linear-gradient(to left,
+            rgba(0, 0, 0, 0.795) 0%,
+            rgba(0, 0, 0, 0.774) 50%,
+            rgba(38, 2, 49, 0) 100%);
+}
+
+.hero-content {
+    position: absolute;
+    top: 50%;
+    right: 7%;
+    transform: translateY(-70%);
+    text-align: right;
+    color: rgb(255, 255, 255);
+    max-width: 90%;
+}
+
+.hero-content h1 {
+    font-size: 4.0rem;
+    font-weight: bolder;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS';
+    margin-bottom: 1rem;
+}
+
+.hero-content p {
+    font-size: 17px;
+    text-align: center;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS';
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+.hero-content button {
+   background-color: #9900ff;
+    color: rgb(159, 184, 19);
+    border: none;
+    padding: 0.5rem 7.5rem;
+    margin-right: 200px;
+    font-size: 1rem;
+    cursor: pointer;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+    
+}
+
+.hero-content button:hover {
+    background-color: #0056b3;
+}
+
+.stats-section {
+    background-color: #f8f9fa;
+    padding: 2rem 0;
+}
+
+.stats-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.stat-counter {
+text-align: center;
+    margin: 0rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: bolder;
+    font-family:'Segoe UI';
+    color: #9900ff;
+}
+
+.stat-label {
+    font-size: rem;
+    color: #1491da;
+    font-weight: bolder;
+}
+
+@media (max-width: 768px) {
+    .stats-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .stat-counter {
+        margin: 1rem 0;
+    }
+}
+
+/* ... (keep your existing styles for home and hero section) ... */
+
+.our-services {
+    padding: 0rem 2rem;
+    background-color: #ffffff;
+}
+
+.our-services h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2.5rem;
+    color: #333;
+}
+
+.service-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.service-card {
+    background-color: #9900ff;
+    border-radius: 15px;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.service-image {
+    width: 45%;
+    max-width: 450px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    left: -5%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.service-description {
+    width: 60%;
+    margin-left: auto;
+    color: white;
+}
+
+.service-description h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+.service-description p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.service-description button {
+    background-color: white;
+    color: #9900ff;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-radius: 5px;
+}
+
+.social-media-section {
+    background-color: #f8f9fa;
+    padding: 4rem 2rem;
+}
+
+.social-media-section h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2.5rem;
+    color: #333;
+}
+
+.social-posts-container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.social-post {
+    width: 30%;
+    background-color: white;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.social-post:hover {
+    transform: translateY(-5px);
+}
+
+.social-icon {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 1rem;
+}
+
+.social-post p {
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.view-profile-btn {
+    display: inline-block;
+    background-color: #9900ff;
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.view-profile-btn:hover {
+    background-color: #7700cc;
+}
+
+/* Add this to your existing Home.css file */
+
+.testimonials-section {
+    padding: 4rem 2rem;
+    background-color: #f8f9fa;
+}
+
+.testimonials-section h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2.5rem;
+    color: #333;
+}
+
+.testimonials-container {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 2rem;
+    padding-bottom: 1rem;
+}
+
+.testimonial-card {
+    flex: 0 0 300px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    scroll-snap-align: start;
+}
+
+.testimonial-text {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.testimonial-author {
+    font-weight: bold;
+    color: #9900ff;
+    margin-bottom: 0.25rem;
+}
+
+.testimonial-location {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* Add some custom scrollbar styles for webkit browsers */
+.testimonials-container::-webkit-scrollbar {
+    height: 8px;
+}
+
+.testimonials-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.testimonials-container::-webkit-scrollbar-thumb {
+    background: #9900ff;
+    border-radius: 4px;
+}
+
+.testimonials-container::-webkit-scrollbar-thumb:hover {
+    background: #7700cc;
+}
+
+@media (max-width: 768px) {
+    .social-posts-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .social-post {
+        width: 80%;
+        margin-bottom: 2rem;
+    }
+}
