@@ -11,6 +11,9 @@ import StatCounter from "./StatCounter";
 import { InstagramEmbed } from "react-social-media-embed";
 import { FacebookEmbed } from "react-social-media-embed";
 import { XEmbed } from "react-social-media-embed";
+import facebookIcon from "../assets/facebook.svg";
+import instagramIcon from "../assets/instagram.png";
+import twitterIcon from "../assets/twitter.png";
 
 const Home: React.FC = () => {
 
@@ -124,6 +127,17 @@ const Home: React.FC = () => {
 
       <section className="our-services">
         <h2>Our Services</h2>
+        <p className="services-intro">
+          At Pdavies Cleaning, we offer a comprehensive range of professional
+          cleaning services in Nairobi and its surrounding areas at competitive
+          prices. Our expert team, equipped with necessary cleaning equipment,
+          ensures top-quality results for every job. From residential cleaning
+          to commercial office cleaning, we deliver exceptional value for your
+          money. Discover our full spectrum of cleaning solutions, including
+          carpet cleaning, post-construction cleaning, and specialized services,
+          in our detailed services section. Trust Nairobi's leading cleaning
+          experts for a spotless, healthier environment.
+        </p>
         <div className="service-content">
           <div className="service-card">
             <img
@@ -147,6 +161,14 @@ const Home: React.FC = () => {
 
       <section className="testimonials-section">
         <h2>What People Are Saying About Us</h2>
+        <p className="services-intro">
+          Reputation is everything here at Pdavies Cleaning and one of our
+          pillars of growth has been taking every feedback postively and
+          implement on our short comings. We also love and appreciate good
+          reviews from the clients we have worked with. This social proofs and
+          endorsements are whats keeps us going and here are some of the many
+          reviews we have received.
+        </p>
         <div className="testimonials-container">
           {reviews.map((review, index) => (
             <div key={index} className="testimonial-card">
@@ -160,8 +182,14 @@ const Home: React.FC = () => {
 
       <section className="social-media-section">
         <h2>Follow Us on Social Media</h2>
+        <p className="services-intro">
+          Receive regular updates on cleaning hacks and tips, price offers,
+          doscounts and service offerings by followig us on our major social
+          media platforms.
+        </p>
         <div className="social-posts-container">
           <div className="social-post instagram">
+            <img src={instagramIcon} alt="Instagram" className="social-icon" />
             <div style={{ display: "flex", justifyContent: "center" }}>
               <InstagramEmbed
                 url="https://www.instagram.com/p/C9Cvujet6pV/"
@@ -172,6 +200,7 @@ const Home: React.FC = () => {
           </div>
 
           <div className="social-post facebook">
+            <img src={facebookIcon} alt="Facebook" className="social-icon" />
             <div style={{ display: "flex", justifyContent: "center" }}>
               <FacebookEmbed
                 url="https://www.facebook.com/permalink.php?story_fbid=pfbid08N5Wn3kRg6G9KKM7iRnbwKr6j79R3j2X6BzZ5zeQtu48xxz8ESXXHt2jTXUz581pl&amp;id=100090951015499"
@@ -180,6 +209,7 @@ const Home: React.FC = () => {
             </div>
           </div>
           <div className="social-post twitter">
+            <img src={twitterIcon} alt="Twitter" className="social-icon" />
             <div style={{ display: "flex", justifyContent: "center" }}>
               <XEmbed
                 url="https://twitter.com/Pdaviescleaning/status/1774339154404343875"
@@ -187,6 +217,27 @@ const Home: React.FC = () => {
               />
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="location-section">
+        <h2>Our Offices</h2>
+        <div className="map-container">
+          <iframe
+            title="Pdavies Cleaning Location"
+            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15956.180479975497!2d36.981704!3d-1.128013!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f47361a3faa19%3A0xd26b18fc259c6a58!2sPDavies%20Cleaning%20Company!5e0!3m2!1sen!2ske!4v1721639523868!5m2!1sen!2ske"
+            width="100%"
+            height="450"
+            style={{ border: 0 }}
+            allowFullScreen=""
+            loading="lazy"
+          ></iframe>
+        </div>
+        <div className="location-info">
+          <h3>Pdavies Cleaning</h3>
+          <p>123 Example Street, Nairobi, Kenya</p>
+          <p>Phone: +254 123 456 789</p>
+          <p>Email: info@pdaviescleaning.com</p>
         </div>
       </section>
     </div>

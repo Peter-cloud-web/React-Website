@@ -147,6 +147,15 @@ text-align: center;
     color: #333;
 }
 
+.services-intro {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 3rem;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #666;
+}
+
 .service-content {
     max-width: 1200px;
     margin: 0 auto;
@@ -338,5 +347,54 @@ text-align: center;
     .social-post {
         width: 80%;
         margin-bottom: 2rem;
+    }
+}
+
+/* Add this to your existing Home.css file */
+
+.location-section {
+    padding: 4rem 2rem;
+    background-color: #f8f9fa;
+}
+
+.location-section h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2.5rem;
+    color: #333;
+}
+
+.map-container {
+    max-width: 1200px;
+    margin: 0 auto 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.location-info {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.location-info h3 {
+    font-size: 1.5rem;
+    color: #9900ff;
+    margin-bottom: 1rem;
+}
+
+.location-info p {
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+@media (max-width: 768px) {
+    .map-container {
+        height: 300px;
+    }
+
+    .map-container iframe {
+        height: 100%;
     }
 }
