@@ -1,0 +1,216 @@
+body,
+html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+}
+.about-page-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    max-width: 100%;
+}
+
+.about-page {
+    flex: 1;
+
+    width: 100%;
+    max-width: 100%;
+}
+
+.cover-container {
+    position: relative;
+    text-align: center;
+}
+
+.cover-image {
+    width: 100%;
+    height: 60vh;
+    object-fit: cover;
+}
+
+.cover-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 3rem;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 1rem 2rem;
+    border-radius: 10px;
+}
+
+.about-content {
+    padding: 4rem 2rem;
+    background-color: #fff;
+}
+
+.about-info {
+    display: flex;
+    flex-direction: column;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 2rem;
+}
+
+.about-text {
+    flex: 1;
+    max-width: 100%;
+}
+
+.about-text p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+    color: black;
+}
+
+.about-images {
+    flex: 1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+}
+
+.oval-background {
+    position: absolute;
+    width: 300%;
+    height: 200%;
+    background-color: #9900ff;
+    opacity: 0.1;
+    border-radius: 50%;
+    transform: rotate(-15deg);
+    left: -100%;
+    /* Center the oval */
+    top: -50%;
+}
+
+.about-images img {
+    position: absolute;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgb(110, 1, 138);
+    width: 60%;
+    height: auto;
+    transition: all 0.3s ease;
+}
+
+.image-1 {
+    transform: translate(-40%, -5%) rotate(-3deg);
+    z-index: 5;
+}
+
+.image-2 {
+    transform: translate(50%, 10%) rotate(8deg);
+    z-index: 2;
+}
+
+
+@media (min-width: 768px) {
+    .about-info {
+        flex-direction: row;
+    }
+
+    .about-text {
+        max-width: 50%;
+    }
+}
+
+@media (max-width: 767px) {
+    .cover-title {
+        font-size: 2rem;
+        padding: 0.5rem 1rem;
+    }
+
+    .about-content {
+        padding: 2rem 1rem;
+    }
+
+
+    .oval-background {
+        width: 200%;
+        /* Adjust size for mobile */
+        height: 150%;
+        left: -50%;
+        /* Re-center for mobile */
+        top: -25%;
+        position: relative;
+    }
+
+    .about-images {
+        height: 250px;
+        margin-top: 8rem;
+        margin-bottom: 8rem;
+    }
+
+    .about-images img {
+        width: 70%;
+        max-width: 200px;
+    }
+
+    .image-1 {
+        transform: translate(-30%, -10%) rotate(-5deg);
+    }
+
+    .image-2 {
+        transform: translate(30%, 10%) rotate(5deg);
+    }
+}
+
+/* Add this to your existing CSS */
+
+.values-section {
+    background-color: #f5f5f5;
+    padding: 4rem 2rem;
+}
+
+.values-container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 2rem;
+}
+
+.value-card {
+    flex: 1;
+    background-color: white;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.value-card:hover {
+    transform: translateY(-5px);
+}
+
+.value-card h2 {
+    color: #9900ff;
+    margin-bottom: 1rem;
+}
+
+.value-card p,
+.value-card ul {
+    color: #333;
+}
+
+.value-card ul {
+    padding-left: 1.5rem;
+}
+
+.value-card li {
+    margin-bottom: 0.5rem;
+}
+
+@media (max-width: 767px) {
+    .values-container {
+        flex-direction: column;
+    }
+
+    .value-card {
+        margin-bottom: 1rem;
+    }
+}

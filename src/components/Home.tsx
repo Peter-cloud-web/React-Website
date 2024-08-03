@@ -1,6 +1,6 @@
 import React from "react";
 import "./Home.css";
-import companyPhoto from "../assets/companyphoto.jpeg";
+import "./Footer";
 import serviceImage from "../assets/service_image.jpg";
 import CarpetCleaningIcon from "../assets/CarpetCleaningIcon.png"; 
 import ConstructionCleaningIcon from "../assets/ConstructionCleaningIcon.png";
@@ -14,8 +14,30 @@ import { XEmbed } from "react-social-media-embed";
 import facebookIcon from "../assets/facebook.svg";
 import instagramIcon from "../assets/instagram.png";
 import twitterIcon from "../assets/twitter.png";
+import cleaning1 from "../assets/cleaning1.jpg";
+import cleaning2 from "../assets/cleaning2.jpg";
+import cleaning3 from "../assets/cleaning3.jpeg";
+import cleaning4 from "../assets/cleaning4.jpeg";
+import cleaning5 from "../assets/cleaning5.jpeg";
+import cleaning6 from "../assets/cleaning6.jpeg";
+import cleaning7 from "../assets/cleaning7.jpeg";
+import cleaning8 from "../assets/cleaning8.jpeg";
+import cleaning18 from "../assets/cleaning18.jpeg";
+import cleaning34 from "../assets/cleaning14.jpeg";
+import Footer from "./Footer";
 
 const Home: React.FC = () => {
+
+  const cleaningImages = [
+    cleaning1,
+    cleaning2,
+    cleaning3,
+    cleaning4,
+    cleaning5,
+    cleaning6,
+    cleaning7,
+    cleaning8,
+  ];
 
     const reviews = [
       {
@@ -74,18 +96,17 @@ const Home: React.FC = () => {
   return (
     <div className="home">
       <div className="hero-image-container">
-        <img src={companyPhoto} alt="Company Photo" className="hero-image" />
+        <img src={cleaning18} alt="Company Photo" className="hero-image" />
         <div className="gradient-overlay"></div>
         <div className="hero-content">
-          <h1>Welcome to Pdavies Cleaning</h1>
+          <h1>Welcome to Pdavies Cleaning Solutions
+          </h1>
           <p>
             We offer comprehensive cleaning solutions for both commercial
-            establishments and private residences,
+            establishments and private residences,ensuring that individuals can
+            live and work in clean and healthy environments.
           </p>
-          <p>
-            ensuring that individuals can live and work in clean and healthy
-            environments.
-          </p>
+
           <button>Learn More</button>
         </div>
       </div>
@@ -140,13 +161,15 @@ const Home: React.FC = () => {
         </p>
         <div className="service-content">
           <div className="service-card">
-            <img
-              src={serviceImage}
-              alt="Our Cleaning Services"
-              className="service-image"
-            />
+            <div className="service-images">
+              <img
+                src={serviceImage}
+                alt="Our Cleaning Services"
+                className="service-image main-image"
+              />
+            </div>
             <div className="service-description">
-              <h3>Professional Cleaning Solutions</h3>
+              <h3>Explore our Cleaning Solutions</h3>
               <p>
                 At Pdavies Cleaning, we provide top-notch cleaning services
                 tailored to your needs. Our team of skilled professionals uses
@@ -222,6 +245,12 @@ const Home: React.FC = () => {
 
       <section className="location-section">
         <h2>Our Offices</h2>
+        <p className="services-intro">
+          Pdavies cleaning is located in Ruiru, Toll Estate but for any of our
+          cleaning services we can come to your premises, our equipments are
+          easily portable and these makes it convenient for both of us from a
+          business standpoint.
+        </p>
         <div className="map-container">
           <iframe
             title="Pdavies Cleaning Location"
@@ -233,13 +262,18 @@ const Home: React.FC = () => {
             loading="lazy"
           ></iframe>
         </div>
-        <div className="location-info">
-          <h3>Pdavies Cleaning</h3>
-          <p>123 Example Street, Nairobi, Kenya</p>
-          <p>Phone: +254 123 456 789</p>
-          <p>Email: info@pdaviescleaning.com</p>
-        </div>
       </section>
+      <section className="cleaning-gallery">
+        {cleaningImages.map((img, index) => (
+          <img
+            key={index}
+            src={img}
+            alt={`Cleaning ${index + 1}`}
+            className="gallery-image"
+          />
+        ))}
+      </section>
+      <Footer />
     </div>
   );
 };

@@ -23,7 +23,7 @@ html {
     right: 50%;
     margin-left: -50vw;
     margin-right: -50vw;
- margin-bottom: 0;
+    margin-bottom: 0;
 }
 
 .hero-image {
@@ -59,7 +59,7 @@ html {
 .hero-content h1 {
     font-size: 4.0rem;
     font-weight: bolder;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS';
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS';
     margin-bottom: 1rem;
 }
 
@@ -67,13 +67,15 @@ html {
     font-size: 17px;
     text-align: center;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS';
-    font-weight: 500;
+    font-weight: bold;
     margin-bottom: 1rem;
+    margin-right: 5rem;
+    margin-left: 50rem;
 }
 
 .hero-content button {
-   background-color: #9900ff;
-    color: rgb(159, 184, 19);
+    background-color: #9900ff;
+    color: rgb(255, 255, 255);
     border: none;
     padding: 0.5rem 7.5rem;
     margin-right: 200px;
@@ -81,7 +83,7 @@ html {
     cursor: pointer;
     justify-content: center;
     transition: background-color 0.3s ease;
-    
+
 }
 
 .hero-content button:hover {
@@ -102,7 +104,7 @@ html {
 }
 
 .stat-counter {
-text-align: center;
+    text-align: center;
     margin: 0rem;
     display: flex;
     flex-direction: column;
@@ -112,7 +114,7 @@ text-align: center;
 .stat-number {
     font-size: 2.5rem;
     font-weight: bolder;
-    font-family:'Segoe UI';
+    font-family: 'Segoe UI';
     color: #9900ff;
 }
 
@@ -131,18 +133,66 @@ text-align: center;
     .stat-counter {
         margin: 1rem 0;
     }
+
+    .hero-content h1 {
+        font-size: 2.0rem;
+        margin-right: 40px;
+    }
+
+    .hero-content p {
+        font-size: 17px;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS';
+        font-weight: bold;
+        margin-bottom: 1rem;
+        margin-right: 5rem;
+        margin-left: 5rem;
+    }
+
+    .hero-content button {
+        background-color: #9900ff;
+        color: rgb(255, 255, 255);
+        border: none;
+        padding: 0.5rem 7.5rem;
+        margin-left: 60px;
+        font-size: 1rem;
+        cursor: pointer;
+        justify-content: center;
+        transition: background-color 0.3s ease;
+
+    }
+
+    .service-description {
+        width: 55%;
+        margin-left: auto;
+        color: white;
+        padding-left: 2rem;
+        margin-top: 350px;
+    }
+
+    .service-description h3 {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+    }
+
+    .service-description p {
+        font-size: 1rem;
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+    }
 }
 
 /* ... (keep your existing styles for home and hero section) ... */
 
+/* Add or modify these styles in your Home.css file */
+
 .our-services {
-    padding: 0rem 2rem;
+    padding: 2rem 2rem;
     background-color: #ffffff;
 }
 
 .our-services h2 {
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     font-size: 2.5rem;
     color: #333;
 }
@@ -150,7 +200,7 @@ text-align: center;
 .services-intro {
     text-align: center;
     max-width: 800px;
-    margin: 0 auto 3rem;
+    margin: 0 auto 2rem;
     font-size: 1rem;
     line-height: 1.6;
     color: #666;
@@ -169,26 +219,31 @@ text-align: center;
     display: flex;
     align-items: center;
     position: relative;
-    overflow: hidden;
+    overflow: visible;
+}
+
+.service-images {
+    position: absolute;
+    width: 25%;
+    max-width: 450px;
 }
 
 .service-image {
-    width: 45%;
-    max-width: 450px;
-    height: auto;
-    object-fit: cover;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    position: absolute;
-    left: -5%;
-    top: 50%;
-    transform: translateY(-50%);
+}
+
+.main-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
 }
 
 .service-description {
-    width: 60%;
+    width: 55%;
     margin-left: auto;
     color: white;
+    padding-left: 2rem;
 }
 
 .service-description h3 {
@@ -211,6 +266,51 @@ text-align: center;
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;
     border-radius: 5px;
+}
+
+@media (max-width: 992px) {
+    .service-card {
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem 1rem;
+    }
+
+    .service-images {
+        width: 80%;
+        max-width: none;
+        margin-bottom: 2rem;
+    }
+
+    .service-description {
+        width: 100%;
+        padding-left: 0;
+        text-align: center;
+    }
+
+    .gradient-overlay {
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 90%;
+        width: 80%;
+        /* Adjust this to control how much of the image is covered */
+        background: linear-gradient(to left,
+                rgba(0, 0, 0, 0.795) 0%,
+                rgba(0, 0, 0, 0.774) 50%,
+                rgba(38, 2, 49, 0) 100%);
+    }
+}
+
+@media (max-width: 768px) {
+    .service-images {
+        width: 100%;
+    }
+
+    .overlap-image {
+        width: 40%;
+        bottom: -5%;
+        right: -5%;
+    }
 }
 
 .social-media-section {
@@ -397,4 +497,22 @@ text-align: center;
     .map-container iframe {
         height: 100%;
     }
+}
+
+/* Add this to your existing Home.css file */
+
+.cleaning-gallery {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+}
+
+.gallery-image {
+    flex: 0 0 auto;
+    width: 12.5%;
+    /* 100% / 8 images */
+    height: 200px;
+    object-fit: cover;
+    scroll-snap-align: start;
 }

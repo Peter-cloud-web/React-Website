@@ -1,0 +1,267 @@
+body,
+html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.services-page {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    max-width: 100%;
+}
+
+.cover-container {
+    position: relative;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.cover-image {
+    width: 100%;
+    height: 60vh;
+    object-fit: cover;
+}
+
+.cover-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 3rem;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 1rem 2rem;
+    border-radius: 10px;
+}
+
+.oval-background {
+    position: absolute;
+    width: 100%;
+    height: 350%;
+    background-color: #9900ff;
+    opacity: 0.1;
+    border-radius: 50%;
+    transform: rotate(-15deg);
+    top: -100%;
+    left: -50%;
+}
+
+.services-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.service-item {
+    padding: 4rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0rem;
+}
+
+.service-item:nth-child(even) {
+    flex-direction: row-reverse;
+}
+
+.service-content {
+    flex: 1;
+    position: relative;
+    padding: -0rem;
+}
+
+.service-content h2 {
+    color: #9900ff;
+    margin-bottom: -1.5rem;
+}
+
+.service-content ul {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 1rem;
+}
+
+.service-content li {
+    margin-bottom: -0.5rem;
+}
+
+.service-content p {
+    color: #333;
+    line-height: 1.6;
+    font-weight: 500;
+}
+
+.service-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.service-image .main-image {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    max-height: 400px;
+    object-fit: cover;
+    top: -100px;
+    left: 10px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.word-highlights {
+    font-weight: bolder;
+    color: #9900ff;
+    font-size: 20px;
+}
+
+.overlay-images {
+    position: absolute;
+    width: 100%;
+    height: 120%;
+    top: 0;
+    left: 0;
+}
+
+.overlay-image {
+    position: absolute;
+    width: 0px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.overlay-1 {
+    top: -80px;
+    left: 6px;
+    z-index: 2;
+}
+
+.quotation-form-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.quotation-form-overlay>* {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 90%;
+    max-height: 90%;
+    overflow-y: auto;
+}
+
+
+
+@media (max-width: 768px) {
+
+    .service-item,
+    .service-item:nth-child(even) {
+        flex-direction: column-reverse;
+    }
+
+    .service-content,
+    .service-image {
+        width: 100%;
+    }
+
+    .oval-background {
+        width: 150%;
+        height: 120%;
+        top: -10%;
+        left: -25%;
+    }
+
+    .service-image .main-image {
+        top: -100px;
+        max-width: 100%;
+    }
+
+    .main-image{
+        top: -50;
+        width: 50px;
+        height: 20px;
+    }
+
+    .overlay-image {
+        top: -100px;
+        width: 50px;
+        height: 50px;
+    }
+
+    .overlay-1 {
+        top: 50px;
+        left: -80px;
+    }
+
+
+}
+
+.service-image img {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    max-height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.get-quote-btn {
+    background-color: #9900ff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 1rem;
+}
+
+.get-quote-btn:hover {
+    background-color: #7700cc;
+}
+
+
+@media (max-width: 768px) {
+
+    .service-item,
+    .service-item:nth-child(even) {
+        flex-direction: column;
+    }
+
+    .service-content,
+    .service-image {
+        width: 100%;
+    }
+
+    .oval-background {
+        width: 150%;
+        height: 120%;
+        top: -10%;
+        left: -25%;
+    }
+
+    .service-image img {
+        max-width: 100%;
+        top: 100px;
+    }
+    .main-image{
+     top: 50px;
+    }
+}

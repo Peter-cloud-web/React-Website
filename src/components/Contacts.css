@@ -1,0 +1,233 @@
+html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.contact-page-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    max-width: 100%;
+}
+
+.cover-container {
+    position: relative;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.cover-image {
+    width: 100%;
+    height: 60vh;
+    object-fit: cover;
+}
+
+.cover-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 3rem;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 1rem 2rem;
+    border-radius: 10px;
+}
+
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+h2 {
+    color: #9900ff;
+}
+
+.contact-info {
+    flex: 1;
+    margin-right: 100px;
+}
+
+.contact-info a {
+    color: #9900ff;
+    text-decoration: none;
+}
+
+.infor-paragraph {
+    color: #050108;
+    text-decoration: none;
+    font-weight: bolder;
+    margin-bottom: 3rem;
+}
+
+.quote-form {
+    flex: 0 0 40%;
+}
+
+.contact-title {
+    font-size: 24px;
+    padding-bottom: 5px;
+    border-bottom: 4px solid #9900ff;
+    /* Thick underline in the theme color */
+    display: inline-block;
+    /* Makes the border only as wide as the text */
+}
+
+.contact-subtitle {
+    font-size: 35px;
+    margin-bottom: 15px;
+    color: #ad0cce;
+}
+
+.contact-details {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #0a000c;
+    font-weight: 400;
+    display: flex;
+}
+
+.contact-icon {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    display: flex;
+    margin-left: 10rem;
+    margin-right: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+input,
+select,
+textarea {
+    margin-bottom: 15px;
+    background-color: #ffffff;
+    padding: 10px;
+    border: 1px solid #0a000c;
+    border-radius: 4px;
+    color: #0a000c;
+}
+
+textarea {
+    height: 150px;
+    background-color: #ffffff;
+}
+
+button {
+    background-color: #9900ff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.oval-background {
+    position: absolute;
+    width: 30%;
+    height: 60%;
+    background-color: #9900ff;
+    opacity: 0.1;
+    border-radius: 50%;
+    transform: rotate(-15deg);
+    top: 70%;
+    left: 8%;
+}
+
+button:hover {
+    background-color: #7700cc;
+}
+
+.map-container {
+    width: 100%;
+    height: 450px;
+    margin-top: 30px;
+}
+
+@media (max-width: 768px) {
+    main {
+        padding: 10px;
+        flex-direction: column;
+    }
+
+    .cover-title {
+        font-size: 2rem;
+        padding: 0.5rem 1rem;
+    }
+
+    .infor-paragraph {
+        color: #050108;
+        text-decoration: none;
+        font-weight: bolder;
+        font-size: 12px;
+        margin-bottom: 3rem;
+    }
+
+        .oval-background {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            background-color: #9900ff;
+            opacity: 0.1;
+            border-radius: 50%;
+            transform: rotate(-15deg);
+            top: 70%;
+            left: 8%;
+        }
+
+    .contact-subtitle {
+        font-size: 20px;
+        margin-bottom: 15px;
+        color: #ad0cce;
+    }
+
+    .contact-info,
+    .quote-form {
+        max-width: none;
+        align-items: center;
+        margin-right: 20px;
+        padding-right: 10px;
+        /* Remove max-width limitation on larger screens */
+        margin: 0;
+        /* Reset margin */
+    }
+
+    .contact-title {
+        font-size: 15px;
+    }
+
+  .contact-icon {
+      width: 15px;
+      height: 15px;
+      object-fit: contain;
+      display: flex;
+      margin-left: 10rem;
+      margin-right: 20px;
+  }
+
+    input,
+    select,
+    textarea {
+        font-size: 16px;
+        padding: 10px;
+    }
+
+
+    .contact-details {
+        font-size: 10px;
+        margin-bottom: 10px;
+        color: #0a000c;
+        font-weight: 400;
+
+    }
+}
