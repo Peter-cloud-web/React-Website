@@ -5,6 +5,7 @@ import Footer from "./Footer";
 import parallaxImage from "../assets/cleaning20.jpeg";
 import cleaning22 from "../assets/cleaning22.jpeg";
 import cleaning24 from "../assets/cleaning24.jpeg";
+import FAQ from "./FAQ";
 
 const About: React.FC = () => {
   return (
@@ -85,8 +86,8 @@ const About: React.FC = () => {
               </ul>
             </div>
           </div>
+          <FAQ />
         </section>
-        
       </div>
       <Footer />
     </div>

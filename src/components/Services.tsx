@@ -23,6 +23,7 @@ import cabro3 from "../assets/cabro3.jpeg";
 import window1 from "../assets/window.jpg";
 import window2 from "../assets/window1.jpg";
 import QuotationForm from "./QuotationForm";
+import FAQ from "./FAQ";
 
 const services = [
   {
@@ -159,6 +160,8 @@ const Services: React.FC = () => {
           />
         </div>
       )}
+
+      <FAQ />
 
       <Footer />
     </div>

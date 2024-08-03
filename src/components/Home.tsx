@@ -1,6 +1,7 @@
 import React from "react";
 import "./Home.css";
 import "./Footer";
+import "./FAQ"
 import serviceImage from "../assets/service_image.jpg";
 import CarpetCleaningIcon from "../assets/CarpetCleaningIcon.png"; 
 import ConstructionCleaningIcon from "../assets/ConstructionCleaningIcon.png";
@@ -25,6 +26,7 @@ import cleaning8 from "../assets/cleaning8.jpeg";
 import cleaning18 from "../assets/cleaning18.jpeg";
 import cleaning34 from "../assets/cleaning14.jpeg";
 import Footer from "./Footer";
+import FAQ from "./FAQ"
 
 const Home: React.FC = () => {
 
@@ -99,8 +101,7 @@ const Home: React.FC = () => {
         <img src={cleaning18} alt="Company Photo" className="hero-image" />
         <div className="gradient-overlay"></div>
         <div className="hero-content">
-          <h1>Welcome to Pdavies Cleaning Solutions
-          </h1>
+          <h1>Welcome to Pdavies Cleaning Solutions</h1>
           <p>
             We offer comprehensive cleaning solutions for both commercial
             establishments and private residences,ensuring that individuals can
@@ -262,6 +263,7 @@ const Home: React.FC = () => {
             loading="lazy"
           ></iframe>
         </div>
+        <FAQ />
       </section>
       <section className="cleaning-gallery">
         {cleaningImages.map((img, index) => (

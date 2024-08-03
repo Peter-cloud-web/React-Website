@@ -7,6 +7,7 @@ import buildingsIcon from "../assets/buildings.png";
 import callIcon from "../assets/callIcon.png";
 import mailIcon from "../assets/mail.png";
 import tableIcon from "../assets/table-clock.png"; // Make sure this path is correct
+import FAQ from "./FAQ"
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -140,6 +141,8 @@ const Contact: React.FC = () => {
             </form>
           </div>
         </main>
+
+        <FAQ />
 
         <div className="map-container">
           <h2 className="contact-title">Visit Us Today</h2>
