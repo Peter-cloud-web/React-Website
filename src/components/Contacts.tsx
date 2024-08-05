@@ -7,9 +7,30 @@ import buildingsIcon from "../assets/buildings.png";
 import callIcon from "../assets/callIcon.png";
 import mailIcon from "../assets/mail.png";
 import tableIcon from "../assets/table-clock.png"; // Make sure this path is correct
+import cleaning1 from "../assets/pc1.jpeg";
+import cleaning2 from "../assets/pc2.jpeg";
+import cleaning3 from "../assets/pc3.jpeg";
+import cleaning4 from "../assets/pc4.jpeg";
+import cleaning5 from "../assets/pc5.jpeg";
+import cleaning6 from "../assets/pc6.jpeg";
+import cleaning7 from "../assets/pc7.jpeg";
+import cleaning8 from "../assets/cleaning8.jpeg";
 import FAQ from "./FAQ"
 
 const Contact: React.FC = () => {
+
+
+  const cleaningImages = [
+    cleaning1,
+    cleaning2,
+    cleaning3,
+    cleaning4,
+    cleaning5,
+    cleaning6,
+    cleaning7,
+    cleaning8,
+  ];
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -77,7 +98,7 @@ const Contact: React.FC = () => {
           </div>
 
           <div className="quote-form">
-            <h2>Get a Free Quote</h2>
+            <h2>Book a session with us</h2>
             <form onSubmit={handleSubmit}>
               <input
                 type="text"
@@ -118,7 +139,10 @@ const Contact: React.FC = () => {
                 required
               >
                 <option value="">Select Cleaning Service</option>
-                <option value="upholstery">Upholstery Cleaning</option>
+                <option value="upholstery">
+                  Upholstery Cleaning - Carpets, Sofas, Mattresses, Car
+                  Fabrics
+                </option>
                 <option value="office">Office Cleaning</option>
                 <option value="tiles">Tiles and Grout Cleaning</option>
                 <option value="hardwood">
@@ -157,6 +181,16 @@ const Contact: React.FC = () => {
           ></iframe>
         </div>
       </div>
+      <section className="cleaning-gallery">
+        {cleaningImages.map((img, index) => (
+          <img
+            key={index}
+            src={img}
+            alt={`Cleaning ${index + 1}`}
+            className="gallery-image"
+          />
+        ))}
+      </section>
       <Footer />
     </div>
   );

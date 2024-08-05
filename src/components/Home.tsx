@@ -25,10 +25,17 @@ import cleaning7 from "../assets/cleaning7.jpeg";
 import cleaning8 from "../assets/cleaning8.jpeg";
 import cleaning18 from "../assets/cleaning18.jpeg";
 import cleaning34 from "../assets/cleaning14.jpeg";
+import { useNavigate } from "react-router-dom";
 import Footer from "./Footer";
 import FAQ from "./FAQ"
 
 const Home: React.FC = () => {
+
+  const navigate = useNavigate();
+
+  const handleExploreServices = () => {
+    navigate('/services')
+  }
 
   const cleaningImages = [
     cleaning1,
@@ -177,7 +184,7 @@ const Home: React.FC = () => {
                 state-of-the-art equipment and eco-friendly cleaning products to
                 ensure your space is not just clean, but healthy too.
               </p>
-              <button>Explore Our Services</button>
+              <button onClick={handleExploreServices}>Explore Our Services</button>
             </div>
           </div>
         </div>

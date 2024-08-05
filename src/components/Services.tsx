@@ -21,6 +21,14 @@ import cabro1 from "../assets/cabro1.jpeg";
 import cabro2 from "../assets/cabro2.jpeg";
 import cabro3 from "../assets/cabro3.jpeg";
 import window1 from "../assets/window.jpg";
+import cleaning1 from "../assets/c1.jpeg";
+import cleaning22 from "../assets/c2.jpeg";
+import cleaning3 from "../assets/c3.jpeg";
+import cleaning4 from "../assets/c4.jpeg";
+import cleaning5 from "../assets/c5.jpeg";
+import cleaning6 from "../assets/c6.jpeg";
+import cleaning7 from "../assets/c7.jpeg";
+import cleaning8 from "../assets/cleaning8.jpeg";
 import window2 from "../assets/window1.jpg";
 import QuotationForm from "./QuotationForm";
 import FAQ from "./FAQ";
@@ -93,6 +101,18 @@ const services = [
 ];
 
 const Services: React.FC = () => {
+
+    const cleaningImages = [
+      cleaning1,
+      cleaning22,
+      cleaning3,
+      cleaning4,
+      cleaning5,
+      cleaning6,
+      cleaning7,
+      cleaning8,
+    ];
+
   const [selectedService, setSelectedService] = useState(null);
 
   const handleGetQuote = (service) => {
@@ -162,6 +182,17 @@ const Services: React.FC = () => {
       )}
 
       <FAQ />
+
+      <section className="cleaning-gallery">
+        {cleaningImages.map((img, index) => (
+          <img
+            key={index}
+            src={img}
+            alt={`Cleaning ${index + 1}`}
+            className="gallery-image"
+          />
+        ))}
+      </section>
 
       <Footer />
     </div>

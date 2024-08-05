@@ -6,8 +6,29 @@ import parallaxImage from "../assets/cleaning20.jpeg";
 import cleaning22 from "../assets/cleaning22.jpeg";
 import cleaning24 from "../assets/cleaning24.jpeg";
 import FAQ from "./FAQ";
+import cleaning1 from "../assets/c1.jpeg";
+import cleaning2 from "../assets/cleaning10.jpeg";
+import cleaning3 from "../assets/c3.jpeg";
+import cleaning4 from "../assets/c4.jpeg";
+import cleaning5 from "../assets/c5.jpeg";
+import cleaning6 from "../assets/c6.jpeg";
+import cleaning7 from "../assets/cleaning34.jpeg";
+import cleaning8 from "../assets/cleaning26.jpeg";
 
 const About: React.FC = () => {
+
+
+    const cleaningImages = [
+      cleaning1,
+      cleaning2,
+      cleaning3,
+      cleaning4,
+      cleaning5,
+      cleaning6,
+      cleaning7,
+      cleaning8,
+    ];
+
   return (
     <div className="about-page-wrapper">
       <Header />
@@ -89,6 +110,16 @@ const About: React.FC = () => {
           <FAQ />
         </section>
       </div>
+      <section className="cleaning-gallery">
+        {cleaningImages.map((img, index) => (
+          <img
+            key={index}
+            src={img}
+            alt={`Cleaning ${index + 1}`}
+            className="gallery-image"
+          />
+        ))}
+      </section>
       <Footer />
     </div>
   );

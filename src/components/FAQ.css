@@ -10,6 +10,7 @@
 
 .faq-question {
     background-color: #f7f7f7;
+    color: #000000;
     border: none;
     padding: 15px;
     width: 100%;
@@ -27,6 +28,7 @@
 
 .faq-answer {
     background-color: #ffffff;
+    color: #000000;
     padding: 15px;
     border: 1px solid #e7e7e7;
 }

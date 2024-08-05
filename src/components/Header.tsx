@@ -1,15 +1,21 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Header.css";
 import logo from "../assets/logo.png";
 import callIcon from "../assets/callIcon.png";
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  const handleBookSession = () => {
+    navigate('/contact');
+    setIsMenuOpen(false);
+  }
 
   return (
     <header className="header">
@@ -48,7 +54,9 @@ const Header: React.FC = () => {
             <p className="phone-numbers">0719678943 / 0716986935</p>
           </div>
         </div>
-        <button className="book-session-btn">Book a Cleaning Session</button>
+        <button className="book-session-btn" onClick={handleBookSession}>
+          Book a Cleaning Session
+        </button>
       </div>
     </header>
   );
