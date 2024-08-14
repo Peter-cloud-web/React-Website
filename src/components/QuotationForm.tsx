@@ -221,7 +221,29 @@ const QuotationForm = ({ service, onClose }) => {
     doc.text(`Total: ${grandTotal.toFixed(2)} KSH`, 170, yPosition + 10);
 
     // Terms and Conditions
-    // ... (keep your existing terms and conditions code)
+    doc.setFontSize(14);
+    doc.setFont("helvetica", "bold");
+    doc.text("Terms & Conditions", 20, 220);
+
+    doc.setFontSize(8);
+    doc.setFont("helvetica", "normal");
+      const terms = [
+        "Pre-Existing Conditions: We take great care in our work, but we cannot be responsible for any pre-existing damage to your furniture, such as normal wear and tear, rips,fading, or previous improper cleaning methods. Please inform us of any such issues before we begin.",
+        "Safety First: For the safety of your pets and children, please ensure they are supervised during the cleaning process.",
+        "Accessibility: To help us serve you better, please provide clear access to the furniture and remove any items or clutter from the area being cleaned.",
+        "Booking: You can easily book your cleaning appointment online, by phone, or via email.",
+        "Changes and Cancellations: We understand that plans can change. Please notify us of any changes or cancellations at least 24 hours in advance to avoid a cancellation fee.",
+        "By booking a cleaning service with PDavies cleaning, you agree to be bound by these terms and conditions.",
+        "We hope you have a positive experience with PDavies cleaning! If you have any questions, please don't hesitate to contact us.",
+      ];
+
+      let termsYPosition = 230;
+      terms.forEach((term, index) => {
+        doc.text("•", 22, termsYPosition);
+        const lines = doc.splitTextToSize(term, 170);
+        doc.text(lines, 26, termsYPosition);
+        termsYPosition += lines.length * 4 + 2;
+      });
 
     return doc;
   };

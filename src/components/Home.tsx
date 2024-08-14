@@ -25,6 +25,7 @@ import cleaning7 from "../assets/cleaning7.jpeg";
 import cleaning8 from "../assets/cleaning8.jpeg";
 import cleaning18 from "../assets/cleaning18.jpeg";
 import cleaning34 from "../assets/cleaning14.jpeg";
+import cover1 from "../assets/cover1.jpeg"
 import { useNavigate } from "react-router-dom";
 import Footer from "./Footer";
 import FAQ from "./FAQ"
@@ -105,7 +106,7 @@ const Home: React.FC = () => {
   return (
     <div className="home">
       <div className="hero-image-container">
-        <img src={cleaning18} alt="Company Photo" className="hero-image" />
+        <img src={cover1} alt="Company Photo" className="hero-image" />
         <div className="gradient-overlay"></div>
         <div className="hero-content">
           <h1>Welcome to Pdavies Cleaning Solutions</h1>
