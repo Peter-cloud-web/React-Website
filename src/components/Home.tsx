@@ -23,8 +23,6 @@ import cleaning5 from "../assets/cleaning5.jpeg";
 import cleaning6 from "../assets/cleaning6.jpeg";
 import cleaning7 from "../assets/cleaning7.jpeg";
 import cleaning8 from "../assets/cleaning8.jpeg";
-import cleaning18 from "../assets/cleaning18.jpeg";
-import cleaning34 from "../assets/cleaning14.jpeg";
 import cover1 from "../assets/cover1.jpeg"
 import { useNavigate } from "react-router-dom";
 import Footer from "./Footer";
