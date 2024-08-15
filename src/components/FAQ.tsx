@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./FAQ.css";
 
 const FAQ = () => {
-  const [activeIndex, setActiveIndex] = useState(null);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   const faqItems = [
     {
@@ -32,7 +32,7 @@ const FAQ = () => {
     },
   ];
 
-  const toggleFaq = (index) => {
+  const toggleFaq = (index:number) => {
     setActiveIndex(activeIndex === index ? null : index);
   };
 

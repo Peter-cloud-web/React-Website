@@ -1,6 +1,6 @@
 {
+  "homepage": "https://peter-cloud-web.github.io/React-Website/",
   "name": "myapp",
-  "home": "https://peter-cloud-web.github.io/React-Website/",
   "private": true,
   "version": "0.0.0",
   "type": "module",
