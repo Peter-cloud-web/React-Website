@@ -51,7 +51,7 @@ const Home: React.FC = () => {
       {
         name: "John",
         location: "Juja",
-        text: "My sofas dried on time without causing any iconvenience. I commend your job",
+        text: "My sofas dried on time without causing any inconvenience. I commend your job",
       },
       {
         name: "Sarah",
