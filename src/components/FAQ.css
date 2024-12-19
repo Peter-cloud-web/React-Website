@@ -4,6 +4,10 @@
     padding: 20px;
 }
 
+.faq-container h2 {
+    color: #cc00ff;
+}
+
 .faq-item {
     margin-bottom: 15px;
 }

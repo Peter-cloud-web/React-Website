@@ -97,7 +97,6 @@ h2 {
     height: 30px;
     object-fit: contain;
     display: flex;
-    margin-left: 10rem;
     margin-right: 20px;
 }
 
@@ -134,13 +133,13 @@ button {
 
 .oval-background {
     position: absolute;
-    width: 30%;
-    height: 60%;
+    width: 10%;
+    height: 20%;
     background-color: #9900ff;
     opacity: 0.1;
     border-radius: 50%;
     transform: rotate(-15deg);
-    top: 70%;
+    top: 10%;
     left: 8%;
 }
 
@@ -173,17 +172,17 @@ button:hover {
         margin-bottom: 3rem;
     }
 
-        .oval-background {
-            position: absolute;
-            width: 50%;
-            height: 50%;
-            background-color: #9900ff;
-            opacity: 0.1;
-            border-radius: 50%;
-            transform: rotate(-15deg);
-            top: 70%;
-            left: 8%;
-        }
+    .oval-background {
+        position: absolute;
+        width: 50%;
+        height: 50%;
+        background-color: #9900ff;
+        opacity: 0.1;
+        border-radius: 50%;
+        transform: rotate(-15deg);
+        top: 70%;
+        left: 8%;
+    }
 
     .contact-subtitle {
         font-size: 20px;
@@ -206,14 +205,13 @@ button:hover {
         font-size: 15px;
     }
 
-  .contact-icon {
-      width: 15px;
-      height: 15px;
-      object-fit: contain;
-      display: flex;
-      margin-left: 10rem;
-      margin-right: 20px;
-  }
+    .contact-icon {
+        width: 15px;
+        height: 15px;
+        object-fit: contain;
+        display: flex;
+        margin-right: 20px;
+    }
 
     input,
     select,
@@ -222,13 +220,11 @@ button:hover {
         padding: 10px;
     }
 
-
     .contact-details {
         font-size: 10px;
         margin-bottom: 10px;
         color: #0a000c;
         font-weight: 400;
-
     }
 }
 

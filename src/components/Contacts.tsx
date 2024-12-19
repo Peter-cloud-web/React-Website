@@ -4,7 +4,7 @@ import Footer from "./Footer";
 import "./Contacts.css";
 import parallaxImage from "../assets/cleaning11.jpeg";
 import buildingsIcon from "../assets/buildings.png";
-import callIcon from "../assets/callIcon.png";
+import callIcon from "../assets/contactIcon.png";
 import mailIcon from "../assets/mail.png";
 import tableIcon from "../assets/table-clock.png"; // Make sure this path is correct
 import cleaning1 from "../assets/pc1.jpeg";
@@ -44,10 +44,28 @@ const Contact: React.FC = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log(formData);
+    try {
+      const response = await axios.post(
+        "http://localhost:5173/send-email",
+        formData
+      );
+      if (response.status === 200) {
+        alert("Your message has been sent successfully!");
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          contactNumber: "",
+          cleaningService: "",
+          message: "",
+        });
+      }
+    } catch (error) {
+      console.error("Error sending email:", error);
+      alert("There was an error sending your message. Please try again.");
+    }
   };
 
   return (
@@ -140,8 +158,7 @@ const Contact: React.FC = () => {
               >
                 <option value="">Select Cleaning Service</option>
                 <option value="upholstery">
-                  Upholstery Cleaning - Carpets, Sofas, Mattresses, Car
-                  Fabrics
+                  Upholstery Cleaning - Carpets, Sofas, Mattresses
                 </option>
                 <option value="office">Office Cleaning</option>
                 <option value="tiles">Tiles and Grout Cleaning</option>
@@ -151,8 +168,10 @@ const Contact: React.FC = () => {
                 <option value="window">Window Cleaning</option>
                 <option value="pressure">Pressure Washing</option>
                 <option value="construction">
-                  Post Construction and Renovation Cleaning
+                  Post Construction and Post Renovation Cleaning
                 </option>
+                <option value="pressure">Home deep cleaning</option>
+                <option value="pressure">Fumigation Services</option>
               </select>
               <textarea
                 name="message"

@@ -1,518 +1,500 @@
+/* General Styles */
 body,
 html {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+  font-family: 'Arial', sans-serif;
+  background-color: #f8f9fa;
 }
 
 .home {
-    padding-top: 70px;
-    /* Adjust this value to match your header height */
-    width: 100vw;
-    max-width: 100%;
+  padding-top: 70px;
+  /* Adjust this value to match your header height */
+  width: 100vw;
+  max-width: 100%;
 }
 
-.hero-image-container {
-    width: 100vw;
-    height: calc(100vh - 80px);
-    /* Adjust 70px to match your header height */
-    overflow: hidden;
-    position: relative;
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
-    margin-bottom: 0;
+/* Hero Section */
+.hero-container {
+  width: 100%;
+  height: calc(100vh - 80px);
+  display: flex;
+  align-items: center;
+  padding: 0 2rem;
+  background-color: #ffffff;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 2rem;
 }
 
-.hero-image {
-    width: 100%;
-    height: 90%;
-    object-fit: cover;
-    object-position: center;
+.hero-illustration {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
 }
 
-.gradient-overlay {
-    position: absolute;
-    top: 0;
-    right: 0;
-    height: 90%;
-    width: 50%;
-    /* Adjust this to control how much of the image is covered */
-    background: linear-gradient(to left,
-            rgba(0, 0, 0, 0.795) 0%,
-            rgba(0, 0, 0, 0.774) 50%,
-            rgba(38, 2, 49, 0) 100%);
+.hero-illustration img {
+  max-width: 70%;
+  height: auto;
+  object-fit: contain;
 }
 
 .hero-content {
-    position: absolute;
-    top: 50%;
-    right: 7%;
-    transform: translateY(-70%);
-    text-align: right;
-    color: rgb(255, 255, 255);
-    max-width: 90%;
+  flex: 1;
+  position: relative;
+  text-align: left;
+  padding: 2rem;
+  color: #333333;
+  max-width: 600px;
+  padding-right: 8rem;
 }
 
 .hero-content h1 {
-    font-size: 4.0rem;
-    font-weight: bolder;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS';
-    margin-bottom: 1rem;
+  font-size: 3.5rem;
+  font-weight: bolder;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS';
+  margin-bottom: 1.5rem;
+  color: #7700cc;
 }
 
 .hero-content p {
-    font-size: 17px;
-    text-align: center;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS';
-    font-weight: bold;
-    margin-bottom: 1rem;
-    margin-right: 5rem;
-    margin-left: 50rem;
+  font-size: 1.2rem;
+  text-align: left;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS';
+  font-weight: normal;
+  margin-bottom: 2rem;
+  color: #666666;
+  line-height: 1.6;
 }
 
 .hero-content button {
-    background-color: #9900ff;
-    color: rgb(255, 255, 255);
-    border: none;
-    padding: 0.5rem 7.5rem;
-    margin-right: 200px;
-    font-size: 1rem;
-    cursor: pointer;
-    justify-content: center;
-    transition: background-color 0.3s ease;
-
+  background-color: #9900ff;
+  color: white;
+  border: none;
+  padding: 1rem 3rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border-radius: 5px;
 }
 
 .hero-content button:hover {
-    background-color: #0056b3;
-}
-
-.stats-section {
-    background-color: #f8f9fa;
-    padding: 2rem 0;
-}
-
-.stats-container {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.stat-counter {
-    text-align: center;
-    margin: 0rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.stat-number {
-    font-size: 2.5rem;
-    font-weight: bolder;
-    font-family: 'Segoe UI';
-    color: #9900ff;
-}
-
-.stat-label {
-    font-size: rem;
-    color: #1491da;
-    font-weight: bolder;
-}
-
-@media (max-width: 768px) {
-    .stats-container {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .stat-counter {
-        margin: 1rem 0;
-    }
-
-    .hero-content h1 {
-        font-size: 2.0rem;
-        margin-right: 40px;
-    }
-
-    .hero-content p {
-        font-size: 17px;
-        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS';
-        font-weight: bold;
-        margin-bottom: 1rem;
-        margin-right: 5rem;
-        margin-left: 5rem;
-    }
-
-    .hero-content button {
-        background-color: #9900ff;
-        color: rgb(255, 255, 255);
-        border: none;
-        padding: 0.5rem 7.5rem;
-        margin-left: 60px;
-        font-size: 1rem;
-        cursor: pointer;
-        justify-content: center;
-        transition: background-color 0.3s ease;
-
-    }
-
-    .service-description {
-        width: 55%;
-        margin-left: auto;
-        color: white;
-        padding-left: 2rem;
-        margin-top: 350px;
-    }
-
-    .service-description h3 {
-        font-size: 1.8rem;
-        margin-bottom: 1rem;
-    }
-
-    .service-description p {
-        font-size: 1rem;
-        line-height: 1.6;
-        margin-bottom: 1.5rem;
-    }
-}
-
-/* ... (keep your existing styles for home and hero section) ... */
-
-/* Add or modify these styles in your Home.css file */
-
-.our-services {
-    padding: 2rem 2rem;
-    background-color: #ffffff;
-}
-
-.our-services h2 {
-    text-align: center;
-    margin-bottom: 1rem;
-    font-size: 2.5rem;
-    color: #333;
-}
-
-.services-intro {
-    text-align: center;
-    max-width: 800px;
-    margin: 0 auto 2rem;
-    font-size: 1rem;
-    line-height: 1.6;
-    color: #666;
-}
-
-.service-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    position: relative;
-}
-
-.service-card {
-    background-color: #9900ff;
-    border-radius: 15px;
-    padding: 2rem;
-    display: flex;
-    align-items: center;
-    position: relative;
-    overflow: visible;
-}
-
-.service-images {
-    position: absolute;
-    width: 25%;
-    max-width: 450px;
-}
-
-.service-image {
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.main-image {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-}
-
-.service-description {
-    width: 55%;
-    margin-left: auto;
-    color: white;
-    padding-left: 2rem;
-}
-
-.service-description h3 {
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
-}
-
-.service-description p {
-    font-size: 1rem;
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
-}
-
-.service-description button {
-    background-color: white;
-    color: #9900ff;
-    border: none;
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    border-radius: 5px;
+  background-color: #7700cc;
 }
 
 @media (max-width: 992px) {
-    .service-card {
-        flex-direction: column;
-        align-items: center;
-        padding: 2rem 1rem;
-    }
+  .hero-container {
+    flex-direction: column;
+    height: auto;
+    padding: 2rem 1rem;
+  }
 
-    .service-images {
-        width: 80%;
-        max-width: none;
-        margin-bottom: 2rem;
-    }
+  .hero-illustration {
+    padding: 1rem;
+  }
 
-    .service-description {
-        width: 100%;
-        padding-left: 0;
-        text-align: center;
-    }
+  .hero-content {
+    padding: 1rem;
+    text-align: center;
+  }
 
-    .gradient-overlay {
-        position: absolute;
-        top: 0;
-        right: 0;
-        height: 90%;
-        width: 80%;
-        /* Adjust this to control how much of the image is covered */
-        background: linear-gradient(to left,
-                rgba(0, 0, 0, 0.795) 0%,
-                rgba(0, 0, 0, 0.774) 50%,
-                rgba(38, 2, 49, 0) 100%);
-    }
+  .hero-content h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero-content p {
+    font-size: 1rem;
+    text-align: center;
+    margin: 0 auto 1.5rem;
+  }
+
+  .hero-content button {
+    padding: 0.75rem 2rem;
+  }
+}
+
+/* Stats Section */
+.stats-section {
+  background-color: #f8f9fa;
+  padding: 2rem 0;
+}
+
+.stats-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.stat-counter {
+  text-align: center;
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: bolder;
+  font-family: 'Segoe UI';
+  color: #9900ff;
+}
+
+.stat-label {
+  font-size: 1rem;
+  color: #333;
+  font-weight: bold;
 }
 
 @media (max-width: 768px) {
-    .service-images {
-        width: 100%;
-    }
-
-    .overlap-image {
-        width: 40%;
-        bottom: -5%;
-        right: -5%;
-    }
+  .stats-container {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
-.social-media-section {
-    background-color: #f8f9fa;
-    padding: 4rem 2rem;
+/* Service Section */
+.our-services {
+  padding: 4rem 2rem;
+  background-color: #ffffff;
 }
 
-.social-media-section h2 {
+.our-services h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 2.5rem;
+  color: #9900ff;
+}
+
+.services-intro {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 2rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #666;
+}
+
+.service-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.service-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 20px 20px rgba(143, 1, 238, 0.2);
+  /* Elevated shadow */
+  overflow: hidden;
+  flex: 1 1 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  /* Elevate on hover */
+  box-shadow: 0 12px 30px rgba(153, 0, 255, 0.3);
+  /* Enhanced shadow on hover */
+}
+
+.service-description {
+  flex: 1;
+  padding: 2rem;
+  color: #333;
+}
+
+.service-description h3 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: #9900ff;
+}
+
+.service-description p {
+  font-size: 0.8rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.service-images {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.service-image.main-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  .service-card {
+    flex-direction: column;
+  }
+
+  .service-description {
+    padding: 1rem;
     text-align: center;
-    margin-bottom: 2rem;
-    font-size: 2.5rem;
-    color: #333;
+  }
+
+  .service-description h3 {
+    font-size: 1.5rem;
+  }
+
+  .service-description p {
+    font-size: 0.7rem;
+  }
+
+  .service-images {
+    order: -1;
+    /* Move image above text on mobile */
+  }
 }
 
-.social-posts-container {
-    display: flex;
-    justify-content: space-between;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.social-post {
-    width: 30%;
-    background-color: white;
-    border-radius: 10px;
-    padding: 1.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    transition: transform 0.3s ease;
-}
-
-.social-post:hover {
-    transform: translateY(-5px);
-}
-
-.social-icon {
-    width: 50px;
-    height: 50px;
-    margin-bottom: 1rem;
-}
-
-.social-post p {
-    margin-bottom: 1rem;
-    color: #333;
-}
-
-.view-profile-btn {
-    display: inline-block;
-    background-color: #9900ff;
-    color: white;
-    text-decoration: none;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
-
-.view-profile-btn:hover {
-    background-color: #7700cc;
-}
-
-/* Add this to your existing Home.css file */
-
+/* Testimonials Section */
 .testimonials-section {
-    padding: 4rem 2rem;
-    background-color: #f8f9fa;
+  padding: 4rem 2rem;
+  background-color: #f8f9fa;
 }
 
 .testimonials-section h2 {
-    text-align: center;
-    margin-bottom: 2rem;
-    font-size: 2.5rem;
-    color: #333;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+  color: #9900ff;
 }
 
 .testimonials-container {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    gap: 2rem;
-    padding-bottom: 1rem;
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 2rem;
+  padding-bottom: 1rem;
 }
 
 .testimonial-card {
-    flex: 0 0 300px;
-    background-color: white;
-    border-radius: 10px;
-    padding: 1.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    scroll-snap-align: start;
+  flex: 0 0 300px;
+  background-color: white;
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 20px rgba(153, 0, 255, 0.2);
+  /* Elevated shadow */
+  scroll-snap-align: start;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-5px);
+  /* Elevate on hover */
+  box-shadow: 0 12px 30px rgba(153, 0, 255, 0.3);
+  /* Enhanced shadow on hover */
 }
 
 .testimonial-text {
-    font-size: 1rem;
-    line-height: 1.6;
-    margin-bottom: 1rem;
-    color: #333;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  color: #333;
 }
 
 .testimonial-author {
-    font-weight: bold;
-    color: #9900ff;
-    margin-bottom: 0.25rem;
+  font-weight: bold;
+  color: #9900ff;
+  margin-bottom: 0.25rem;
 }
 
 .testimonial-location {
-    font-size: 0.9rem;
-    color: #666;
+  font-size: 0.9rem;
+  color: #666;
 }
 
-/* Add some custom scrollbar styles for webkit browsers */
 .testimonials-container::-webkit-scrollbar {
-    height: 8px;
+  height: 8px;
 }
 
 .testimonials-container::-webkit-scrollbar-track {
-    background: #f1f1f1;
+  background: #f1f1f1;
 }
 
 .testimonials-container::-webkit-scrollbar-thumb {
-    background: #9900ff;
-    border-radius: 4px;
+  background: #9900ff;
+  border-radius: 4px;
 }
 
 .testimonials-container::-webkit-scrollbar-thumb:hover {
-    background: #7700cc;
+  background: #7700cc;
+}
+
+/* Instagram Embed Wrapper */
+.instagram-embed-wrapper {
+  width: 100%;
+  max-width: 328px;
+  /* Match the width of the embed */
+  height: 570px;
+  /* Match the height of the embed */
+  overflow: hidden;
+  /* Prevent overflow */
+  position: relative;
+  margin: 0 auto;
+  /* Center the embed */
+}
+
+.instagram-embed-wrapper iframe {
+  width: 100% !important;
+  /* Ensure the iframe respects the wrapper's width */
+  height: 100% !important;
+  /* Ensure the iframe respects the wrapper's height */
+  border: none;
+  /* Remove default iframe border */
+}
+
+/* Social Media Section */
+.social-media-section {
+  background-color: #ffffff;
+  padding: 4rem 2rem;
+}
+
+.social-media-section h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+  color: #9900ff;
+}
+
+.social-posts-container {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 2rem;
+}
+
+.social-post {
+  width: 30%;
+  background-color: white;
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 20px rgba(153, 0, 255, 0.2);
+  /* Elevated shadow */
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.social-post:hover {
+  transform: translateY(-5px);
+  /* Elevate on hover */
+  box-shadow: 0 12px 30px rgba(153, 0, 255, 0.3);
+  /* Enhanced shadow on hover */
+}
+
+.social-icon {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 1rem;
+}
+
+.social-post p {
+  margin-bottom: 1rem;
+  color: #333;
 }
 
 @media (max-width: 768px) {
-    .social-posts-container {
-        flex-direction: column;
-        align-items: center;
-    }
+  .social-posts-container {
+    flex-direction: column;
+    align-items: center;
+  }
 
-    .social-post {
-        width: 80%;
-        margin-bottom: 2rem;
-    }
+  .social-post {
+    width: 80%;
+    margin-bottom: 2rem;
+  }
+
+  .instagram-embed-wrapper {
+    max-width: 100%;;
+    /* Auto height on mobile */
+  }
 }
 
-/* Add this to your existing Home.css file */
-
+/* Location Section */
 .location-section {
-    padding: 4rem 2rem;
-    background-color: #f8f9fa;
+  padding: 4rem 2rem;
+  background-color: #f8f9fa;
 }
 
 .location-section h2 {
-    text-align: center;
-    margin-bottom: 2rem;
-    font-size: 2.5rem;
-    color: #333;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+  color: #9900ff;
 }
 
 .map-container {
-    max-width: 1200px;
-    margin: 0 auto 2rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    overflow: hidden;
+  max-width: 1200px;
+  margin: 0 auto 2rem;
+  box-shadow: 0 8px 20px rgba(153, 0, 255, 0.2);
+  /* Elevated shadow */
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.map-container iframe {
+  width: 100%;
+  height: 450px;
+  border: 0;
 }
 
 .location-info {
-    max-width: 600px;
-    margin: 0 auto;
-    text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .location-info h3 {
-    font-size: 1.5rem;
-    color: #9900ff;
-    margin-bottom: 1rem;
+  font-size: 1.5rem;
+  color: #9900ff;
+  margin-bottom: 1rem;
 }
 
 .location-info p {
-    margin-bottom: 0.5rem;
-    color: #333;
+  margin-bottom: 0.5rem;
+  color: #333;
 }
 
 @media (max-width: 768px) {
-    .map-container {
-        height: 300px;
-    }
-
-    .map-container iframe {
-        height: 100%;
-    }
+  .map-container {
+    height: 300px;
+  }
 }
 
-/* Add this to your existing Home.css file */
-
+/* Cleaning Gallery */
 .cleaning-gallery {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding: 1rem;
 }
 
 .gallery-image {
-    flex: 0 0 auto;
-    width: 12.5%;
-    /* 100% / 8 images */
-    height: 200px;
-    object-fit: cover;
-    scroll-snap-align: start;
+  flex: 0 0 auto;
+  width: 12.5%;
+  height: 200px;
+  object-fit: cover;
+  scroll-snap-align: start;
+  margin-right: 0rem;
 }

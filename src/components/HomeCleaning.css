@@ -1,0 +1,367 @@
+body,
+html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.cabro-page-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    max-width: 100%;
+}
+
+.cabro-page {
+    flex: 1;
+
+    width: 100%;
+    max-width: 100%;
+}
+
+.cover-container {
+    position: relative;
+    text-align: center;
+}
+
+.cover-image {
+    width: 100%;
+    height: 60vh;
+    object-fit: cover;
+}
+
+.cover-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 3rem;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 1rem 2rem;
+    border-radius: 10px;
+}
+
+.cabro-content {
+    padding: 4rem 2rem;
+    background-color: #fff;
+}
+
+.about-info {
+    display: flex;
+    flex-direction: column;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 2rem;
+}
+
+.about-text {
+    flex: 1;
+    max-width: 100%;
+}
+
+.about-text p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+    color: black;
+}
+
+.about-images {
+    flex: 1;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    margin-top: 15rem;
+    margin-left: 2rem;
+}
+
+.oval-background {
+    position: absolute;
+    width: 300%;
+    height: 200%;
+    background-color: #9900ff;
+    opacity: 0.1;
+    border-radius: 50%;
+    transform: rotate(-15deg);
+    left: -100%;
+    /* Center the oval */
+    top: -50%;
+}
+
+.about-images img {
+    position: absolute;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgb(110, 1, 138);
+    width: 60%;
+    height: auto;
+    transition: all 0.3s ease;
+}
+
+.image-1 {
+    transform: translate(-40%, -5%) rotate(-3deg);
+    z-index: 5;
+}
+
+.image-2 {
+    transform: translate(50%, 10%) rotate(8deg);
+    z-index: 2;
+}
+
+
+@media (min-width: 768px) {
+    .about-info {
+        flex-direction: row;
+    }
+
+    .about-text {
+        max-width: 50%;
+    }
+}
+
+@media (max-width: 767px) {
+    .cover-title {
+        font-size: 2rem;
+        padding: 0.5rem 1rem;
+    }
+
+    .about-content {
+        padding: 2rem 1rem;
+    }
+
+
+    .oval-background {
+        width: 200%;
+        /* Adjust size for mobile */
+        height: 150%;
+        left: -50%;
+        /* Re-center for mobile */
+        top: -25%;
+        position: relative;
+    }
+
+    .about-images {
+        height: 250px;
+        margin-top: 8rem;
+        margin-bottom: 8rem;
+    }
+
+    .about-images img {
+        width: 70%;
+        max-width: 200px;
+    }
+
+    .image-1 {
+        transform: translate(-30%, -10%) rotate(-5deg);
+    }
+
+    .image-2 {
+        transform: translate(30%, 10%) rotate(5deg);
+    }
+}
+
+/* Add this to your existing CSS */
+
+.values-section {
+    margin-top: 5rem;
+    background-color: #f5f5f5;
+    padding: 4rem 2rem;
+}
+
+.values-container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 2rem;
+}
+
+.value-card {
+    flex: 1;
+    background-color: white;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.value-card:hover {
+    transform: translateY(-5px);
+}
+
+.value-card h2 {
+    color: #9900ff;
+    margin-bottom: 1rem;
+}
+
+h3,
+h2 {
+    color: #9900ff;
+    font-weight: bolder;
+}
+
+.value-card p,
+.value-card ul {
+    color: #333;
+}
+
+.value-card ul {
+    padding-left: 1.5rem;
+}
+
+.value-card li {
+    margin-bottom: 0.5rem;
+}
+
+@media (max-width: 767px) {
+    .values-container {
+        flex-direction: column;
+    }
+
+    .value-card {
+        margin-bottom: 1rem;
+    }
+
+    h3,
+    h2 {
+        color: #9900ff;
+        font-weight: bolder;
+    }
+
+    p {
+        font-size: 13px;
+        background-color: #fdfdfd;
+    }
+}
+
+
+.cleaning-gallery {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+}
+
+.gallery-image {
+    flex: 0 0 auto;
+    width: 12.5%;
+    /* 100% / 8 images */
+    height: 200px;
+    object-fit: cover;
+    scroll-snap-align: start;
+}
+
+.service-video {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.service-video iframe {
+    width: 100%;
+    max-width: 315px;
+
+}
+
+@media (min-width: 768px) {
+    .about-info {
+        flex-direction: row;
+    }
+
+    .about-text,
+    .service-video {
+        max-width: 50%;
+    }
+
+    h3,
+    h2 {
+        color: #9900ff;
+        font-weight: bolder;
+    }
+
+    p {
+        font-size: 13px;
+        background-color: #fdfdfd;
+    }
+}
+}
+
+.image-grid-section {
+    padding: 4rem 2rem;
+    background-color: #f9f9f9;
+}
+
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.grid-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.grid-image:hover {
+    transform: scale(1.05);
+}
+
+@media (max-width: 767px) {
+    .image-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.carpets-list li {
+    color: #000000;
+
+}
+
+/* Add this to your existing CSS */
+
+.cover-container {
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+    height: 60vh;
+    /* Adjust as needed */
+}
+
+.cover-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: translateY(0);
+    /* Initial position */
+    transition: transform 0.3s ease-out;
+    /* Smooth transition */
+}
+
+.cover-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 3rem;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 1rem 2rem;
+    border-radius: 10px;
+}
+
+@media (max-width: 767px) {
+    .cover-title {
+        font-size: 2rem;
+        padding: 0.5rem 1rem;
+    }
+}
+

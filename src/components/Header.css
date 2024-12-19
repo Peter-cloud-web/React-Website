@@ -23,7 +23,7 @@
 }
 
 .logo {
-    height: 50px;
+    height: 70px;
     width: auto;
 }
 
@@ -107,6 +107,10 @@
 }
 
 @media (max-width: 992px) {
+    .logo {
+        height: 80px;
+    }
+
     .header nav {
         display: none;
         position: absolute;
@@ -142,6 +146,10 @@
 }
 
 @media (max-width: 768px) {
+    .logo {
+        height: 80px;
+    }
+
     .header-content {
         flex-wrap: wrap;
     }
@@ -171,7 +179,7 @@
 
 @media (max-width: 576px) {
     .logo {
-        height: 40px;
+        height: 80px;
     }
 
     .header-content {
@@ -183,7 +191,6 @@
         order: 5;
         margin-top: -3.0rem;
         text-align: center;
-        
     }
 
     .phone-numbers-container {
@@ -195,8 +202,6 @@
         margin-left: auto;
     }
 }
-
-/* Existing styles... */
 
 /* Bottom Navigation Styles */
 .bottom-nav {
@@ -213,13 +218,15 @@
     z-index: 1000;
 }
 
-.bottom-nav a {
+.bottom-nav a,
+.bottom-nav .services-dropdown>span {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-decoration: none;
     color: #333;
     font-size: 12px;
+    cursor: pointer;
 }
 
 .bottom-nav img {
@@ -254,7 +261,21 @@
     width: auto;
 }
 
+.logo-container .book-session-btn {
+    height: 40px;
+    width: auto;
+    align-items: end;
+    position: relative;
+    margin-left: 150px;
+    margin-top: 10px;
+    box-shadow: #333;
+}
+
 @media (max-width: 768px) {
+    .logo {
+        height: 80px;
+    }
+
     .header.desktop {
         display: none;
     }
@@ -269,9 +290,13 @@
         padding-top: 60px;
         padding-bottom: 60px;
     }
-}  
+}
 
 @media (max-width: 768px) {
+    .logo {
+        height: 80px;
+    }
+
     .header {
         display: none;
     }
@@ -286,4 +311,99 @@
     }
 }
 
-/* Existing media queries... */
+.header.mobile .logo {
+    height: 60px;
+    /* Increased from 40px */
+    width: auto;
+    padding-left: 25px;
+}
+
+.services-dropdown {
+    position: relative;
+}
+
+.services-dropdown>span {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    min-width: 200px;
+    padding: 0.5rem 0;
+    border-radius: 4px;
+}
+
+.services-dropdown:hover .dropdown-menu,
+.dropdown-menu.open {
+    display: block;
+}
+
+.dropdown-menu li {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-size: 12px;
+    /* Smaller font size */
+    font-weight: bold;
+    /* Bold font */
+    color: #333;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-menu li:hover {
+    background-color: #f0f0f0;
+}
+
+@media (max-width: 768px) {
+    .services-dropdown .dropdown-menu {
+        display: block;
+        /* Show on click */
+        position: static;
+        /* Ensures it aligns properly on mobile */
+        box-shadow: none;
+        padding: 0;
+    }
+
+    .dropdown-menu li {
+        padding: 0.5rem 1rem;
+        border-bottom: 1px solid #ddd;
+        color: #000000;
+        font-weight: bolder;
+    }
+
+    .dropdown-menu li:last-child {
+        border-bottom: none;
+        color: #000000;
+        font-weight: bolder;
+    }
+}
+
+.services-dropdown>span {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.service-icon {
+    width: 24px;
+    /* Adjust size to be consistent with other icons */
+    height: 24px;
+    margin-right: 0;
+    /* Remove margin to align properly */
+}
+
+.services-dropdown span span {
+    font-weight: bolder;
+    margin-top: 5px;
+    /* Adjust margin to align properly */
+    font-size: 12px;
+    /* Consistent font size */
+}

@@ -3,7 +3,6 @@
     color: white;
     padding: 3rem 2rem 1rem;
     width: 100%;
-    
 }
 
 .footer-content {
@@ -14,9 +13,13 @@
     flex-wrap: wrap;
 }
 
+.footer-section {
+    flex-basis: 20%;
+    margin-bottom: 2rem;
+}
+
 .footer-logo-section {
     flex-basis: 40%;
-    margin-bottom: 2rem;
 }
 
 .footer-logo img {
@@ -27,39 +30,52 @@
 
 .footer-tagline {
     font-weight: 600;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     line-height: 1.5;
     color: #ccc;
-}
-
-.footer-links,
-.footer-social {
-    flex-basis: 25%;
-    margin-bottom: 2rem;
+    background-color: #1f002b;
 }
 
 .footer-links h3,
+.footer-services h3,
+.footer-contact h3,
 .footer-social h3 {
     margin-bottom: 1rem;
     font-size: 1.2rem;
 }
 
-.footer-links ul {
+.footer-links ul,
+.footer-services ul {
     list-style-type: none;
     padding: 0;
 }
 
-.footer-links ul li {
+.footer-links ul li,
+.footer-services ul li {
     margin-bottom: 0.5rem;
+    font-size: 0.8rem;
+    font-weight: bold;
 }
 
-.footer-links ul li a {
+.footer-links ul li a,
+.footer-services ul li a {
     color: white;
     text-decoration: none;
 }
 
+.footer-contact p {
+    margin-bottom: 0.5rem;
+    background-color: #1f002b;
+    font-size: 0.8rem;
+}
+
+.footer-social {
+    text-align: center;
+}
+
 .social-icons {
     display: flex;
+    justify-content: center;
     gap: 1rem;
 }
 
@@ -68,23 +84,51 @@
     height: 24px;
 }
 
-.footer-bottom {
+.footer-bottom p{
     text-align: center;
     margin-top: 2rem;
     padding-top: 1rem;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: #1f002b;
 }
 
-@media (max-width: 992px) {
+.footer-attribution {
+    margin-top: 10px;
+    font-size: 0.8rem;
+    color: #aaa;
+}
 
-    .footer-logo-section,
-    .footer-links,
-    .footer-social {
+.footer-attribution span {
+    color: #ff0000;
+    /* Red color for the heart emoji */
+    font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+    .footer-section {
         flex-basis: 100%;
         text-align: center;
     }
 
-    .social-icons {
-        justify-content: center;
+    .footer-content {
+        text-align: center;
+    }
+
+    .footer-tagline {
+        text-align: center;
+        padding-left: 5%;
+        padding-right: 15%;
+    }
+
+    .footer-logo img {
+        padding-left: 5%;
+        padding-right: 15%;
+    }
+
+    .footer-links,
+    .footer-services,
+    .footer-contact {
+        padding-left: 2%;
+        padding-right: 15%;
     }
 }
