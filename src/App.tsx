@@ -16,7 +16,8 @@ import TilesCleaning from "./components/TilesCleaning";
 import FumigationServices from "./components/FumigationServices";
 import SofaCleaningServices from "./components/SofaCleaning";
 import HomeDeepCleaning from "./components/HomeCleaning"
-import PopupForm from "./components/PopupForm";
+import BlogPost from "./components/BlogPost";
+import AdminRedirect from "./components/AdminRedirect";
 
 
 
@@ -31,6 +32,7 @@ function App() {
           <Route path="/services" element={<Services />} />
           <Route path="/contact" element={<Contacts />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/officecleaning" element={<OfficeCleaning />} />
           <Route path="/mattresscleaning" element={<MattressCleaning />} />
           <Route path="/carpetcleaning" element={<CarpetCleaning />} />
@@ -42,7 +44,8 @@ function App() {
           <Route path="/tilegroutcleaning" element={<TilesCleaning />} />
           <Route path="/fumigationcleaning" element={<FumigationServices />} />
           <Route path="/sofacleaning" element={<SofaCleaningServices />} />
-          <Route path="/homedeepcleaning" element={<HomeDeepCleaning/>} />
+          <Route path="/homedeepcleaning" element={<HomeDeepCleaning />} />
+          <Route path="/admin" element={<AdminRedirect />} />
         </Routes>
       </div>
     </Router>

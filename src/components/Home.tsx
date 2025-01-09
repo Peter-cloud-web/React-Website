@@ -284,6 +284,16 @@ const Home: React.FC = () => {
             </>
           )}
         </div>
+
+        {/* Read Blogs Button */}
+        <div className="read-blogs-button-container">
+          <button
+            className="read-blogs-button"
+            onClick={() => navigate("/blog")}
+          >
+            Read Our Cleaning Tips Blogs
+          </button>
+        </div>
       </section>
 
       <section className="location-section">

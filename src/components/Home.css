@@ -498,3 +498,51 @@ html {
   scroll-snap-align: start;
   margin-right: 0rem;
 }
+
+/* Read Blogs Button */
+.read-blogs-button-container {
+  text-align: center;
+  margin-top: 2rem;
+  padding: 0 1rem;
+  /* Add padding for smaller screens */
+}
+
+.read-blogs-button {
+  background-color: #9900ff;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border-radius: 5px;
+  width: 100%;
+  /* Full width on mobile */
+  max-width: 300px;
+  /* Limit width on larger screens */
+  display: inline-block;
+  /* Center the button */
+}
+
+.read-blogs-button:hover {
+  background-color: #7700cc;
+}
+
+/* Media Queries for Mobile Optimization */
+@media (max-width: 768px) {
+  .read-blogs-button {
+    padding: 0.75rem 1.5rem;
+    /* Smaller padding for mobile */
+    font-size: 0.9rem;
+    /* Slightly smaller font for mobile */
+  }
+}
+
+@media (max-width: 480px) {
+  .read-blogs-button {
+    padding: 0.5rem 1rem;
+    /* Even smaller padding for very small screens */
+    font-size: 0.8rem;
+    /* Smaller font for very small screens */
+  }
+}
