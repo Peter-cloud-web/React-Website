@@ -4,7 +4,18 @@ import emailjs from "emailjs-com";
 import logo from "../assets/logo.png";
 import "./QuotationForm.css";
 
-const serviceStructure = {
+interface ServiceStructure {
+  [category: string]: {
+    [service: string]: {
+      pricePerUnit?: number;
+      unit?: string;
+      options?: { size: string; price: number }[];
+    };
+    requiresSiteVisit?: boolean;
+  };
+}
+
+const serviceStructure:ServiceStructure = {
   "Upholstery Cleaning": {
     "Sofa Cleaning": { pricePerUnit: 500, unit: "seater" },
     "Carpet Cleaning": { pricePerUnit: 20, unit: "sqft" },

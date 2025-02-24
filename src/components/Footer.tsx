@@ -1,12 +1,11 @@
 import React from "react";
 import logo from "../assets/logo.png";
-import "./Footer.css"
+import "./Footer.css";
 import facebookIcon from "../assets/facebook.svg";
 import instagramIcon from "../assets/instagram.png";
 import twitterIcon from "../assets/twitter.png";
 
 const Footer: React.FC = () => {
-
   return (
     <div>
       <footer className="footer">
@@ -65,7 +64,6 @@ const Footer: React.FC = () => {
       </footer>
     </div>
   );
-
 };
 
 export default Footer;

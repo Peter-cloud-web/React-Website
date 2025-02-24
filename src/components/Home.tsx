@@ -1,7 +1,5 @@
 import React from "react";
 import "./Home.css";
-import "./Footer";
-import "./FAQ"
 import serviceImage from "../assets/service_image.jpg";
 import CarpetCleaningIcon from "../assets/CarpetCleaningIcon.png"; 
 import ConstructionCleaningIcon from "../assets/ConstructionCleaningIcon.png";
@@ -36,7 +34,7 @@ const Home: React.FC = () => {
     navigate('/services')
   }
 
-  const cleaningImages = [
+  const cleaningImages: string[] = [
     cleaning1,
     cleaning2,
     cleaning3,
@@ -47,7 +45,13 @@ const Home: React.FC = () => {
     cleaning8,
   ];
 
-    const reviews = [
+  interface Review {
+    name: string;
+    location: string;
+    text: string;
+  }
+
+    const reviews:Review[] = [
       {
         name: "John",
         location: "Juja",

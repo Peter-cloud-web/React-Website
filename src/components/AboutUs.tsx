@@ -16,18 +16,17 @@ import cleaning7 from "../assets/cleaning34.jpeg";
 import cleaning8 from "../assets/cleaning26.jpeg";
 
 const About: React.FC = () => {
-
-
-    const cleaningImages = [
-      cleaning1,
-      cleaning2,
-      cleaning3,
-      cleaning4,
-      cleaning5,
-      cleaning6,
-      cleaning7,
-      cleaning8,
-    ];
+  
+  const cleaningImages: string[] = [
+    cleaning1,
+    cleaning2,
+    cleaning3,
+    cleaning4,
+    cleaning5,
+    cleaning6,
+    cleaning7,
+    cleaning8,
+  ];
 
   return (
     <div className="about-page-wrapper">
