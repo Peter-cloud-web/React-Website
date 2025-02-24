@@ -1,10 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { jsPDF } from "jspdf";
-import emailjs from "emailjs-com";
 import logo from "../assets/logo.png";
 import "./QuotationForm.css";
 
-const serviceStructure = {
+interface ServiceDetails {
+  pricePerUnit?: number;
+  unit?: string;
+  options?: { size: string; price: number }[];
+}
+
+interface ServiceCategory {
+  [service: string]: ServiceDetails;
+  requiresSiteVisit?: boolean;
+}
+
+interface ServiceStructure {
+  [category: string]: ServiceCategory;
+}
+
+const serviceStructure: ServiceStructure = {
   "Upholstery Cleaning": {
     "Sofa Cleaning": { pricePerUnit: 500, unit: "seater" },
     "Carpet Cleaning": { pricePerUnit: 20, unit: "sqft" },
@@ -20,13 +34,27 @@ const serviceStructure = {
   // Add more services here
 };
 
-const QuotationForm = ({ service, onClose }) => {
+interface CurrentItem {
+  category: string;
+  service: string;
+  quantity: number;
+  size: string;
+  total: number;
+  dimensions: string;
+}
+
+interface QuotationFormProps {
+  service: any; // TODO: Define specific type for service prop
+  onClose: () => void;
+}
+
+const QuotationForm: React.FC<QuotationFormProps> = ({ service, onClose }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [location, setLocation] = useState("");
-  const [selectedItems, setSelectedItems] = useState([]);
-  const [currentItem, setCurrentItem] = useState({
+  const [selectedItems, setSelectedItems] = useState<CurrentItem[]>([]);
+  const [currentItem, setCurrentItem] = useState<CurrentItem>({
     category: "",
     service: "",
     quantity: 1,
@@ -53,7 +81,7 @@ const QuotationForm = ({ service, onClose }) => {
     img.src = logo;
   }, []);
 
-  const handleCategoryChange = (e) => {
+  const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setCurrentItem({
       ...currentItem,
       category: e.target.value,
@@ -67,7 +95,7 @@ const QuotationForm = ({ service, onClose }) => {
     setCarpetHeight("");
   };
 
-  const handleServiceChange = (e) => {
+  const handleServiceChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setCurrentItem({
       ...currentItem,
       service: e.target.value,
@@ -80,27 +108,35 @@ const QuotationForm = ({ service, onClose }) => {
     setCarpetHeight("");
   };
 
-  const handleQuantityChange = (e) => {
+  const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const quantity = parseInt(e.target.value);
-    const service = serviceStructure[currentItem.category][currentItem.service];
+    const service =
+      serviceStructure[currentItem.category]?.[currentItem.service]; // Optional chaining
     let total = 0;
 
-    if (service.pricePerUnit) {
+    if (service?.pricePerUnit) {
+      // Optional chaining
       total = quantity * service.pricePerUnit;
     }
 
     setCurrentItem({ ...currentItem, quantity, total });
   };
 
-  const handleSizeChange = (e) => {
+  const handleSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const size = e.target.value;
-    const service = serviceStructure[currentItem.category][currentItem.service];
-    const selectedSize = service.options.find((option) => option.size === size);
+    const service =
+      serviceStructure[currentItem.category]?.[currentItem.service]; // Optional chaining
+    const selectedSize = service?.options?.find(
+      (option) => option.size === size
+    ); // Optional chaining
 
-    setCurrentItem({ ...currentItem, size, total: selectedSize.price });
+    setCurrentItem({ ...currentItem, size, total: selectedSize?.price || 0 }); // Optional chaining
   };
 
-  const handleCarpetDimensionsChange = (e, dimension) => {
+  const handleCarpetDimensionsChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    dimension: "width" | "height"
+  ) => {
     const value = e.target.value;
     if (dimension === "width") {
       setCarpetWidth(value);
@@ -112,7 +148,8 @@ const QuotationForm = ({ service, onClose }) => {
       const area = parseFloat(carpetWidth) * parseFloat(carpetHeight);
       const total =
         area *
-        serviceStructure["Upholstery Cleaning"]["Carpet Cleaning"].pricePerUnit;
+        (serviceStructure["Upholstery Cleaning"]?.["Carpet Cleaning"]
+          ?.pricePerUnit || 0);
       setCurrentItem({
         ...currentItem,
         quantity: area,
@@ -139,12 +176,12 @@ const QuotationForm = ({ service, onClose }) => {
   };
 
   const generatePDF = (
-    name,
-    email,
-    phone,
-    location,
-    selectedItems,
-    grandTotal
+    name: string,
+    email: string,
+    phone: string,
+    location: string,
+    selectedItems: CurrentItem[],
+    grandTotal: number
   ) => {
     const doc = new jsPDF();
 
@@ -198,185 +235,88 @@ const QuotationForm = ({ service, onClose }) => {
     doc.setFontSize(10);
     doc.setFont("helvetica", "normal");
     let yPosition = 150;
+
     selectedItems.forEach((item) => {
-      doc.text(item.quantity.toString(), 30, yPosition);
+      doc.text(item.quantity.toString(), 20, yPosition);
       doc.text(
-        `${item.category} - ${item.service}${
-          item.size ? ` (${item.size})` : ""
-        }${item.dimensions ? ` (${item.dimensions} ft)` : ""}`,
+        `${item.category} - ${item.service} ${
+          item.size ? `(${item.size})` : ""
+        } ${item.dimensions ? `(${item.dimensions})` : ""}`,
         60,
         yPosition
       );
       doc.text(
-        `${(item.total / item.quantity).toFixed(2)} KSH`,
-        135,
+        serviceStructure[item.category]?.[item.service]?.pricePerUnit
+          ? serviceStructure[item.category]?.[
+              item.service
+            ]?.pricePerUnit.toString()
+          : item.total.toString(),
+        130,
         yPosition
       );
-      doc.text(`${item.total.toFixed(2)} KSH`, 175, yPosition);
+      doc.text(item.total.toString(), 170, yPosition);
       yPosition += 10;
     });
 
-    // Total
+    // Total amount
+    doc.setFontSize(12);
     doc.setFont("helvetica", "bold");
-    doc.text(`Total: ${grandTotal.toFixed(2)} KSH`, 170, yPosition + 10);
+    doc.text(`Total: ${grandTotal}`, 170, yPosition + 20);
 
-    // Terms and Conditions
-    doc.setFontSize(14);
-    doc.setFont("helvetica", "bold");
-    doc.text("Terms & Conditions", 20, 220);
-
-    doc.setFontSize(8);
+    // Terms and conditions
+    doc.setFontSize(10);
     doc.setFont("helvetica", "normal");
-      const terms = [
-        "Pre-Existing Conditions: We take great care in our work, but we cannot be responsible for any pre-existing damage to your furniture, such as normal wear and tear, rips,fading, or previous improper cleaning methods. Please inform us of any such issues before we begin.",
-        "Safety First: For the safety of your pets and children, please ensure they are supervised during the cleaning process.",
-        "Accessibility: To help us serve you better, please provide clear access to the furniture and remove any items or clutter from the area being cleaned.",
-        "Booking: You can easily book your cleaning appointment online, by phone, or via email.",
-        "Changes and Cancellations: We understand that plans can change. Please notify us of any changes or cancellations at least 24 hours in advance to avoid a cancellation fee.",
-        "By booking a cleaning service with PDavies cleaning, you agree to be bound by these terms and conditions.",
-        "We hope you have a positive experience with PDavies cleaning! If you have any questions, please don't hesitate to contact us.",
-      ];
+    doc.text(
+      "This is a quotation, not an invoice. Prices are valid for 30 days.",
+      20,
+      yPosition + 40
+    );
 
-      let termsYPosition = 230;
-      terms.forEach((term, index) => {
-        doc.text("•", 22, termsYPosition);
-        const lines = doc.splitTextToSize(term, 170);
-        doc.text(lines, 26, termsYPosition);
-        termsYPosition += lines.length * 4 + 2;
-      });
-
-    return doc;
+    doc.save("quotation.pdf");
   };
 
-  const sendEmail = async (
-    name,
-    email,
-    selectedItems,
-    grandTotal,
-    pdfDataUri
-  ) => {
-    const itemsDescription = selectedItems
-      .map(
-        (item) =>
-          `${item.category} - ${item.service}${
-            item.size ? ` (${item.size})` : ""
-          }${item.dimensions ? ` (${item.dimensions} ft)` : ""}: ${
-            item.quantity
-          }, ${item.total.toFixed(2)} KSH`
-      )
-      .join("; ");
-
-    const templateParams = {
-      to_email: email,
-      from_name: "P. Davies Cleaning",
-      to_name: name,
-      message: `Your quotation for the following services: ${itemsDescription}. Total: ${grandTotal.toFixed(
-        2
-      )} KSH`,
-      pdf_attachment: pdfDataUri,
-    };
-
-    try {
-      await emailjs.send(
-        "YOUR_SERVICE_ID",
-        "YOUR_TEMPLATE_ID",
-        templateParams,
-        "YOUR_USER_ID"
-      );
-      return true;
-    } catch (error) {
-      console.error("Failed to send email", error);
-      return false;
-    }
-  };
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
-    setMessage("");
 
-    try {
-      const grandTotal = selectedItems.reduce(
-        (sum, item) => sum + item.total,
-        0
-      );
-
-      const pdf = generatePDF(
-        name,
-        email,
-        phone,
-        location,
-        selectedItems,
-        grandTotal
-      );
-      const pdfDataUri = pdf.output("datauristring");
-
-      // Offer PDF for download
-      pdf.save("quotation.pdf");
-
-      // Send email
-      const emailSent = await sendEmail(
-        name,
-        email,
-        selectedItems,
-        grandTotal,
-        pdfDataUri
-      );
-
-      if (emailSent) {
-        setMessage(
-          "Quotation sent successfully! Please check your email and download the PDF."
-        );
-      } else {
-        setMessage(
-          "Error sending email. Please download the PDF and contact us directly."
-        );
-      }
-    } catch (error) {
-      console.error("Error generating quotation:", error);
-      setMessage(
-        "An error occurred while generating the quotation. Please try again."
-      );
-    } finally {
-      setIsLoading(false);
-    }
+    let grandTotal = selectedItems.reduce((acc, item) => acc + item.total, 0);
+    generatePDF(name, email, phone, location, selectedItems, grandTotal);
   };
 
   return (
     <div className="quotation-form">
-      <h2>Get a Quote for {service.title}</h2>
+      <h2>Get Your Quotation</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          placeholder="Your Name"
+          placeholder="Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
         />
         <input
           type="email"
-          placeholder="Your Email"
+          placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
         />
         <input
           type="tel"
-          placeholder="Your Phone"
+          placeholder="Phone"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
           required
         />
         <input
           type="text"
-          placeholder="Your Location"
+          placeholder="Location"
           value={location}
           onChange={(e) => setLocation(e.target.value)}
           required
         />
 
-        <select value={currentItem.category} onChange={handleCategoryChange}>
-          <option value="">Select a category</option>
+        <select onChange={handleCategoryChange} value={currentItem.category}>
+          <option value="">Select Category</option>
           {Object.keys(serviceStructure).map((category) => (
             <option key={category} value={category}>
               {category}
@@ -384,123 +324,77 @@ const QuotationForm = ({ service, onClose }) => {
           ))}
         </select>
 
-        {currentItem.category && (
-          <select value={currentItem.service} onChange={handleServiceChange}>
-            <option value="">Select a service</option>
-            {Object.keys(serviceStructure[currentItem.category]).map(
+        <select onChange={handleServiceChange} value={currentItem.service}>
+          <option value="">Select Service</option>
+          {currentItem.category &&
+            Object.keys(serviceStructure[currentItem.category]).map(
               (service) => (
                 <option key={service} value={service}>
                   {service}
                 </option>
               )
             )}
+        </select>
+
+        {serviceStructure[currentItem.category]?.[currentItem.service]
+          ?.unit && (
+          <input
+            type="number"
+            placeholder="Quantity"
+            value={currentItem.quantity}
+            onChange={handleQuantityChange}
+          />
+        )}
+
+        {serviceStructure[currentItem.category]?.[currentItem.service]
+          ?.options && (
+          <select onChange={handleSizeChange} value={currentItem.size}>
+            <option value="">Select Size</option>
+            {serviceStructure[currentItem.category][
+              currentItem.service
+            ].options.map((option) => (
+              <option key={option.size} value={option.size}>
+                {option.size}
+              </option>
+            ))}
           </select>
         )}
 
-        {currentItem.service &&
-          !serviceStructure[currentItem.category][currentItem.service]
-            .requiresSiteVisit && (
-            <>
-              {currentItem.service === "Carpet Cleaning" ? (
-                <>
-                  <input
-                    type="number"
-                    placeholder="Carpet Width (ft)"
-                    value={carpetWidth}
-                    onChange={(e) => handleCarpetDimensionsChange(e, "width")}
-                    min="1"
-                    step="0.1"
-                  />
-                  <input
-                    type="number"
-                    placeholder="Carpet Height (ft)"
-                    value={carpetHeight}
-                    onChange={(e) => handleCarpetDimensionsChange(e, "height")}
-                    min="1"
-                    step="0.1"
-                  />
-                  <p>
-                    Total Area:{" "}
-                    {carpetWidth && carpetHeight
-                      ? (
-                          parseFloat(carpetWidth) * parseFloat(carpetHeight) * 20
-                        ).toFixed(2)
-                      : 0}{" "}
-                    sq ft
-                  </p>
-                  <p>Total Price: KSH {currentItem.total.toFixed(2)}</p>
-                </>
-              ) : serviceStructure[currentItem.category][currentItem.service]
-                  .pricePerUnit ? (
-                <input
-                  type="number"
-                  placeholder={`Number of ${
-                    serviceStructure[currentItem.category][currentItem.service]
-                      .unit
-                  }s`}
-                  value={currentItem.quantity}
-                  onChange={handleQuantityChange}
-                  min="1"
-                />
-              ) : (
-                <select value={currentItem.size} onChange={handleSizeChange}>
-                  <option value="">Select size</option>
-                  {serviceStructure[currentItem.category][
-                    currentItem.service
-                  ].options.map((option) => (
-                    <option key={option.size} value={option.size}>
-                      {option.size}
-                    </option>
-                  ))}
-                </select>
-              )}
-
-              {currentItem.service !== "Carpet Cleaning" && (
-                <p>Total: KSH {currentItem.total.toFixed(2)}</p>
-              )}
-
-              <button type="button" onClick={addItem}>
-                Add to Quote
-              </button>
-            </>
-          )}
-
-        {currentItem.service &&
-          serviceStructure[currentItem.category][currentItem.service]
-            .requiresSiteVisit && (
-            <p>This service requires a site visit for accurate quotation.</p>
-          )}
-
-        {selectedItems.length > 0 && (
-          <div>
-            <h3>Selected Items:</h3>
-            <ul>
-              {selectedItems.map((item, index) => (
-                <li key={index}>
-                  {item.category} - {item.service}
-                  {item.quantity > 1 ? ` - Quantity: ${item.quantity}` : ""}
-                  {item.size ? ` - Size: ${item.size}` : ""}
-                  {item.dimensions
-                    ? ` - Dimensions: ${item.dimensions} ft`
-                    : ""}
-                  - Total: KSH {item.total.toFixed(2)}
-                </li>
-              ))}
-            </ul>
-            <p>
-              Grand Total: KSH{" "}
-              {selectedItems
-                .reduce((sum, item) => sum + item.total, 0)
-                .toFixed(2)}
-            </p>
-          </div>
+        {currentItem.service === "Carpet Cleaning" && (
+          <>
+            <input
+              type="number"
+              placeholder="Carpet Width (sqft)"
+              value={carpetWidth}
+              onChange={(e) => handleCarpetDimensionsChange(e, "width")}
+            />
+            <input
+              type="number"
+              placeholder="Carpet Height (sqft)"
+              value={carpetHeight}
+              onChange={(e) => handleCarpetDimensionsChange(e, "height")}
+            />
+          </>
         )}
 
-        <button type="submit" disabled={isLoading}>
-          {isLoading ? "Generating..." : "Generate Quotation"}
+        <button type="button" onClick={addItem}>
+          Add Item
         </button>
+
+        <ul>
+          {selectedItems.map((item, index) => (
+            <li key={index}>
+              {item.category} - {item.service} (Qty: {item.quantity}, Size:{" "}
+              {item.size}, Total: {item.total})
+            </li>
+          ))}
+        </ul>
+
+        <button type="submit" disabled={isLoading}>
+          {isLoading ? "Loading..." : "Generate Quotation"}
+        </button>
+        <p>{message}</p>
       </form>
-      {message && <p>{message}</p>}
       <button onClick={onClose}>Close</button>
     </div>
   );
