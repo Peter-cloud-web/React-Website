@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios"; // IMPORT AXIOS
 import Header from "./Header";
 import Footer from "./Footer";
 import "./Contacts.css";
@@ -6,7 +7,7 @@ import parallaxImage from "../assets/cleaning11.jpeg";
 import buildingsIcon from "../assets/buildings.png";
 import callIcon from "../assets/contactIcon.png";
 import mailIcon from "../assets/mail.png";
-import tableIcon from "../assets/table-clock.png"; // Make sure this path is correct
+import tableIcon from "../assets/table-clock.png";
 import cleaning1 from "../assets/pc1.jpeg";
 import cleaning2 from "../assets/pc2.jpeg";
 import cleaning3 from "../assets/pc3.jpeg";
@@ -15,11 +16,9 @@ import cleaning5 from "../assets/pc5.jpeg";
 import cleaning6 from "../assets/pc6.jpeg";
 import cleaning7 from "../assets/pc7.jpeg";
 import cleaning8 from "../assets/cleaning8.jpeg";
-import FAQ from "./FAQ"
+import FAQ from "./FAQ";
 
 const Contact: React.FC = () => {
-
-
   const cleaningImages = [
     cleaning1,
     cleaning2,
@@ -40,15 +39,22 @@ const Contact: React.FC = () => {
     message: "",
   });
 
-  const handleChange = (e) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
+      // Use environment variable for API endpoint
+      const apiUrl =
+        process.env.REACT_APP_API_ENDPOINT || "http://localhost:5173"; // Default to localhost for safety
       const response = await axios.post(
-        "http://localhost:5173/send-email",
+        `${apiUrl}/send-email`, // Template literal for URL
         formData
       );
       if (response.status === 200) {
