@@ -172,7 +172,6 @@ const Home: React.FC = () => {
           />
         </div>
       </section>
-
       <section className="our-services">
         <h2>Our Services</h2>
         <p className="services-intro">
@@ -258,7 +257,6 @@ const Home: React.FC = () => {
                   />
                 </div>
               </div>
-
               <div className="social-post facebook">
                 <img
                   src={facebookIcon}
