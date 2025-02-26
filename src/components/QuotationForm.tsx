@@ -7,6 +7,7 @@ interface ServiceDetails {
   pricePerUnit?: number;
   unit?: string;
   options?: { size: string; price: number }[];
+  requiresSiteVisit?: boolean;
 }
 
 interface ServiceCategory {
@@ -75,8 +76,13 @@ const QuotationForm: React.FC<QuotationFormProps> = ({ service, onClose }) => {
       canvas.width = img.width;
       canvas.height = img.height;
       const ctx = canvas.getContext("2d");
-      ctx.drawImage(img, 0, 0);
-      setLogoDataUrl(canvas.toDataURL("image/png"));
+      if (ctx) {
+        // CHECK IF ctx is NOT null
+        ctx.drawImage(img, 0, 0);
+        setLogoDataUrl(canvas.toDataURL("image/png"));
+      } else {
+        console.error("Could not get 2D context for canvas");
+      }
     };
     img.src = logo;
   }, []);
@@ -146,175 +152,127 @@ const QuotationForm: React.FC<QuotationFormProps> = ({ service, onClose }) => {
 
     if (carpetWidth && carpetHeight) {
       const area = parseFloat(carpetWidth) * parseFloat(carpetHeight);
-      const total =
-        area *
-        (serviceStructure["Upholstery Cleaning"]?.["Carpet Cleaning"]
-          ?.pricePerUnit || 0);
-      setCurrentItem({
-        ...currentItem,
-        quantity: area,
-        total: total,
-        dimensions: `${carpetWidth} x ${carpetHeight}`,
-      });
+      const total = 0;
+      setCurrentItem({ ...currentItem, total: total });
     }
   };
 
-  const addItem = () => {
-    if (currentItem.service) {
-      setSelectedItems([...selectedItems, currentItem]);
-      setCurrentItem({
-        category: "",
-        service: "",
-        quantity: 1,
-        size: "",
-        total: 0,
-        dimensions: "",
-      });
-      setCarpetWidth("");
-      setCarpetHeight("");
-    }
+  const handleAddItem = () => {
+    setSelectedItems([...selectedItems, currentItem]);
+    setCurrentItem({
+      category: "",
+      service: "",
+      quantity: 1,
+      size: "",
+      total: 0,
+      dimensions: "",
+    });
+    setCarpetWidth("");
+    setCarpetHeight("");
   };
 
-  const generatePDF = (
-    name: string,
-    email: string,
-    phone: string,
-    location: string,
-    selectedItems: CurrentItem[],
-    grandTotal: number
-  ) => {
+  const removeItem = (index: number) => {
+    const newItems = [...selectedItems];
+    newItems.splice(index, 1);
+    setSelectedItems(newItems);
+  };
+
+  const calculateTotal = () => {
+    let total = 0;
+    selectedItems.forEach((item) => {
+      total += item.total;
+    });
+    return total;
+  };
+
+  const generatePDF = async () => {
+    setIsLoading(true);
+    setMessage("");
+
     const doc = new jsPDF();
 
+    // Add logo
     if (logoDataUrl) {
-      doc.addImage(logoDataUrl, "PNG", 10, 10, 50, 50);
+      doc.addImage(logoDataUrl, "PNG", 10, 10, 50, 20);
     }
 
-    // Company details
-    doc.setFontSize(25);
+    // Set font
     doc.setFont("helvetica", "bold");
-    doc.setTextColor(153, 0, 255);
-    doc.text("PDavies Cleaning", 120, 20, { align: "center" });
 
-    doc.setTextColor(0, 51, 102);
-    doc.setFontSize(10);
-    doc.text("Toll, First Street, Ruiru", 125, 30, { align: "center" });
-    doc.text("Phone: (+254) 719 678 943, (+254) 716 986 935", 125, 35, {
-      align: "center",
-    });
-    doc.text("Email: bookings@pdaviescleaning.com", 125, 40, {
-      align: "center",
-    });
-
-    // Client details
-    doc.setFontSize(15);
-    doc.setFont("helvetica", "bold");
-    doc.setTextColor(153, 0, 255);
-    doc.text("Sent to:", 20, 70);
-
-    doc.setTextColor(0, 51, 102);
-    doc.setFontSize(10);
-    doc.text(`Name: ${name}`, 20, 80);
-    doc.text(`Email: ${email}`, 20, 85);
-    doc.text(`Phone: ${phone}`, 20, 90);
-    doc.text(`Location: ${location}`, 20, 95);
-
-    // Quotation title
+    // Add document title
     doc.setFontSize(20);
-    doc.setFont("helvetica", "bold");
-    doc.text("Quotation", 105, 120, { align: "center" });
+    doc.text("Quotation", 105, 40, { align: "center" });
 
-    // Table headers
+    // Add client details
     doc.setFontSize(12);
-    doc.setFont("helvetica", "bold");
-    doc.text("Quantity", 20, 140);
-    doc.text("Service Description", 60, 140);
-    doc.text("Unit Price", 130, 140);
-    doc.text("Amount", 170, 140);
+    doc.text(`Name: ${name}`, 10, 60);
+    doc.text(`Email: ${email}`, 10, 68);
+    doc.text(`Phone: ${phone}`, 10, 76);
+    doc.text(`Location: ${location}`, 10, 84);
 
-    // Table content
-    doc.setFontSize(10);
+    // Add line items
+    let y = 100;
     doc.setFont("helvetica", "normal");
-    let yPosition = 150;
-
     selectedItems.forEach((item) => {
-      doc.text(item.quantity.toString(), 20, yPosition);
       doc.text(
-        `${item.category} - ${item.service} ${
-          item.size ? `(${item.size})` : ""
-        } ${item.dimensions ? `(${item.dimensions})` : ""}`,
-        60,
-        yPosition
+        `${item.quantity} ${item.category} - ${item.service} - Size: ${
+          item.size || "N/A"
+        } - Dimensions: ${item.dimensions || "N/A"}`,
+        10,
+        y
       );
-      doc.text(
-        serviceStructure[item.category]?.[item.service]?.pricePerUnit
-          ? serviceStructure[item.category]?.[
-              item.service
-            ]?.pricePerUnit.toString()
-          : item.total.toString(),
-        130,
-        yPosition
-      );
-      doc.text(item.total.toString(), 170, yPosition);
-      yPosition += 10;
+      doc.text(`Total: ${item.total}`, 140, y);
+      y += 8;
     });
 
-    // Total amount
-    doc.setFontSize(12);
+    // Add total
     doc.setFont("helvetica", "bold");
-    doc.text(`Total: ${grandTotal}`, 170, yPosition + 20);
+    doc.text(`Total Amount: ${calculateTotal()}`, 10, y + 10);
 
-    // Terms and conditions
-    doc.setFontSize(10);
-    doc.setFont("helvetica", "normal");
-    doc.text(
-      "This is a quotation, not an invoice. Prices are valid for 30 days.",
-      20,
-      yPosition + 40
-    );
+    // Try to save PDF
+    try {
+      doc.save("quotation.pdf"); // Changed to directly save the PDF
 
-    doc.save("quotation.pdf");
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    let grandTotal = selectedItems.reduce((acc, item) => acc + item.total, 0);
-    generatePDF(name, email, phone, location, selectedItems, grandTotal);
+      setMessage("PDF generated successfully!");
+    } catch (error) {
+      console.error("Error generating PDF:", error);
+      setMessage("Error generating PDF. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
-    <div className="quotation-form">
-      <h2>Get Your Quotation</h2>
-      <form onSubmit={handleSubmit}>
+    <div className="quotation-form-overlay">
+      <div className="quotation-form">
+        <h2>Quotation Form - {service}</h2>
+        <label>Name:</label>
         <input
           type="text"
-          placeholder="Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          required
         />
+        <label>Email:</label>
         <input
           type="email"
-          placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          required
         />
+        <label>Phone:</label>
         <input
           type="tel"
-          placeholder="Phone"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
-          required
         />
+        <label>Location:</label>
         <input
           type="text"
-          placeholder="Location"
           value={location}
           onChange={(e) => setLocation(e.target.value)}
-          required
         />
 
+        <h3>Add Item</h3>
+        <label>Category:</label>
         <select onChange={handleCategoryChange} value={currentItem.category}>
           <option value="">Select Category</option>
           {Object.keys(serviceStructure).map((category) => (
@@ -324,78 +282,92 @@ const QuotationForm: React.FC<QuotationFormProps> = ({ service, onClose }) => {
           ))}
         </select>
 
-        <select onChange={handleServiceChange} value={currentItem.service}>
-          <option value="">Select Service</option>
-          {currentItem.category &&
-            Object.keys(serviceStructure[currentItem.category]).map(
-              (service) => (
-                <option key={service} value={service}>
-                  {service}
-                </option>
-              )
-            )}
-        </select>
-
-        {serviceStructure[currentItem.category]?.[currentItem.service]
-          ?.unit && (
-          <input
-            type="number"
-            placeholder="Quantity"
-            value={currentItem.quantity}
-            onChange={handleQuantityChange}
-          />
+        {currentItem.category && (
+          <>
+            <label>Service:</label>
+            <select onChange={handleServiceChange} value={currentItem.service}>
+              <option value="">Select Service</option>
+              {Object.keys(serviceStructure[currentItem.category] || {}).map(
+                (service) => (
+                  <option key={service} value={service}>
+                    {service}
+                  </option>
+                )
+              )}
+            </select>
+          </>
         )}
 
-        {serviceStructure[currentItem.category]?.[currentItem.service]
-          ?.options && (
-          <select onChange={handleSizeChange} value={currentItem.size}>
-            <option value="">Select Size</option>
-            {serviceStructure[currentItem.category][
-              currentItem.service
-            ].options.map((option) => (
-              <option key={option.size} value={option.size}>
-                {option.size}
-              </option>
-            ))}
-          </select>
-        )}
+        {currentItem.service &&
+          serviceStructure[currentItem.category]?.[currentItem.service]
+            ?.options && (
+            <>
+              <label>Size:</label>
+              <select onChange={handleSizeChange} value={currentItem.size}>
+                <option value="">Select Size</option>
+                {serviceStructure[currentItem.category]?.[
+                  currentItem.service
+                ]?.options?.map((option) => (
+                  <option key={option.size} value={option.size}>
+                    {option.size}
+                  </option>
+                ))}
+              </select>
+            </>
+          )}
 
         {currentItem.service === "Carpet Cleaning" && (
           <>
+            <label>Carpet Width (sqft):</label>
             <input
               type="number"
-              placeholder="Carpet Width (sqft)"
               value={carpetWidth}
               onChange={(e) => handleCarpetDimensionsChange(e, "width")}
             />
+            <label>Carpet Height (sqft):</label>
             <input
               type="number"
-              placeholder="Carpet Height (sqft)"
               value={carpetHeight}
               onChange={(e) => handleCarpetDimensionsChange(e, "height")}
             />
           </>
         )}
 
-        <button type="button" onClick={addItem}>
-          Add Item
-        </button>
+        {currentItem.service &&
+          !serviceStructure[currentItem.category]?.[currentItem.service]
+            ?.options &&
+          currentItem.service !== "Carpet Cleaning" && (
+            <>
+              <label>Quantity:</label>
+              <input
+                type="number"
+                value={currentItem.quantity}
+                onChange={handleQuantityChange}
+              />
+            </>
+          )}
 
-        <ul>
-          {selectedItems.map((item, index) => (
-            <li key={index}>
-              {item.category} - {item.service} (Qty: {item.quantity}, Size:{" "}
-              {item.size}, Total: {item.total})
-            </li>
-          ))}
-        </ul>
+        <button onClick={handleAddItem}>Add Item</button>
 
-        <button type="submit" disabled={isLoading}>
-          {isLoading ? "Loading..." : "Generate Quotation"}
+        <h3>Items</h3>
+        {selectedItems.map((item, index) => (
+          <div key={index} className="item">
+            {item.quantity} {item.category} - {item.service} - Size:{" "}
+            {item.size || "N/A"} - Dimensions: {item.dimensions || "N/A"}
+            Total: {item.total}
+            <button onClick={() => removeItem(index)}>Remove</button>
+          </div>
+        ))}
+
+        <p>Total: {calculateTotal()}</p>
+
+        <button onClick={generatePDF} disabled={isLoading}>
+          {isLoading ? "Generating PDF..." : "Generate PDF"}
         </button>
-        <p>{message}</p>
-      </form>
-      <button onClick={onClose}>Close</button>
+        {message && <p>{message}</p>}
+
+        <button onClick={onClose}>Close</button>
+      </div>
     </div>
   );
 };

@@ -67,7 +67,7 @@ const Header: React.FC = () => {
     },
   ];
 
-  const handleServiceClick = (servicePath) => {
+  const handleServiceClick = (servicePath:string) => {
     navigate(servicePath);
     setIsServicesDropdownOpen(false);
   };
