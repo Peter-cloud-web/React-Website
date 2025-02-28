@@ -4,7 +4,7 @@ import "./App.css";
 import Home from "./components/Home";
 import About from "./components/AboutUs";
 // import Services from "./components/Services";
-// import Contacts from "./components/Contacts";
+import Contacts from "./components/Contacts";
 import Header from "./components/Header";
 import Blog from "./components/Blog";
 // import CarpetCleaning from "./components/CarpetCleaning";
@@ -30,7 +30,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           {/* <Route path="/services" element={<Services />} /> */}
-          {/* <Route path="/contact" element={<Contacts />} /> */}
+          <Route path="/contact" element={<Contacts />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/officecleaning" element={<OfficeCleaning />} />
