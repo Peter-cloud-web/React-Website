@@ -109,8 +109,6 @@ const TilesCleaning: React.FC = () => {
                 src="https://www.youtube.com/embed/L2peFyMEwoY"
                 title="Tiles Cleaning at Pdavies Cleaning"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerpolicy="strict-origin-when-cross-origin"
-                allowfullscreen
               ></iframe>
             </div>
           </div>
