@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios"; // IMPORT AXIOS
+import axios from "axios";
 import Header from "./Header";
 import Footer from "./Footer";
 import "./Contacts.css";
@@ -18,6 +18,15 @@ import cleaning7 from "../assets/pc7.jpeg";
 import cleaning8 from "../assets/cleaning8.jpeg";
 import FAQ from "./FAQ";
 
+interface FormData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  contactNumber: string;
+  cleaningService: string;
+  message: string;
+}
+
 const Contact: React.FC = () => {
   const cleaningImages = [
     cleaning1,
@@ -30,7 +39,7 @@ const Contact: React.FC = () => {
     cleaning8,
   ];
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     firstName: "",
     lastName: "",
     email: "",
@@ -52,11 +61,10 @@ const Contact: React.FC = () => {
     try {
       // Use environment variable for API endpoint
       const apiUrl =
-        process.env.REACT_APP_API_ENDPOINT || "http://localhost:5173"; // Default to localhost for safety
-      const response = await axios.post(
-        `${apiUrl}/send-email`, // Template literal for URL
-        formData
-      );
+        process.env.REACT_APP_API_ENDPOINT || "http://localhost:5173";
+
+      const response = await axios.post(`${apiUrl}/send-email`, formData);
+
       if (response.status === 200) {
         alert("Your message has been sent successfully!");
         setFormData({
@@ -67,10 +75,17 @@ const Contact: React.FC = () => {
           cleaningService: "",
           message: "",
         });
+      } else {
+        console.error("Unexpected response status:", response.status);
+        alert(
+          "There was an unexpected error sending your message. Please try again."
+        );
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error sending email:", error);
-      alert("There was an error sending your message. Please try again.");
+      alert(
+        "There was an error sending your message. Please ensure the API endpoint is correct and try again."
+      );
     }
   };
 
