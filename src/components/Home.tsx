@@ -28,21 +28,35 @@ import { useNavigate } from "react-router-dom";
 import Footer from "./Footer";
 import FAQ from "./FAQ";
 
+// Define a type for the props of ErrorBoundary
+interface ErrorBoundaryProps {
+  children: React.ReactNode;
+}
+
+// Define a type for the state of ErrorBoundary
+interface ErrorBoundaryState {
+  hasError: boolean;
+}
+
 // Error Boundary Component
-class ErrorBoundary extends React.Component {
-  constructor(props) {
+class ErrorBoundary extends React.Component<
+  ErrorBoundaryProps,
+  ErrorBoundaryState
+> {
+  constructor(props: ErrorBoundaryProps) {
     super(props);
     this.state = { hasError: false };
   }
 
-  static getDerivedStateFromError(error) {
+  static getDerivedStateFromError(error: any): ErrorBoundaryState {
     // Update state so the next render will show the fallback UI.
+    console.error("Caught an error in ErrorBoundary:", error);
     return { hasError: true };
   }
 
-  componentDidCatch(error, errorInfo) {
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     // You can also log the error to an error reporting service
-    console.error(error, errorInfo);
+    console.error("Error caught by ErrorBoundary", error, errorInfo);
   }
 
   render() {
@@ -55,10 +69,16 @@ class ErrorBoundary extends React.Component {
   }
 }
 
+interface Review {
+  name: string;
+  location: string;
+  text: string;
+}
+
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const [isSocialMediaVisible, setIsSocialMediaVisible] = useState(false);
-  const socialMediaSectionRef = useRef(null);
+  const socialMediaSectionRef = useRef<HTMLElement>(null); // Specify the type of useRef
 
   const handleExploreServices = () => {
     navigate("/about");
@@ -75,7 +95,7 @@ const Home: React.FC = () => {
     cleaning8,
   ];
 
-  const reviews = [
+  const reviews: Review[] = [
     {
       name: "John",
       location: "Juja",
@@ -354,7 +374,7 @@ const Home: React.FC = () => {
             height="450"
             style={{ border: 0 }}
             loading="lazy"
-          ></iframe>
+          />
         </div>
         <FAQ />
       </section>
