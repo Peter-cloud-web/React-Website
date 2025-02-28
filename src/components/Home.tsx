@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./Home.css";
 import serviceImage from "../assets/poster2.png";
 import CarpetCleaningIcon from "../assets/CarpetCleaningIcon.png";
@@ -28,9 +28,37 @@ import { useNavigate } from "react-router-dom";
 import Footer from "./Footer";
 import FAQ from "./FAQ";
 
+// Error Boundary Component
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error) {
+    // Update state so the next render will show the fallback UI.
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    // You can also log the error to an error reporting service
+    console.error(error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      // You can render any custom fallback UI
+      return <div>Something went wrong. Please try again later.</div>;
+    }
+
+    return this.props.children;
+  }
+}
+
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const [isSocialMediaVisible, setIsSocialMediaVisible] = useState(false);
+  const socialMediaSectionRef = useRef(null);
 
   const handleExploreServices = () => {
     navigate("/about");
@@ -101,21 +129,30 @@ const Home: React.FC = () => {
   ];
 
   useEffect(() => {
-    const handleScroll = () => {
-      const socialMediaSection = document.querySelector(
-        ".social-media-section"
-      );
-      if (socialMediaSection) {
-        const rect = socialMediaSection.getBoundingClientRect();
-        if (rect.top < window.innerHeight && rect.bottom >= 0) {
-          setIsSocialMediaVisible(true);
-          window.removeEventListener("scroll", handleScroll);
-        }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsSocialMediaVisible(true);
+            observer.unobserve(entry.target); // Stop observing after it becomes visible
+          }
+        });
+      },
+      {
+        root: null, // Use the viewport as the root
+        threshold: 0.1, // Trigger when 10% of the section is visible
+      }
+    );
+
+    if (socialMediaSectionRef.current) {
+      observer.observe(socialMediaSectionRef.current);
+    }
+
+    return () => {
+      if (socialMediaSectionRef.current) {
+        observer.unobserve(socialMediaSectionRef.current);
       }
     };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
@@ -232,8 +269,7 @@ const Home: React.FC = () => {
           ))}
         </div>
       </section>
-
-      <section className="social-media-section">
+      <section className="social-media-section" ref={socialMediaSectionRef}>
         <h2>Follow Us on Social Media</h2>
         <p className="services-intro">
           Receive regular updates on cleaning hacks and tips, price offers,
@@ -241,7 +277,7 @@ const Home: React.FC = () => {
           media platforms.
         </p>
         <div className="social-posts-container">
-          {isSocialMediaVisible && (
+          {isSocialMediaVisible ? (
             <>
               <div className="social-post instagram">
                 <img
@@ -250,11 +286,13 @@ const Home: React.FC = () => {
                   className="social-icon"
                 />
                 <div className="instagram-embed-wrapper">
-                  <InstagramEmbed
-                    url="https://www.instagram.com/p/C9Cvujet6pV/"
-                    width={328}
-                    captioned
-                  />
+                  <ErrorBoundary>
+                    <InstagramEmbed
+                      url="https://www.instagram.com/p/C9Cvujet6pV/"
+                      width={328}
+                      captioned
+                    />
+                  </ErrorBoundary>
                 </div>
               </div>
               <div className="social-post facebook">
@@ -264,22 +302,28 @@ const Home: React.FC = () => {
                   className="social-icon"
                 />
                 <div style={{ display: "flex", justifyContent: "center" }}>
-                  <FacebookEmbed
-                    url="https://www.facebook.com/permalink.php?story_fbid=pfbid08N5Wn3kRg6G9KKM7iRnbwKr6j79R3j2X6BzZ5zeQtu48xxz8ESXXHt2jTXUz581pl&amp;id=100090951015499"
-                    width={325}
-                  />
+                  <ErrorBoundary>
+                    <FacebookEmbed
+                      url="https://www.facebook.com/permalink.php?story_fbid=pfbid08N5Wn3kRg6G9KKM7iRnbwKr6j79R3j2X6BzZ5zeQtu48xxz8ESXXHt2jTXUz581pl&amp;id=100090951015499"
+                      width={325}
+                    />
+                  </ErrorBoundary>
                 </div>
               </div>
               <div className="social-post twitter">
                 <img src={twitterIcon} alt="Twitter" className="social-icon" />
                 <div style={{ display: "flex", justifyContent: "center" }}>
-                  <XEmbed
-                    url="https://twitter.com/Pdaviescleaning/status/1774339154404343875"
-                    width={325}
-                  />
+                  <ErrorBoundary>
+                    <XEmbed
+                      url="https://twitter.com/Pdaviescleaning/status/1774339154404343875"
+                      width={325}
+                    />
+                  </ErrorBoundary>
                 </div>
               </div>
             </>
+          ) : (
+            <div>Loading Social Media...</div>
           )}
         </div>
 
