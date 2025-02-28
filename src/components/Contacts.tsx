@@ -1,224 +1,224 @@
-// import React, { useState } from "react";
-// import axios from "axios"; // IMPORT AXIOS
-// import Header from "./Header";
-// import Footer from "./Footer";
-// import "./Contacts.css";
-// import parallaxImage from "../assets/cleaning11.jpeg";
-// import buildingsIcon from "../assets/buildings.png";
-// import callIcon from "../assets/contactIcon.png";
-// import mailIcon from "../assets/mail.png";
-// import tableIcon from "../assets/table-clock.png";
-// import cleaning1 from "../assets/pc1.jpeg";
-// import cleaning2 from "../assets/pc2.jpeg";
-// import cleaning3 from "../assets/pc3.jpeg";
-// import cleaning4 from "../assets/pc4.jpeg";
-// import cleaning5 from "../assets/pc5.jpeg";
-// import cleaning6 from "../assets/pc6.jpeg";
-// import cleaning7 from "../assets/pc7.jpeg";
-// import cleaning8 from "../assets/cleaning8.jpeg";
-// import FAQ from "./FAQ";
+import React, { useState } from "react";
+import axios from "axios"; // IMPORT AXIOS
+import Header from "./Header";
+import Footer from "./Footer";
+import "./Contacts.css";
+import parallaxImage from "../assets/cleaning11.jpeg";
+import buildingsIcon from "../assets/buildings.png";
+import callIcon from "../assets/contactIcon.png";
+import mailIcon from "../assets/mail.png";
+import tableIcon from "../assets/table-clock.png";
+import cleaning1 from "../assets/pc1.jpeg";
+import cleaning2 from "../assets/pc2.jpeg";
+import cleaning3 from "../assets/pc3.jpeg";
+import cleaning4 from "../assets/pc4.jpeg";
+import cleaning5 from "../assets/pc5.jpeg";
+import cleaning6 from "../assets/pc6.jpeg";
+import cleaning7 from "../assets/pc7.jpeg";
+import cleaning8 from "../assets/cleaning8.jpeg";
+import FAQ from "./FAQ";
 
-// const Contact: React.FC = () => {
-//   const cleaningImages = [
-//     cleaning1,
-//     cleaning2,
-//     cleaning3,
-//     cleaning4,
-//     cleaning5,
-//     cleaning6,
-//     cleaning7,
-//     cleaning8,
-//   ];
+const Contact: React.FC = () => {
+  const cleaningImages = [
+    cleaning1,
+    cleaning2,
+    cleaning3,
+    cleaning4,
+    cleaning5,
+    cleaning6,
+    cleaning7,
+    cleaning8,
+  ];
 
-//   const [formData, setFormData] = useState({
-//     firstName: "",
-//     lastName: "",
-//     email: "",
-//     contactNumber: "",
-//     cleaningService: "",
-//     message: "",
-//   });
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    contactNumber: "",
+    cleaningService: "",
+    message: "",
+  });
 
-//   const handleChange = (
-//     e: React.ChangeEvent<
-//       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-//     >
-//   ) => {
-//     setFormData({ ...formData, [e.target.name]: e.target.value });
-//   };
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
-//   const handleSubmit = async (e: React.FormEvent) => {
-//     e.preventDefault();
-//     try {
-//       // Use environment variable for API endpoint
-//       const apiUrl =
-//         process.env.REACT_APP_API_ENDPOINT || "http://localhost:5173"; // Default to localhost for safety
-//       const response = await axios.post(
-//         `${apiUrl}/send-email`, // Template literal for URL
-//         formData
-//       );
-//       if (response.status === 200) {
-//         alert("Your message has been sent successfully!");
-//         setFormData({
-//           firstName: "",
-//           lastName: "",
-//           email: "",
-//           contactNumber: "",
-//           cleaningService: "",
-//           message: "",
-//         });
-//       }
-//     } catch (error) {
-//       console.error("Error sending email:", error);
-//       alert("There was an error sending your message. Please try again.");
-//     }
-//   };
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      // Use environment variable for API endpoint
+      const apiUrl =
+        process.env.REACT_APP_API_ENDPOINT || "http://localhost:5173"; // Default to localhost for safety
+      const response = await axios.post(
+        `${apiUrl}/send-email`, // Template literal for URL
+        formData
+      );
+      if (response.status === 200) {
+        alert("Your message has been sent successfully!");
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          contactNumber: "",
+          cleaningService: "",
+          message: "",
+        });
+      }
+    } catch (error) {
+      console.error("Error sending email:", error);
+      alert("There was an error sending your message. Please try again.");
+    }
+  };
 
-//   return (
-//     <div className="contact-page-wrapper">
-//       <Header />
-//       <div className="contact-page">
-//         <div className="cover-container">
-//           <img src={parallaxImage} alt="Cover" className="cover-image" />
-//           <h1 className="cover-title">Contact Us</h1>
-//         </div>
+  return (
+    <div className="contact-page-wrapper">
+      <Header />
+      <div className="contact-page">
+        <div className="cover-container">
+          <img src={parallaxImage} alt="Cover" className="cover-image" />
+          <h1 className="cover-title">Contact Us</h1>
+        </div>
 
-//         <main>
-//           <div className="contact-info">
-//             <div className="oval-background"></div>
-//             <h2 className="contact-title">Contact Us</h2>
-//             <h3 className="contact-subtitle">We'd Love to Hear From You</h3>
-//             <p className="infor-paragraph">
-//               Get in touch with us for all your cleaning needs. We're here to
-//               help!
-//             </p>
-//             <p className="contact-details">
-//               <img
-//                 src={buildingsIcon}
-//                 alt="Location"
-//                 className="contact-icon"
-//               />
-//               Location: Toll Estate, First Street, Ruiru
-//             </p>
-//             <p className="contact-details">
-//               <img src={mailIcon} alt="Email" className="contact-icon" />
-//               Email:{" "}
-//               <a href="mailto:bookings@pdaviescleaning.com">
-//                 bookings@pdaviescleaning.com
-//               </a>
-//             </p>
-//             <p className="contact-details">
-//               <img src={callIcon} alt="Phone" className="contact-icon" />
-//               Phone: +254719678943 / +254716986935
-//             </p>
-//             <p className="contact-details">
-//               <img
-//                 src={tableIcon}
-//                 alt="Opening Hours"
-//                 className="contact-icon"
-//               />
-//               Opening Hours: Monday to Saturday, 8am to 6pm
-//             </p>
-//           </div>
+        <main>
+          <div className="contact-info">
+            <div className="oval-background"></div>
+            <h2 className="contact-title">Contact Us</h2>
+            <h3 className="contact-subtitle">We'd Love to Hear From You</h3>
+            <p className="infor-paragraph">
+              Get in touch with us for all your cleaning needs. We're here to
+              help!
+            </p>
+            <p className="contact-details">
+              <img
+                src={buildingsIcon}
+                alt="Location"
+                className="contact-icon"
+              />
+              Location: Toll Estate, First Street, Ruiru
+            </p>
+            <p className="contact-details">
+              <img src={mailIcon} alt="Email" className="contact-icon" />
+              Email:{" "}
+              <a href="mailto:bookings@pdaviescleaning.com">
+                bookings@pdaviescleaning.com
+              </a>
+            </p>
+            <p className="contact-details">
+              <img src={callIcon} alt="Phone" className="contact-icon" />
+              Phone: +254719678943 / +254716986935
+            </p>
+            <p className="contact-details">
+              <img
+                src={tableIcon}
+                alt="Opening Hours"
+                className="contact-icon"
+              />
+              Opening Hours: Monday to Saturday, 8am to 6pm
+            </p>
+          </div>
 
-//           <div className="quote-form">
-//             <h2>Book a session with us</h2>
-//             <form onSubmit={handleSubmit}>
-//               <input
-//                 type="text"
-//                 name="firstName"
-//                 placeholder="First Name"
-//                 value={formData.firstName}
-//                 onChange={handleChange}
-//                 required
-//               />
-//               <input
-//                 type="text"
-//                 name="lastName"
-//                 placeholder="Last Name"
-//                 value={formData.lastName}
-//                 onChange={handleChange}
-//                 required
-//               />
-//               <input
-//                 type="email"
-//                 name="email"
-//                 placeholder="Email Address"
-//                 value={formData.email}
-//                 onChange={handleChange}
-//                 required
-//               />
-//               <input
-//                 type="tel"
-//                 name="contactNumber"
-//                 placeholder="Contact Number"
-//                 value={formData.contactNumber}
-//                 onChange={handleChange}
-//                 required
-//               />
-//               <select
-//                 name="cleaningService"
-//                 value={formData.cleaningService}
-//                 onChange={handleChange}
-//                 required
-//               >
-//                 <option value="">Select Cleaning Service</option>
-//                 <option value="upholstery">
-//                   Upholstery Cleaning - Carpets, Sofas, Mattresses
-//                 </option>
-//                 <option value="office">Office Cleaning</option>
-//                 <option value="tiles">Tiles and Grout Cleaning</option>
-//                 <option value="hardwood">
-//                   Hardwood Floor Cleaning and Polishing
-//                 </option>
-//                 <option value="window">Window Cleaning</option>
-//                 <option value="pressure">Pressure Washing</option>
-//                 <option value="construction">
-//                   Post Construction and Post Renovation Cleaning
-//                 </option>
-//                 <option value="pressure">Home deep cleaning</option>
-//                 <option value="pressure">Fumigation Services</option>
-//               </select>
-//               <textarea
-//                 name="message"
-//                 placeholder="Your Message"
-//                 value={formData.message}
-//                 onChange={handleChange}
-//                 required
-//               ></textarea>
-//               <button type="submit">Submit</button>
-//             </form>
-//           </div>
-//         </main>
+          <div className="quote-form">
+            <h2>Book a session with us</h2>
+            <form onSubmit={handleSubmit}>
+              <input
+                type="text"
+                name="firstName"
+                placeholder="First Name"
+                value={formData.firstName}
+                onChange={handleChange}
+                required
+              />
+              <input
+                type="text"
+                name="lastName"
+                placeholder="Last Name"
+                value={formData.lastName}
+                onChange={handleChange}
+                required
+              />
+              <input
+                type="email"
+                name="email"
+                placeholder="Email Address"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+              <input
+                type="tel"
+                name="contactNumber"
+                placeholder="Contact Number"
+                value={formData.contactNumber}
+                onChange={handleChange}
+                required
+              />
+              <select
+                name="cleaningService"
+                value={formData.cleaningService}
+                onChange={handleChange}
+                required
+              >
+                <option value="">Select Cleaning Service</option>
+                <option value="upholstery">
+                  Upholstery Cleaning - Carpets, Sofas, Mattresses
+                </option>
+                <option value="office">Office Cleaning</option>
+                <option value="tiles">Tiles and Grout Cleaning</option>
+                <option value="hardwood">
+                  Hardwood Floor Cleaning and Polishing
+                </option>
+                <option value="window">Window Cleaning</option>
+                <option value="pressure">Pressure Washing</option>
+                <option value="construction">
+                  Post Construction and Post Renovation Cleaning
+                </option>
+                <option value="pressure">Home deep cleaning</option>
+                <option value="pressure">Fumigation Services</option>
+              </select>
+              <textarea
+                name="message"
+                placeholder="Your Message"
+                value={formData.message}
+                onChange={handleChange}
+                required
+              ></textarea>
+              <button type="submit">Submit</button>
+            </form>
+          </div>
+        </main>
 
-//         <FAQ />
+        <FAQ />
 
-//         <div className="map-container">
-//           <h2 className="contact-title">Visit Us Today</h2>
-//           <iframe
-//             title="Pdavies Cleaning Location"
-//             src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15956.180479975497!2d36.981704!3d-1.128013!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f47361a3faa19%3A0xd26b18fc259c6a58!2sPDavies%20Cleaning%20Company!5e0!3m2!1sen!2ske!4v1721639523868!5m2!1sen!2ske"
-//             width="100%"
-//             height="450"
-//             style={{ border: 0 }}
-//             allowFullScreen=""
-//             loading="lazy"
-//           ></iframe>
-//         </div>
-//       </div>
-//       <section className="cleaning-gallery">
-//         {cleaningImages.map((img, index) => (
-//           <img
-//             key={index}
-//             src={img}
-//             alt={`Cleaning ${index + 1}`}
-//             className="gallery-image"
-//           />
-//         ))}
-//       </section>
-//       <Footer />
-//     </div>
-//   );
-// };
+        <div className="map-container">
+          <h2 className="contact-title">Visit Us Today</h2>
+          <iframe
+            title="Pdavies Cleaning Location"
+            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15956.180479975497!2d36.981704!3d-1.128013!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f47361a3faa19%3A0xd26b18fc259c6a58!2sPDavies%20Cleaning%20Company!5e0!3m2!1sen!2ske!4v1721639523868!5m2!1sen!2ske"
+            width="100%"
+            height="450"
+            style={{ border: 0 }}
+            allowFullScreen=""
+            loading="lazy"
+          ></iframe>
+        </div>
+      </div>
+      <section className="cleaning-gallery">
+        {cleaningImages.map((img, index) => (
+          <img
+            key={index}
+            src={img}
+            alt={`Cleaning ${index + 1}`}
+            className="gallery-image"
+          />
+        ))}
+      </section>
+      <Footer />
+    </div>
+  );
+};
 
-// export default Contact;
+export default Contact;
