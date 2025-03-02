@@ -10,6 +10,7 @@ html {
     flex-direction: column;
     width: 100vw;
     max-width: 100%;
+    font-family: "Roboto Condensed", serif;
 }
 
 .cover-container {

@@ -7,6 +7,7 @@ html {
     overflow-x: hidden;
     font-family: 'Arial', sans-serif;
     background-color: #f8f9fa;
+    font-family: "Roboto Condensed", serif;
 }
 
 .about-page-wrapper {
@@ -20,6 +21,7 @@ html {
     flex: 1;
     width: 100%;
     max-width: 100%;
+    font-family: "Roboto Condensed", serif;
 }
 
 .cover-container {
@@ -44,11 +46,13 @@ html {
     background: rgba(0, 0, 0, 0.5);
     padding: 1rem 2rem;
     border-radius: 10px;
+    font-family: "Roboto Condensed", serif;
 }
 
 .about-content {
     padding: 4rem 2rem;
     background-color: #fff;
+    font-family: "Roboto Condensed", serif;
 }
 
 .about-info {
@@ -168,6 +172,7 @@ html {
 .services-section {
     padding: 4rem 2rem;
     background-color: #f8f9fa;
+    font-family: "Roboto Condensed", serif;
 }
 
 .services-section h2 {
@@ -183,6 +188,7 @@ html {
     gap: 2rem;
     max-width: 1200px;
     margin: 0 auto;
+    font-family: "Roboto Condensed", serif;
 }
 
 .service-card {
@@ -191,6 +197,7 @@ html {
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    font-family: "Roboto Condensed", serif;
 }
 
 .service-card:hover {
@@ -256,6 +263,7 @@ html {
     text-decoration: none;
     font-size: 0.9rem;
     transition: background-color 0.3s ease, color 0.3s ease;
+    font-family: "Roboto Condensed", serif;
 }
 
 .learn-more-btn:hover {

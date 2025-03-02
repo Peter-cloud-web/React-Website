@@ -5,7 +5,7 @@ html {
     padding: 0;
     width: 100%;
     overflow-x: hidden;
-    font-family: "Arial", sans-serif;
+    font-family: "Roboto Condensed", serif;
 }
 
 .cabro-page-wrapper {
@@ -19,6 +19,7 @@ html {
     flex: 1;
     width: 100%;
     max-width: 100%;
+    font-family: "Roboto Condensed", serif;
 }
 
 /* Parallax Cover Section */
@@ -47,6 +48,7 @@ html {
     background: rgba(0, 0, 0, 0.5);
     padding: 1rem 2rem;
     border-radius: 10px;
+    font-family: "Roboto Condensed", serif;
 }
 
 @media (max-width: 767px) {
@@ -60,6 +62,7 @@ html {
 .cabro-content {
     padding: 4rem 2rem;
     background-color: #fff;
+    font-family: "Roboto Condensed", serif;
 }
 
 .about-info {
@@ -68,6 +71,7 @@ html {
     max-width: 1200px;
     margin: 0 auto;
     gap: 2rem;
+    font-family: "Roboto Condensed", serif;
 }
 
 .about-text {
@@ -108,6 +112,7 @@ html {
 .schedule-button-section {
     text-align: center;
     margin: 2rem 0;
+    font-family: "Roboto Condensed", serif;
 }
 
 .schedule-button {
@@ -119,6 +124,7 @@ html {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    font-family: "Roboto Condensed", serif;
 }
 
 .schedule-button:hover {
@@ -137,6 +143,7 @@ html {
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    font-family: "Roboto Condensed", serif;
 }
 
 .modal-content {
@@ -146,6 +153,8 @@ html {
     width: 90%;
     max-width: 500px;
     position: relative;
+    font-family: "Roboto Condensed", serif;
+    
 }
 
 .modal-content h2 {
@@ -174,17 +183,20 @@ html {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    font-family: "Roboto Condensed", serif;
 }
 
 .form-group {
     display: flex;
     flex-direction: column;
+    font-family: "Roboto Condensed", serif;
 }
 
 .form-group label {
     font-size: 1.2rem;
     margin-bottom: 0.5rem;
     color: #333;
+    font-family: "Roboto Condensed", serif;
 }
 
 .date-picker,
@@ -194,6 +206,7 @@ html {
     border: 1px solid #ccc;
     border-radius: 5px;
     width: 100%;
+    font-family: "Roboto Condensed", serif;
 }
 
 .radio-group {
@@ -206,10 +219,12 @@ html {
     align-items: center;
     font-size: 1rem;
     color: #333;
+    font-family: "Roboto Condensed", serif;
 }
 
 .radio-group input[type="radio"] {
     margin-right: 0.5rem;
+    font-family: "Roboto Condensed", serif;
 }
 
 .submit-btn {
@@ -221,10 +236,12 @@ html {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    font-family: "Roboto Condensed", serif;
 }
 
 .submit-btn:hover {
     background-color: #7700cc;
+    font-family: "Roboto Condensed", serif;
 }
 
 /* Image Grid Section */
@@ -265,6 +282,7 @@ html {
     margin-top: 5rem;
     background-color: #f5f5f5;
     padding: 4rem 2rem;
+    font-family: "Roboto Condensed", serif;
 }
 
 /* Cleaning Gallery */
