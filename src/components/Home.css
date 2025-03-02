@@ -106,13 +106,14 @@ html {
   }
 
   .hero-content h1 {
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
 
   .hero-content p {
-    font-size: 1rem;
+    font-size: 0.8rem;
     text-align: center;
     margin: 0 auto 1.5rem;
+    padding-right:2rem;
   }
 
   .hero-content button {
@@ -161,7 +162,25 @@ html {
   .stats-container {
     flex-direction: column;
     align-items: center;
+  
   }
+
+    .stat-number {
+      font-size: 1.8rem;
+      font-weight: bolder;
+      font-family: 'Segoe UI';
+      color: #9900ff;
+      font-family: "Roboto Condensed", sans-serif;
+    }
+
+        .stat-label {
+          font-size: 0.8rem;
+          color: #333;
+          font-weight: bold;
+          font-family: "Roboto Condensed", sans-serif;
+        }
+
+  
 }
 
 /* Service Section */
@@ -259,13 +278,22 @@ html {
     text-align: center;
   }
 
+.our-services h2{
+  font-size: 1.5rem;
+}
+
   .service-description h3 {
-    font-size: 1.5rem;
+    font-size: 1rem;
   }
 
   .service-description p {
-    font-size: 0.7rem;
+    font-size: 0.8rem;
   }
+
+     .services-intro  {
+       font-size: 0.8rem;
+       font-weight: 100;
+     }
 
   .service-images {
     order: -1;
@@ -434,11 +462,19 @@ html {
     margin-bottom: 2rem;
   }
 
+    .social-media-section h2{
+      font-size: 1.5rem;
+    }
+
   .instagram-embed-wrapper {
     max-width: 100%;
     ;
     /* Auto height on mobile */
   }
+
+    .testimonials-section h2{
+      font-size: 1.5rem;
+    }
 }
 
 /* Location Section */
