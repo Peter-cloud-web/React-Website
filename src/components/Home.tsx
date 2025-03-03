@@ -27,18 +27,17 @@ import serviceIllustration from "../assets/service-illu2.png";
 import { useNavigate } from "react-router-dom";
 import Footer from "./Footer";
 import FAQ from "./FAQ";
+import { motion } from "framer-motion"; // Import framer-motion
 
-// Define a type for the props of ErrorBoundary
+// Error Boundary Component
 interface ErrorBoundaryProps {
   children: React.ReactNode;
 }
 
-// Define a type for the state of ErrorBoundary
 interface ErrorBoundaryState {
   hasError: boolean;
 }
 
-// Error Boundary Component
 class ErrorBoundary extends React.Component<
   ErrorBoundaryProps,
   ErrorBoundaryState
@@ -79,6 +78,17 @@ const Home: React.FC = () => {
   const navigate = useNavigate();
   const [isSocialMediaVisible, setIsSocialMediaVisible] = useState(false);
   const socialMediaSectionRef = useRef<HTMLElement>(null); // Specify the type of useRef
+  const heroSectionRef = useRef<HTMLElement>(null);
+  const statsSectionRef = useRef<HTMLElement>(null);
+  const ourServicesSectionRef = useRef<HTMLElement>(null);
+  const testimonialsSectionRef = useRef<HTMLElement>(null);
+
+  const [heroSectionVisible, setHeroSectionVisible] = useState(false);
+  const [statsSectionVisible, setStatsSectionVisible] = useState(false);
+  const [ourServicesSectionVisible, setOurServicesSectionVisible] =
+    useState(false);
+  const [testimonialsSectionVisible, setTestimonialsSectionVisible] =
+    useState(false);
 
   const handleExploreServices = () => {
     navigate("/about");
@@ -153,31 +163,80 @@ const Home: React.FC = () => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setIsSocialMediaVisible(true);
-            observer.unobserve(entry.target); // Stop observing after it becomes visible
+            if (entry.target === socialMediaSectionRef.current) {
+              setIsSocialMediaVisible(true);
+            } else if (entry.target === heroSectionRef.current) {
+              setHeroSectionVisible(true);
+            } else if (entry.target === statsSectionRef.current) {
+              setStatsSectionVisible(true);
+            } else if (entry.target === ourServicesSectionRef.current) {
+              setOurServicesSectionVisible(true);
+            } else if (entry.target === testimonialsSectionRef.current) {
+              setTestimonialsSectionVisible(true);
+            }
+            observer.unobserve(entry.target); // Unobserve after it becomes visible
           }
         });
       },
       {
-        root: null, // Use the viewport as the root
-        threshold: 0.1, // Trigger when 10% of the section is visible
+        root: null,
+        threshold: 0.2, // Adjust as needed
       }
     );
 
     if (socialMediaSectionRef.current) {
       observer.observe(socialMediaSectionRef.current);
     }
+    if (heroSectionRef.current) {
+      observer.observe(heroSectionRef.current);
+    }
+    if (statsSectionRef.current) {
+      observer.observe(statsSectionRef.current);
+    }
+    if (ourServicesSectionRef.current) {
+      observer.observe(ourServicesSectionRef.current);
+    }
+    if (testimonialsSectionRef.current) {
+      observer.observe(testimonialsSectionRef.current);
+    }
 
     return () => {
       if (socialMediaSectionRef.current) {
         observer.unobserve(socialMediaSectionRef.current);
       }
+      if (heroSectionRef.current) {
+        observer.unobserve(heroSectionRef.current);
+      }
+      if (statsSectionRef.current) {
+        observer.unobserve(statsSectionRef.current);
+      }
+      if (ourServicesSectionRef.current) {
+        observer.unobserve(ourServicesSectionRef.current);
+      }
+      if (testimonialsSectionRef.current) {
+        observer.unobserve(testimonialsSectionRef.current);
+      }
     };
   }, []);
 
+  const sectionVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: "easeOut" },
+    },
+  };
+
   return (
     <div className="home">
-      <div className="hero-container">
+      <motion.div
+        className="hero-container"
+        ref={heroSectionRef}
+        variants={sectionVariants}
+        initial="hidden"
+        animate={heroSectionVisible ? "visible" : "hidden"}
+      >
         <div className="hero-illustration">
           <img src={serviceIllustration} alt="Service Illustration" />
           <div className="ovals-background"></div>
@@ -193,9 +252,15 @@ const Home: React.FC = () => {
             Learn More
           </button>
         </div>
-      </div>
+      </motion.div>
 
-      <section className="stats-section">
+      <motion.section
+        className="stats-section"
+        ref={statsSectionRef}
+        variants={sectionVariants}
+        initial="hidden"
+        animate={statsSectionVisible ? "visible" : "hidden"}
+      >
         <div className="stats-container">
           <StatCounter
             icon={CarpetCleaningIcon}
@@ -228,8 +293,15 @@ const Home: React.FC = () => {
             label="Offices Cleaned"
           />
         </div>
-      </section>
-      <section className="our-services">
+      </motion.section>
+
+      <motion.section
+        className="our-services"
+        ref={ourServicesSectionRef}
+        variants={sectionVariants}
+        initial="hidden"
+        animate={ourServicesSectionVisible ? "visible" : "hidden"}
+      >
         <h2>Our Services</h2>
         <p className="services-intro">
           At Pdavies Cleaning, we offer a comprehensive range of professional
@@ -262,9 +334,15 @@ const Home: React.FC = () => {
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
-      <section className="testimonials-section">
+      <motion.section
+        className="testimonials-section"
+        ref={testimonialsSectionRef}
+        variants={sectionVariants}
+        initial="hidden"
+        animate={testimonialsSectionVisible ? "visible" : "hidden"}
+      >
         <h2 style={{ color: "#9900ff" }}>What People Are Saying About Us</h2>
         <p className="services-intro">
           Reputation is everything here at Pdavies Cleaning and one of our
@@ -288,7 +366,8 @@ const Home: React.FC = () => {
             </div>
           ))}
         </div>
-      </section>
+      </motion.section>
+
       <section className="social-media-section" ref={socialMediaSectionRef}>
         <h2>Follow Us on Social Media</h2>
         <p className="services-intro">
@@ -374,7 +453,7 @@ const Home: React.FC = () => {
             height="450"
             style={{ border: 0 }}
             loading="lazy"
-          />
+          ></iframe>
         </div>
         <FAQ />
       </section>

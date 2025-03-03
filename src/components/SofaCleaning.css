@@ -121,6 +121,7 @@ body {
     .about-text {
         max-width: 50%;
     }
+
 }
 
 @media (max-width: 767px) {
@@ -158,6 +159,10 @@ body {
 
     .image-2 {
         transform: translate(30%, 10%) rotate(5deg);
+    }
+
+    h2 {
+        font-size: 2rem;
     }
 }
 
