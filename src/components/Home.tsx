@@ -440,7 +440,7 @@ const Home: React.FC = () => {
       <section className="location-section">
         <h2>Our Offices</h2>
         <p className="services-intro">
-          Pdavies cleaning is located in Ruiru, Toll Estate but for any of our
+          Pdavies Cleaning is located in Ruiru, Toll Estate but for any of our
           cleaning services we can come to your premises, our equipments are
           easily portable and these makes it convenient for both of us from a
           business standpoint.
