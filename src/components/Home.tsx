@@ -103,10 +103,58 @@ const Home: React.FC = () => {
     cleaning8,
   ];
 
-  const reviews: Review[] = [
-    // Reviews unchanged, omitted for brevity
-    // ...
-  ];
+const reviews: Review[] = [
+  {
+    name: "John",
+    location: "Juja",
+    text: "My sofas dried on time without causing any inconvenience. I commend your job",
+  },
+  {
+    name: "Sarah",
+    location: "Roysambu",
+    text: "The sofas turned out so clean, I will surely refer you to my friends.",
+  },
+  {
+    name: "Mike",
+    location: "Ruiru",
+    text: "Good job on the Carpets",
+  },
+  {
+    name: "Emma",
+    location: "Kamakis",
+    text: "Job well done on the office furnitures and carpet. My boss was happy with the job",
+  },
+  {
+    name: "David",
+    location: "Kasarani",
+    text: "Nice job on the carpet and the sofas",
+  },
+  {
+    name: "Lisa",
+    location: "Thika",
+    text: "Exceptional work",
+  },
+  {
+    name: "Robert",
+    location: "Pangani",
+    text: "The seats are now dust free. Good job",
+  },
+  {
+    name: "Anna",
+    location: "Eastern-Bypass",
+    text: "They go above and beyond. Truly satisfied customer.",
+  },
+  {
+    name: "James",
+    location: "Juja farm",
+    text: "Good job on the stains, i did't expect the results",
+  },
+  {
+    name: "Olivia",
+    location: "Kenyatta - road",
+    text: "Kazi safi sana. Thank you",
+  },
+];
 
   useEffect(() => {
     const observer = new IntersectionObserver(
