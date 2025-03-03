@@ -18,6 +18,7 @@ import SofaCleaningServices from "./components/SofaCleaning";
 import HomeDeepCleaning from "./components/HomeCleaning"
 import BlogPost from "./components/BlogPost";
 import AdminRedirect from "./components/AdminRedirect";
+import { FloatingWhatsApp } from 'react-floating-whatsapp';
 
 
 
@@ -26,6 +27,15 @@ function App() {
     <Router>
       <div className="App">
         <Header />
+
+        <FloatingWhatsApp
+          phoneNumber="+254759489245" // Replace with your phone number (international format, e.g., +12025550123)
+          accountName="Pdavies Cleaning Services"
+          chatMessage="Hello! How can we assist you today?"
+          statusMessage="Typically replies within 1 minute"
+          placeholder="Type a message..."
+        />
+
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
