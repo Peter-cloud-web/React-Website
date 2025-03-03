@@ -3,3 +3,34 @@
   background-color: white;
 
 }
+
+/* Override FloatingWhatsApp default styles */
+.floating-whatsapp {
+  z-index: 1000;
+  /* Ensure it stays on top of other elements */
+  padding-bottom: 50px;
+}
+
+/* Default position for larger screens */
+.floating-whatsapp .whatsapp-float {
+  padding-bottom: 50px;
+  /* Default bottom position */
+  right: 20px;
+}
+
+/* Adjust position for mobile screens */
+@media screen and (max-width: 767px) {
+  .floating-whatsapp .whatsapp-float {
+    bottom: 50px;
+    /* Push it up on mobile to avoid overlap */
+    right: 15px;
+    /* Slightly adjust for smaller screens */
+
+    .floating-whatsapp {
+        z-index: 1000;
+        /* Ensure it stays on top of other elements */
+        padding-bottom: 50px;
+      }
+  }
+
+

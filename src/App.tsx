@@ -34,6 +34,7 @@ function App() {
           chatMessage="Hello! How can we assist you today?"
           statusMessage="Typically replies within 1 minute"
           placeholder="Type a message..."
+          className="floating-whatsapp"
         />
 
         <Routes>
