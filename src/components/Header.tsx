@@ -86,6 +86,7 @@ const Header: React.FC = () => {
   };
 
   const handleBookSession = () => {
+    navigate("/contact"); 
     setIsMenuOpen(false);
     setIsPopupOpen(true);
   };
