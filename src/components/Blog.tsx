@@ -11,7 +11,9 @@ const Blog: React.FC = () => {
 
   useEffect(() => {
     // Fetch blog posts with embedded featured media
-    fetch("http://localhost/wordpress/wp-json/wp/v2/posts?_embed")
+    fetch(
+      "https://pdaviescleaningservices.netlify.app/wordpress/wp-json/wp/v2/posts?_embed"
+    )
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to fetch blog posts");

@@ -19,7 +19,9 @@ const BlogPost: React.FC = () => {
 
   useEffect(() => {
     // Fetch the blog post by slug
-    fetch(`http://localhost/wordpress/wp-json/wp/v2/posts?slug=${slug}`)
+    fetch(
+      `https://pdaviescleaningservices.netlify.app//wordpress/wp-json/wp/v2/posts?slug=${slug}`
+    )
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to fetch blog post");
@@ -31,7 +33,7 @@ const BlogPost: React.FC = () => {
           setPost(data[0]);
           // Fetch comments for the post
           fetch(
-            `http://localhost/wordpress/wp-json/wp/v2/comments?post=${data[0].id}`
+            `https://pdaviescleaningservices.netlify.app//wordpress/wp-json/wp/v2/comments?post=${data[0].id}`
           )
             .then((response) => response.json())
             .then((commentsData) => setComments(commentsData))
@@ -59,7 +61,7 @@ const BlogPost: React.FC = () => {
     setCommentError(null);
     try {
       const response = await fetch(
-        `http://localhost/wordpress/wp-json/wp/v2/comments`,
+        `https://pdaviescleaningservices.netlify.app//wordpress/wp-json/wp/v2/comments`,
         {
           method: "POST",
           headers: {

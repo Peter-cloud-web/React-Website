@@ -18,11 +18,11 @@ html {
 
 /* Hero Section */
 .hero-container {
-  width: 100%;
-  height: calc(100vh - 80px);
+
   display: flex;
   align-items: center;
-  padding: 0 2rem;
+  padding-top: 100px;
+  padding-bottom: 50px;
   background-color: #ffffff;
   overflow: hidden;
   position: relative;
@@ -31,7 +31,7 @@ html {
 
 .hero-illustration {
   flex: 1;
-  height: 100%;
+  height: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -40,8 +40,9 @@ html {
 
 .hero-illustration img {
   max-width: 70%;
-  height: auto;
+  height: 550px;
   object-fit: contain;
+  padding-bottom: 50px;
 }
 
 .hero-content {
@@ -91,17 +92,23 @@ html {
 
 @media (max-width: 992px) {
   .hero-container {
-    flex-direction: column;
+    
     height: auto;
-    padding: 2rem 1rem;
+    padding: 1rem 1rem;
   }
 
+    .hero-illustration img {
+    
+      height: 200px;
+      width: 200px;
+    }
+
   .hero-illustration {
-    padding: 1rem;
+    padding: 0rem;
   }
 
   .hero-content {
-    padding: 1rem;
+    padding: 0rem;
     text-align: center;
   }
 
@@ -113,7 +120,7 @@ html {
     font-size: 0.8rem;
     text-align: center;
     margin: 0 auto 1.5rem;
-    padding-right:2rem;
+    
   }
 
   .hero-content button {
