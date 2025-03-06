@@ -11,18 +11,14 @@ html {
 
 .home {
   padding-top: 70px;
-  /* Adjust this value to match your header height */
   width: 100vw;
   max-width: 100%;
 }
 
 /* Hero Section */
 .hero-container {
-
   display: flex;
   align-items: center;
-  padding-top: 100px;
-  padding-bottom: 50px;
   background-color: #ffffff;
   overflow: hidden;
   position: relative;
@@ -31,18 +27,15 @@ html {
 
 .hero-illustration {
   flex: 1;
-  height: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
 }
 
 .hero-illustration img {
-  max-width: 70%;
-  height: 550px;
+  max-width: 100%;
+  height: auto;
   object-fit: contain;
-  padding-bottom: 50px;
 }
 
 .hero-content {
@@ -90,18 +83,14 @@ html {
   background-color: #7700cc;
 }
 
-@media (max-width: 992px) {
-  .hero-container {
-    
-    height: auto;
-    padding: 1rem 1rem;
+@media (max-width: 768px) {
+  .hero-illustration img {
+    max-height: 300px;
   }
 
-    .hero-illustration img {
-    
-      height: 200px;
-      width: 200px;
-    }
+  .hero-container {
+    flex-direction: column;
+  }
 
   .hero-illustration {
     padding: 0rem;
@@ -120,7 +109,7 @@ html {
     font-size: 0.8rem;
     text-align: center;
     margin: 0 auto 1.5rem;
-    
+    padding-right: 2rem;
   }
 
   .hero-content button {
