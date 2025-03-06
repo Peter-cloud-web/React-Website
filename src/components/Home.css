@@ -52,7 +52,7 @@ html {
   font-size: 3.5rem;
   font-weight: bolder;
   font-family: "Rowdies", sans-serif;
-
+  padding-right: 2rem;
   margin-bottom: 1.5rem;
   color: #7700cc;
 }
@@ -102,7 +102,7 @@ html {
   }
 
   .hero-content h1 {
-    font-size: 1.8rem;
+    font-size: 2rem;
   }
 
   .hero-content p {
