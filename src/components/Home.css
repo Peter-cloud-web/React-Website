@@ -27,15 +27,18 @@ html {
 
 .hero-illustration {
   flex: 1;
+  height: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
+  
 }
 
 .hero-illustration img {
-  max-width: 100%;
-  height: auto;
+  max-width: 70%;
+  height: 550px;
   object-fit: contain;
+  padding-bottom: 0px;
 }
 
 .hero-content {
@@ -51,8 +54,8 @@ html {
 .hero-content h1 {
   font-size: 3.5rem;
   font-weight: bolder;
-  font-family: "Rowdies", sans-serif;
-  padding-right: 2rem;
+  font-family: "Roboto Condensed", sans-serif;
+
   margin-bottom: 1.5rem;
   color: #7700cc;
 }
@@ -84,10 +87,6 @@ html {
 }
 
 @media (max-width: 768px) {
-  .hero-illustration img {
-    max-height: 300px;
-  }
-
   .hero-container {
     flex-direction: column;
   }
@@ -109,8 +108,7 @@ html {
     font-size: 0.8rem;
     text-align: center;
     margin: 0 auto 1.5rem;
-    padding-right: 2rem;
-    padding-left: 2rem;
+    padding-right:2rem;
   }
 
   .hero-content button {
