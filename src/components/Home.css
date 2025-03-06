@@ -11,14 +11,18 @@ html {
 
 .home {
   padding-top: 70px;
+  /* Adjust this value to match your header height */
   width: 100vw;
   max-width: 100%;
 }
 
 /* Hero Section */
 .hero-container {
+  width: 100%;
+  height: calc(100vh - 80px);
   display: flex;
   align-items: center;
+  padding: 0 2rem;
   background-color: #ffffff;
   overflow: hidden;
   position: relative;
@@ -27,18 +31,17 @@ html {
 
 .hero-illustration {
   flex: 1;
-  height: 200px;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  
+  padding: 2rem;
 }
 
 .hero-illustration img {
   max-width: 70%;
-  height: 550px;
+  height: auto;
   object-fit: contain;
-  padding-bottom: 0px;
 }
 
 .hero-content {
@@ -86,17 +89,19 @@ html {
   background-color: #7700cc;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 992px) {
   .hero-container {
     flex-direction: column;
+    height: auto;
+    padding: 2rem 1rem;
   }
 
   .hero-illustration {
-    padding: 0rem;
+    padding: 1rem;
   }
 
   .hero-content {
-    padding: 0rem;
+    padding: 1rem;
     text-align: center;
   }
 
