@@ -18,19 +18,17 @@
   right: 20px;
 }
 
-/* Adjust position for mobile screens */
 @media screen and (max-width: 767px) {
   .floating-whatsapp .whatsapp-float {
     bottom: 50px;
-    /* Push it up on mobile to avoid overlap */
     right: 15px;
-    /* Slightly adjust for smaller screens */
-
-    .floating-whatsapp {
-        z-index: 1000;
-        /* Ensure it stays on top of other elements */
-        padding-bottom: 50px;
-      }
   }
+
+  /* This part was incorrectly nested */
+  .floating-whatsapp {
+    z-index: 1000;
+    padding-bottom: 50px;
+  }
+}
 
 
