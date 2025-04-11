@@ -231,25 +231,54 @@ const reviews: Review[] = [
       {/* Fix 2: Correct ref typing matches motion.div */}
       <motion.div
         className="hero-container"
-        ref={heroSectionRef} // Line 235 - now correctly typed
-        variants={sectionVariants}
+        ref={heroSectionRef}
+        variants={{
+          hidden: { opacity: 0, y: 50 },
+          visible: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.8, ease: "easeOut" },
+          },
+        }}
         initial="hidden"
         animate={heroSectionVisible ? "visible" : "hidden"}
       >
-        <div className="hero-illustration">
-          <img src={serviceIllustration} alt="Service Illustration" />
-          <div className="ovals-background"></div>
-        </div>
         <div className="hero-content">
-          <h1>Welcome to PDavies Cleaning Solutions</h1>
-          <p>
-            We offer comprehensive cleaning solutions for both commercial
-            establishments and private residences, ensuring that individuals can
-            live and work in clean and healthy environments.
-          </p>
-          <button className="Learnmore-Button" onClick={handleExploreServices}>
-            Learn More
-          </button>
+          <motion.h1
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.3, duration: 0.8 }}
+          >
+            Professional Cleaning Solutions
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.5, duration: 0.8 }}
+          >
+            We provide comprehensive cleaning services for commercial and
+            residential spaces, ensuring healthier environments for living and
+            working.
+          </motion.p>
+          <motion.div
+            className="hero-buttons"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7, duration: 0.8 }}
+          >
+            <button className="primary-button">Get a Quote</button>
+            <button className="secondary-button">Our Services</button>
+          </motion.div>
+        </div>
+        <div className="hero-illustration">
+          <motion.img
+            src={serviceIllustration}
+            alt="Professional Cleaning Services"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.3, duration: 0.8 }}
+          />
+          <div className="hero-background"></div>
         </div>
       </motion.div>
 
