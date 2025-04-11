@@ -251,7 +251,7 @@
     padding-left: 1.5rem;
 }
 
-/* Mobile header styling */
+/* Mobile header styling - IMPROVED */
 @media (max-width: 992px) {
     .header {
         height: 70px;
@@ -317,6 +317,81 @@
     }
 }
 
+/* IMPROVED Mobile Header Styling */
+.header.mobile {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    padding: 10px 0;
+    height: auto;
+}
+
+.mobile-top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 15px;
+}
+
+.header.mobile .logo-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0;
+}
+
+.header.mobile .logo {
+    height: 45px;
+    width: auto;
+}
+
+.mobile-contact-info {
+    display: flex;
+    align-items: center;
+    background-color: #f9f0ff;
+    padding: 8px 15px;
+    width: 100%;
+    margin-top: 5px;
+    justify-content: center;
+    border-top: 1px solid #f0e0ff;
+    border-bottom: 1px solid #f0e0ff;
+}
+
+.mobile-contact-info .phone-numbers-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mobile-contact-info .call-icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+}
+
+.mobile-contact-info .phone-numbers {
+    font-size: 14px;
+    font-weight: 600;
+    color: #9900ff;
+    white-space: nowrap;
+}
+
+.header.mobile .book-session-btn {
+    height: auto;
+    padding: 0.6rem 1.2rem;
+    font-size: 14px;
+    margin: 0;
+    box-shadow: 0 2px 5px rgba(153, 0, 255, 0.2);
+}
+
 /* Bottom Navigation Styles */
 .bottom-nav {
     display: none;
@@ -361,46 +436,15 @@
     filter: brightness(0) saturate(100%) invert(24%) sepia(93%) saturate(7471%) hue-rotate(272deg) brightness(89%) contrast(142%);
 }
 
-.header.mobile {
-    background-color: white;
-    width: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
-    padding: 10px 0;
-    height: auto;
-}
-
-.header.mobile .logo-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    padding: 0 1rem;
-}
-
-.header.mobile .logo {
-    height: 45px;
-    width: auto;
-}
-
-.logo-container .book-session-btn {
-    height: auto;
-    padding: 0.6rem 1rem;
-    font-size: 13px;
-    margin: 0;
-    box-shadow: 0 2px 5px rgba(153, 0, 255, 0.2);
-}
-
 @media (max-width: 768px) {
     .header.desktop {
         display: none;
     }
 
-    .header.mobile,
+    .header.mobile {
+        display: flex;
+    }
+
     .bottom-nav {
         display: flex;
     }
@@ -440,23 +484,24 @@
 
     /* Add padding to the main content */
     main {
-        padding-top: 65px;
+        padding-top: 100px;
+        /* Increased to account for contact info bar */
         padding-bottom: 70px;
     }
 }
 
 /* Additional mobile optimizations */
 @media (max-width: 576px) {
-    .header.mobile .logo-container {
-        padding: 0 0.8rem;
+    .mobile-top-row {
+        padding: 0 12px;
     }
 
     .header.mobile .logo {
         height: 40px;
     }
 
-    .logo-container .book-session-btn {
+    .header.mobile .book-session-btn {
         padding: 0.5rem 0.8rem;
-        font-size: 12px;
+        font-size: 13px;
     }
 }

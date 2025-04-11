@@ -17,7 +17,6 @@ const Header: React.FC = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isServicesDropdownOpen, setIsServicesDropdownOpen] = useState(false);
 
-  // Fixed: Changed to two separate refs for desktop and mobile dropdowns
   const desktopDropdownRef = useRef<HTMLLIElement>(null);
   const mobileDropdownRef = useRef<HTMLDivElement>(null);
 
@@ -173,7 +172,6 @@ const Header: React.FC = () => {
                   About Us
                 </Link>
               </li>
-              {/* Fixed: Using the correct ref type for <li> element */}
               <li className="services-dropdown" ref={desktopDropdownRef}>
                 <span onClick={toggleServicesDropdown}>Our Services</span>
                 <ul
@@ -226,17 +224,28 @@ const Header: React.FC = () => {
   const renderMobileHeader = () => (
     <>
       <header className="header mobile">
-        <div className="logo-container">
-          <Link to="/">
-            <img
-              src={logo}
-              alt="Professional Cleaning Services"
-              className="logo"
-            />
-          </Link>
+        {/* New top row with logo and button */}
+        <div className="mobile-top-row">
+          <div className="logo-container">
+            <Link to="/">
+              <img
+                src={logo}
+                alt="Professional Cleaning Services"
+                className="logo"
+              />
+            </Link>
+          </div>
           <button className="book-session-btn" onClick={handleBookSession}>
-            Book Now
+            Book a Session
           </button>
+        </div>
+
+        {/* New contact info bar */}
+        <div className="mobile-contact-info">
+          <div className="phone-numbers-container">
+            <img src={callIcon} alt="Call" className="call-icon" />
+            <p className="phone-numbers">0719678943 / 0716986935</p>
+          </div>
         </div>
       </header>
 
@@ -249,7 +258,6 @@ const Header: React.FC = () => {
           <img src={aboutIcon} alt="About" />
           <span>About</span>
         </Link>
-        {/* Fixed: Using the correct ref type for mobile dropdown */}
         <div className="services-dropdown" ref={mobileDropdownRef}>
           <span onClick={toggleServicesDropdown}>
             <img src={servicesIcon} className="service-icon" alt="Services" />
