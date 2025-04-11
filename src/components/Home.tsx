@@ -88,9 +88,6 @@ const Home: React.FC = () => {
   const [testimonialsSectionVisible, setTestimonialsSectionVisible] =
     useState(false);
 
-  const handleExploreServices = () => {
-    navigate("/about");
-  };
 
   const cleaningImages = [
     cleaning1,
