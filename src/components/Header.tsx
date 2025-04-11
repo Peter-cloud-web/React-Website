@@ -7,7 +7,7 @@ import aboutIcon from "../assets/aboutIcon.png";
 import servicesIcon from "../assets/servicesIcon2.png";
 import blogIcon from "../assets/blogIcon.png";
 import PopupForm from "./PopupForm";
-import "./Header.css"
+import "./Header.css";
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -19,7 +19,8 @@ const Header: React.FC = () => {
 
   const desktopDropdownRef = useRef<HTMLLIElement>(null);
   const mobileDropdownRef = useRef<HTMLDivElement>(null);
-  const mobileServicesRef = useRef<HTMLDivElement>(null);
+  // Remove the unused ref
+  // const mobileServicesRef = useRef<HTMLDivElement>(null);
 
   const services = [
     {
@@ -65,26 +66,26 @@ const Header: React.FC = () => {
     },
   ];
 
- const toggleServicesDropdown = (e: React.MouseEvent) => {
-   e.preventDefault();
-   e.stopPropagation();
-   setIsServicesDropdownOpen(!isServicesDropdownOpen);
-   setIsMenuOpen(false);
+  const toggleServicesDropdown = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsServicesDropdownOpen(!isServicesDropdownOpen);
+    setIsMenuOpen(false);
 
-   // When opening service dropdown, prevent body scrolling
-   if (!isServicesDropdownOpen) {
-     document.body.classList.add("no-scroll");
-   } else {
-     document.body.classList.remove("no-scroll");
-   }
- };
+    // When opening service dropdown, prevent body scrolling
+    if (!isServicesDropdownOpen) {
+      document.body.classList.add("no-scroll");
+    } else {
+      document.body.classList.remove("no-scroll");
+    }
+  };
 
- const handleServiceClick = (servicePath: string) => {
-   navigate(servicePath);
-   setIsServicesDropdownOpen(false);
-   setIsMenuOpen(false);
-   document.body.classList.remove("no-scroll");
- };
+  const handleServiceClick = (servicePath: string) => {
+    navigate(servicePath);
+    setIsServicesDropdownOpen(false);
+    setIsMenuOpen(false);
+    document.body.classList.remove("no-scroll");
+  };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -136,11 +137,11 @@ const Header: React.FC = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-useEffect(() => {
-  setIsMenuOpen(false);
-  setIsServicesDropdownOpen(false);
-  document.body.classList.remove("no-scroll");
-}, [location.pathname]);
+  useEffect(() => {
+    setIsMenuOpen(false);
+    setIsServicesDropdownOpen(false);
+    document.body.classList.remove("no-scroll");
+  }, [location.pathname]);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -154,12 +155,6 @@ useEffect(() => {
   const handleClosePopup = () => {
     setIsPopupOpen(false);
   };
-
-  // // Handle closing the mobile services dropdown
-  // const handleCloseMobileServices = () => {
-  //   setIsServicesDropdownOpen(false);
-  //   document.body.style.overflow = '';
-  // };
 
   // Check if the current route matches the link
   const isActive = (path: string) => {
