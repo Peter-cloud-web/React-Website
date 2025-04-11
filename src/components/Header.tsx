@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import "./Header.css";
 import logo from "../assets/logo.png";
 import callIcon from "../assets/contactIcon.png";
 import homeIcon from "../assets/homeIcon.png";
@@ -8,20 +7,16 @@ import aboutIcon from "../assets/aboutIcon.png";
 import servicesIcon from "../assets/servicesIcon2.png";
 import blogIcon from "../assets/blogIcon.png";
 import PopupForm from "./PopupForm";
+import "./Header.css"
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const navigate = useNavigate();
   const location = useLocation();
-  const [isPopupOpen, setIsPopupOpen] = useState(false); // New state for popup
-
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isServicesDropdownOpen, setIsServicesDropdownOpen] = useState(false);
-
-  const toggleServicesDropdown = () => {
-    setIsServicesDropdownOpen(!isServicesDropdownOpen);
-    setIsMenuOpen(false);
-  };
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const services = [
     {
@@ -67,85 +62,148 @@ const Header: React.FC = () => {
     },
   ];
 
-  const handleServiceClick = (servicePath:string) => {
+  const toggleServicesDropdown = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsServicesDropdownOpen(!isServicesDropdownOpen);
+    setIsMenuOpen(false);
+  };
+
+  const handleServiceClick = (servicePath: string) => {
     navigate(servicePath);
     setIsServicesDropdownOpen(false);
+    setIsMenuOpen(false);
   };
+
+  // Handle clicks outside of dropdown to close it
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsServicesDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
+      if (window.innerWidth > 768) {
+        setIsMenuOpen(false);
+      }
     };
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // Close menu when route changes
+  useEffect(() => {
+    setIsMenuOpen(false);
+    setIsServicesDropdownOpen(false);
+  }, [location.pathname]);
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+    setIsServicesDropdownOpen(false);
   };
 
   const handleBookSession = () => {
-    navigate("/contact"); 
+    navigate("/contact");
   };
 
   const handleClosePopup = () => {
     setIsPopupOpen(false);
   };
 
+  // Check if the current route matches the link
+  const isActive = (path: string) => {
+    return location.pathname === path;
+  };
+
   const renderDesktopHeader = () => (
     <>
       <header className="header">
         <div className="header-content">
-          <button className="menu-toggle" onClick={toggleMenu}>
+          <div className="logo-container">
+            <Link to="/">
+              <img
+                src={logo}
+                alt="Professional Cleaning Services"
+                className="logo"
+              />
+            </Link>
+          </div>
+
+          <button
+            className="menu-toggle"
+            onClick={toggleMenu}
+            aria-label="Toggle menu"
+          >
             ☰
           </button>
-          <div className="logo-container">
-            <img src={logo} alt="Company Logo" className="logo" />
-          </div>
+
           <nav className={isMenuOpen ? "open" : ""}>
             <ul>
               <li>
-                <Link to="/">Home</Link>
+                <Link to="/" className={isActive("/") ? "active" : ""}>
+                  Home
+                </Link>
               </li>
               <li>
-                <Link to="/about">About Us</Link>
-              </li>
-              <li className="services-dropdown">
-                <span
-                  style={{ color: "black", fontWeight: "400" }}
-                  onClick={toggleServicesDropdown}
+                <Link
+                  to="/about"
+                  className={isActive("/about") ? "active" : ""}
                 >
-                  Our Services
-                </span>
-                {isServicesDropdownOpen && (
-                  <ul className="dropdown-menu">
-                    {services.map((service) => (
-                      <li
-                        key={service.id}
-                        style={{ color: "black", fontWeight: "500" }}
-                        onClick={() => handleServiceClick(service.path)}
-                      >
-                        {service.title}
-                      </li>
-                    ))}
-                  </ul>
-                )}
+                  About Us
+                </Link>
+              </li>
+              <li className="services-dropdown" ref={dropdownRef}>
+                <span onClick={toggleServicesDropdown}>Our Services</span>
+                <ul
+                  className={`dropdown-menu ${
+                    isServicesDropdownOpen ? "open" : ""
+                  }`}
+                >
+                  {services.map((service) => (
+                    <li
+                      key={service.id}
+                      onClick={() => handleServiceClick(service.path)}
+                    >
+                      {service.title}
+                    </li>
+                  ))}
+                </ul>
               </li>
               <li>
-                <Link to="/blog">Blog</Link>
+                <Link to="/blog" className={isActive("/blog") ? "active" : ""}>
+                  Blog
+                </Link>
               </li>
               <li>
-                <Link to="/contact">Contact Us</Link>
+                <Link
+                  to="/contact"
+                  className={isActive("/contact") ? "active" : ""}
+                >
+                  Contact Us
+                </Link>
               </li>
             </ul>
           </nav>
+
           <div className="contact-info">
             <div className="phone-numbers-container">
               <img src={callIcon} alt="Call" className="call-icon" />
               <p className="phone-numbers">0719678943 / 0716986935</p>
             </div>
           </div>
+
           <button className="book-session-btn" onClick={handleBookSession}>
             Book a Cleaning Session
           </button>
@@ -155,35 +213,43 @@ const Header: React.FC = () => {
     </>
   );
 
-  const renderMobileBottomNav = () => (
+  const renderMobileHeader = () => (
     <>
       <header className="header mobile">
         <div className="logo-container">
-          <img src={logo} alt="Company Logo" className="logo" />
+          <Link to="/">
+            <img
+              src={logo}
+              alt="Professional Cleaning Services"
+              className="logo"
+            />
+          </Link>
           <button className="book-session-btn" onClick={handleBookSession}>
-            Book a Cleaning Session
+            Book Now
           </button>
         </div>
       </header>
+
       <nav className="bottom-nav">
-        <Link to="/" className={location.pathname === "/" ? "active" : ""}>
+        <Link to="/" className={isActive("/") ? "active" : ""}>
           <img src={homeIcon} alt="Home" />
           <span>Home</span>
         </Link>
-        <Link
-          to="/about"
-          className={location.pathname === "/about" ? "active" : ""}
-        >
+        <Link to="/about" className={isActive("/about") ? "active" : ""}>
           <img src={aboutIcon} alt="About" />
           <span>About</span>
         </Link>
-        <div className="services-dropdown">
+        <div className="services-dropdown" ref={dropdownRef}>
           <span onClick={toggleServicesDropdown}>
             <img src={servicesIcon} className="service-icon" alt="Services" />
             <span>Services</span>
           </span>
           {isServicesDropdownOpen && (
-            <ul className="dropdown-menu">
+            <ul
+              className={`dropdown-menu ${
+                isServicesDropdownOpen ? "open" : ""
+              }`}
+            >
               {services.map((service) => (
                 <li
                   key={service.id}
@@ -195,26 +261,21 @@ const Header: React.FC = () => {
             </ul>
           )}
         </div>
-        <Link
-          to="/blog"
-          className={location.pathname === "/blog" ? "active" : ""}
-        >
+        <Link to="/blog" className={isActive("/blog") ? "active" : ""}>
           <img src={blogIcon} alt="Blog" />
           <span>Blog</span>
         </Link>
-        <Link
-          to="/contact"
-          className={location.pathname === "/contact" ? "active" : ""}
-        >
+        <Link to="/contact" className={isActive("/contact") ? "active" : ""}>
           <img src={callIcon} alt="Contact" />
           <span>Contact</span>
         </Link>
       </nav>
+
       {isPopupOpen && <PopupForm onClose={handleClosePopup} />}
     </>
   );
 
-  return <>{isMobile ? renderMobileBottomNav() : renderDesktopHeader()}</>;
+  return <>{isMobile ? renderMobileHeader() : renderDesktopHeader()}</>;
 };
 
 export default Header;

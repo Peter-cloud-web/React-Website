@@ -1,3 +1,4 @@
+/* Professional Header Styling */
 .header {
     background-color: white;
     width: 100%;
@@ -6,15 +7,18 @@
     left: 0;
     right: 0;
     z-index: 1000;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    font-family: "Roboto Condensed", sans-serif;
-    color: #000000;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    font-family: "Roboto", sans-serif;
+    color: #333333;
+    height: 80px;
+    transition: all 0.3s ease;
 }
 
 .header-content {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0.5rem;
+    padding: 0 1.5rem;
+    height: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -22,11 +26,14 @@
 
 .logo-container {
     flex-shrink: 0;
+    display: flex;
+    align-items: center;
 }
 
 .logo {
-    height: 70px;
+    height: 60px;
     width: auto;
+    transition: all 0.3s ease;
 }
 
 .menu-toggle {
@@ -35,11 +42,20 @@
     border: none;
     font-size: 1.5rem;
     cursor: pointer;
+    color: #555;
     padding: 0.5rem;
+    transition: color 0.3s ease;
 }
 
+.menu-toggle:hover {
+    color: #9900ff;
+}
+
+/* Navigation styling */
 .header nav {
     flex-grow: 1;
+    display: flex;
+    justify-content: center;
 }
 
 .header nav ul {
@@ -52,41 +68,69 @@
 }
 
 .header nav ul li {
-    margin: 0 0.5rem;
+    margin: 0 1rem;
+    position: relative;
 }
 
 .header nav ul li a {
     text-decoration: none;
-    color: #333;
+    color: #444;
     font-weight: 500;
-    font-size: 14px;
+    font-size: 15px;
     padding: 0.7rem 0.5rem;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.header nav ul li a:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #9900ff;
+    transition: width 0.3s ease;
 }
 
 .header nav ul li a:hover {
-    color: #007bff;
+    color: #9900ff;
 }
 
+.header nav ul li a:hover:after,
+.header nav ul li a.active:after {
+    width: 100%;
+}
+
+/* Call to action button styling */
 .book-session-btn {
     background-color: #9900ff;
     color: white;
     border: none;
-    padding: 0.8rem 1rem;
-    font-size: 14px;
-    font-weight: 500;
+    padding: 0.8rem 1.5rem;
+    font-size: 15px;
+    font-weight: 600;
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
     white-space: nowrap;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 5px rgba(153, 0, 255, 0.2);
 }
 
 .book-session-btn:hover {
-    background-color: #8000d4;
+    background-color: #8800e0;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(153, 0, 255, 0.3);
 }
 
+.book-session-btn:active {
+    transform: translateY(0);
+}
+
+/* Contact info styling */
 .contact-info {
-    text-align: right;
+    margin-right: 1.5rem;
 }
 
 .phone-numbers-container {
@@ -99,18 +143,126 @@
     width: 18px;
     height: 18px;
     margin-right: 0.5rem;
+    filter: brightness(0) saturate(100%) invert(24%) sepia(93%) saturate(7471%) hue-rotate(272deg) brightness(89%) contrast(142%);
 }
 
 .phone-numbers {
-    font-size: 14px;
-    font-weight: bolder;
-    color: #ae00ff;
+    font-size: 15px;
+    font-weight: 600;
+    color: #9900ff;
     white-space: nowrap;
 }
 
+/* Services dropdown styling */
+.services-dropdown {
+    position: relative;
+}
+
+.services-dropdown>span {
+    cursor: pointer;
+    color: #444;
+    font-weight: 500;
+    font-size: 15px;
+    padding: 0.7rem 0.5rem;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+.services-dropdown>span:after {
+    content: '▾';
+    margin-left: 5px;
+    font-size: 12px;
+    transition: transform 0.3s ease;
+}
+
+.services-dropdown:hover>span {
+    color: #9900ff;
+}
+
+.services-dropdown:hover>span:after {
+    transform: rotate(180deg);
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    z-index: 1001;
+    min-width: 220px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    padding: 0.8rem 0;
+    margin-top: 10px;
+}
+
+.dropdown-menu:before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 10px;
+    height: 10px;
+    background-color: white;
+}
+
+.services-dropdown:hover .dropdown-menu,
+.dropdown-menu.open {
+    opacity: 1;
+    visibility: visible;
+    margin-top: 0;
+}
+
+.dropdown-menu li {
+    padding: 0;
+    margin: 0;
+    transition: background-color 0.2s ease;
+}
+
+.dropdown-menu li:hover {
+    background-color: #f8f2ff;
+}
+
+.dropdown-menu li:first-child {
+    border-radius: 4px 4px 0 0;
+}
+
+.dropdown-menu li:last-child {
+    border-radius: 0 0 4px 4px;
+}
+
+.dropdown-menu li {
+    text-align: left;
+    padding: 0.7rem 1.2rem;
+    cursor: pointer;
+    font-size: 14px;
+    color: #555;
+    transition: all 0.2s ease;
+}
+
+.dropdown-menu li:hover {
+    color: #9900ff;
+    padding-left: 1.5rem;
+}
+
+/* Mobile header styling */
 @media (max-width: 992px) {
+    .header {
+        height: 70px;
+    }
+
     .logo {
-        height: 80px;
+        height: 50px;
+    }
+
+    .menu-toggle {
+        display: block;
     }
 
     .header nav {
@@ -120,11 +272,24 @@
         left: 0;
         width: 100%;
         background-color: white;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
     }
 
     .header nav.open {
         display: block;
+        animation: slideDown 0.3s ease-out forwards;
+    }
+
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 
     .header nav ul {
@@ -134,54 +299,13 @@
     }
 
     .header nav ul li {
-        margin: 0.5rem 0;
+        margin: 0.8rem 0;
+        width: 100%;
     }
 
-    .menu-toggle {
+    .header nav ul li a {
         display: block;
-        color: #333;
-    }
-
-    .header-content {
-        justify-content: space-between;
-    }
-}
-
-@media (max-width: 768px) {
-    .logo {
-        height: 80px;
-    }
-
-    .header-content {
-        flex-wrap: wrap;
-    }
-
-    .logo-container {
-        order: 2;
-    }
-
-    .menu-toggle {
-        order: 1;
-    }
-
-    .contact-info {
-        order: 3;
-    }
-
-    .book-session-btn {
-        order: 4;
-        font-size: 12px;
-        padding: 0.6rem 0.8rem;
-    }
-
-    .phone-numbers {
-        font-size: 10px;
-    }
-}
-
-@media (max-width: 576px) {
-    .logo {
-        height: 80px;
+        width: 100%;
     }
 
     .header-content {
@@ -189,19 +313,7 @@
     }
 
     .contact-info {
-        flex-basis: 80%;
-        order: 5;
-        margin-top: -3.0rem;
-        text-align: center;
-    }
-
-    .phone-numbers-container {
-        justify-content: center;
-        font-size: 20px;
-    }
-
-    .book-session-btn {
-        margin-left: auto;
+        margin-right: 0;
     }
 }
 
@@ -213,10 +325,9 @@
     left: 0;
     right: 0;
     background-color: white;
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
-    display: flex;
+    box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.1);
     justify-content: space-around;
-    padding: 10px 0;
+    padding: 12px 0 8px;
     z-index: 1000;
 }
 
@@ -226,19 +337,28 @@
     flex-direction: column;
     align-items: center;
     text-decoration: none;
-    color: #333;
+    color: #666;
     font-size: 12px;
+    font-weight: 500;
     cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 .bottom-nav img {
     width: 24px;
     height: 24px;
     margin-bottom: 5px;
+    transition: all 0.3s ease;
+    opacity: 0.7;
 }
 
 .bottom-nav .active {
     color: #9900ff;
+}
+
+.bottom-nav .active img {
+    opacity: 1;
+    filter: brightness(0) saturate(100%) invert(24%) sepia(93%) saturate(7471%) hue-rotate(272deg) brightness(89%) contrast(142%);
 }
 
 .header.mobile {
@@ -249,35 +369,33 @@
     left: 0;
     right: 0;
     z-index: 1000;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
     padding: 10px 0;
+    height: auto;
 }
 
 .header.mobile .logo-container {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 1rem;
 }
 
 .header.mobile .logo {
-    height: 40px;
+    height: 45px;
     width: auto;
 }
 
 .logo-container .book-session-btn {
-    height: 40px;
-    width: auto;
-    align-items: end;
-    position: relative;
-    margin-left: 150px;
-    margin-top: 10px;
-    box-shadow: #333;
+    height: auto;
+    padding: 0.6rem 1rem;
+    font-size: 13px;
+    margin: 0;
+    box-shadow: 0 2px 5px rgba(153, 0, 255, 0.2);
 }
 
 @media (max-width: 768px) {
-    .logo {
-        height: 80px;
-    }
-
     .header.desktop {
         display: none;
     }
@@ -287,125 +405,58 @@
         display: flex;
     }
 
-    /* Add padding to the main content to account for the top header and bottom nav */
-    main {
-        padding-top: 60px;
-        padding-bottom: 60px;
-    }
-}
-
-@media (max-width: 768px) {
-    .logo {
-        height: 80px;
-    }
-
-    .header {
-        display: none;
-    }
-
-    .bottom-nav {
-        display: flex;
+    /* Improved mobile services dropdown */
+    .bottom-nav .services-dropdown .dropdown-menu {
+        position: fixed;
+        bottom: 70px;
+        left: 0;
+        width: 100%;
+        border-radius: 10px 10px 0 0;
+        max-height: 70vh;
+        overflow-y: auto;
+        box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.15);
+        padding: 1rem 0;
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(100%);
+        transition: transform 0.3s ease;
     }
 
-    /* Add padding to the main content to account for the bottom nav */
-    main {
-        padding-bottom: 60px;
-    }
-}
-
-.header.mobile .logo {
-    height: 60px;
-    /* Increased from 40px */
-    width: auto;
-    padding-left: 25px;
-}
-
-.services-dropdown {
-    position: relative;
-}
-
-.services-dropdown>span {
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.dropdown-menu {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: white;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    min-width: 200px;
-    padding: 0.5rem 0;
-    border-radius: 4px;
-}
-
-.services-dropdown:hover .dropdown-menu,
-.dropdown-menu.open {
-    display: block;
-}
-
-.dropdown-menu li {
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    font-size: 12px;
-    /* Smaller font size */
-    font-weight: bold;
-    /* Bold font */
-    color: #333;
-    transition: background-color 0.3s ease;
-}
-
-.dropdown-menu li:hover {
-    background-color: #f0f0f0;
-}
-
-@media (max-width: 768px) {
-    .services-dropdown .dropdown-menu {
-        display: block;
-        /* Show on click */
-        position: static;
-        /* Ensures it aligns properly on mobile */
-        box-shadow: none;
-        padding: 0;
+    .bottom-nav .services-dropdown .dropdown-menu.open {
+        transform: translateY(0);
     }
 
-    .dropdown-menu li {
-        padding: 0.5rem 1rem;
-        border-bottom: 1px solid #ddd;
-        color: #000000;
-        font-weight: bolder;
+    .bottom-nav .dropdown-menu li {
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid #f0f0f0;
+        color: #444;
+        font-weight: 500;
+        font-size: 14px;
     }
 
-    .dropdown-menu li:last-child {
+    .bottom-nav .dropdown-menu li:last-child {
         border-bottom: none;
-        color: #000000;
-        font-weight: bolder;
+    }
+
+    /* Add padding to the main content */
+    main {
+        padding-top: 65px;
+        padding-bottom: 70px;
     }
 }
 
-.services-dropdown>span {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-}
+/* Additional mobile optimizations */
+@media (max-width: 576px) {
+    .header.mobile .logo-container {
+        padding: 0 0.8rem;
+    }
 
-.service-icon {
-    width: 24px;
-    /* Adjust size to be consistent with other icons */
-    height: 24px;
-    margin-right: 0;
-    /* Remove margin to align properly */
-}
+    .header.mobile .logo {
+        height: 40px;
+    }
 
-.services-dropdown span span {
-    font-weight: bolder;
-    margin-top: 5px;
-    /* Adjust margin to align properly */
-    font-size: 12px;
-    /* Consistent font size */
+    .logo-container .book-session-btn {
+        padding: 0.5rem 0.8rem;
+        font-size: 12px;
+    }
 }
