@@ -19,7 +19,7 @@ const Header: React.FC = () => {
 
   const desktopDropdownRef = useRef<HTMLLIElement>(null);
   const mobileDropdownRef = useRef<HTMLDivElement>(null);
-  const mobileServicesRef = useRef<HTMLUListElement>(null);
+  const mobileServicesRef = useRef<HTMLDivElement>(null);
 
   const services = [
     {
@@ -65,47 +65,70 @@ const Header: React.FC = () => {
     },
   ];
 
-  const toggleServicesDropdown = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsServicesDropdownOpen(!isServicesDropdownOpen);
-    setIsMenuOpen(false);
-  };
+ const toggleServicesDropdown = (e: React.MouseEvent) => {
+   e.preventDefault();
+   e.stopPropagation();
+   setIsServicesDropdownOpen(!isServicesDropdownOpen);
+   setIsMenuOpen(false);
 
-  const handleServiceClick = (servicePath: string) => {
-    navigate(servicePath);
-    setIsServicesDropdownOpen(false);
-    setIsMenuOpen(false);
-  };
+   // When opening service dropdown, prevent body scrolling
+   if (!isServicesDropdownOpen) {
+     document.body.classList.add("no-scroll");
+   } else {
+     document.body.classList.remove("no-scroll");
+   }
+ };
 
-  // Handle clicks outside of dropdown to close it
+ const handleServiceClick = (servicePath: string) => {
+   navigate(servicePath);
+   setIsServicesDropdownOpen(false);
+   setIsMenuOpen(false);
+   document.body.classList.remove("no-scroll");
+ };
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      // Check both refs
-      const clickedOutsideDesktop =
-        desktopDropdownRef.current &&
-        !desktopDropdownRef.current.contains(event.target as Node);
-
-      const clickedOutsideMobile =
-        mobileDropdownRef.current &&
-        !mobileDropdownRef.current.contains(event.target as Node);
-
-      if (clickedOutsideDesktop && clickedOutsideMobile) {
-        setIsServicesDropdownOpen(false);
+      // For mobile modal, clicking anywhere outside content should close it
+      if (isMobile && isServicesDropdownOpen) {
+        const target = event.target as HTMLElement;
+        if (
+          target.closest(".mobile-services-content") === null &&
+          !target.closest(".services-dropdown")
+        ) {
+          setIsServicesDropdownOpen(false);
+          document.body.classList.remove("no-scroll");
+        }
+      }
+      // For desktop dropdown
+      else if (!isMobile && isServicesDropdownOpen) {
+        if (
+          desktopDropdownRef.current &&
+          !desktopDropdownRef.current.contains(event.target as Node)
+        ) {
+          setIsServicesDropdownOpen(false);
+        }
       }
     };
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
+      document.body.classList.remove("no-scroll");
     };
-  }, []);
+  }, [isServicesDropdownOpen, isMobile]);
+
+  const handleCloseMobileServices = () => {
+    setIsServicesDropdownOpen(false);
+    document.body.classList.remove("no-scroll");
+  };
 
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
       if (window.innerWidth > 768) {
         setIsMenuOpen(false);
+        setIsServicesDropdownOpen(false);
+        document.body.classList.remove("no-scroll");
       }
     };
 
@@ -113,11 +136,11 @@ const Header: React.FC = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Close menu when route changes
-  useEffect(() => {
-    setIsMenuOpen(false);
-    setIsServicesDropdownOpen(false);
-  }, [location.pathname]);
+useEffect(() => {
+  setIsMenuOpen(false);
+  setIsServicesDropdownOpen(false);
+  document.body.classList.remove("no-scroll");
+}, [location.pathname]);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -131,6 +154,12 @@ const Header: React.FC = () => {
   const handleClosePopup = () => {
     setIsPopupOpen(false);
   };
+
+  // // Handle closing the mobile services dropdown
+  // const handleCloseMobileServices = () => {
+  //   setIsServicesDropdownOpen(false);
+  //   document.body.style.overflow = '';
+  // };
 
   // Check if the current route matches the link
   const isActive = (path: string) => {
@@ -241,8 +270,6 @@ const Header: React.FC = () => {
             Book a Session
           </button>
         </div>
-
-        {/* New contact info bar */}
       </header>
 
       <nav className="bottom-nav">
@@ -255,7 +282,10 @@ const Header: React.FC = () => {
           <span>About</span>
         </Link>
         <div className="services-dropdown" ref={mobileDropdownRef}>
-          <span onClick={toggleServicesDropdown}>
+          <span
+            onClick={toggleServicesDropdown}
+            className={isServicesDropdownOpen ? "active" : ""}
+          >
             <img
               src={servicesIcon}
               className={`service-icon ${
@@ -278,26 +308,28 @@ const Header: React.FC = () => {
 
       {isServicesDropdownOpen && (
         <div className="mobile-services-menu">
-          <div className="mobile-services-header">
-            <h3>Our Services</h3>
-            <button
-              className="close-services"
-              onClick={toggleServicesDropdown}
-              aria-label="Close services menu"
-            >
-              ✕
-            </button>
-          </div>
-          <ul className="mobile-services-list" ref={mobileServicesRef}>
-            {services.map((service) => (
-              <li
-                key={service.id}
-                onClick={() => handleServiceClick(service.path)}
+          <div className="mobile-services-content">
+            <div className="mobile-services-header">
+              <h3>Our Services</h3>
+              <button
+                className="close-services"
+                onClick={handleCloseMobileServices}
+                aria-label="Close services menu"
               >
-                {service.title}
-              </li>
-            ))}
-          </ul>
+                ✕
+              </button>
+            </div>
+            <ul className="mobile-services-list">
+              {services.map((service) => (
+                <li
+                  key={service.id}
+                  onClick={() => handleServiceClick(service.path)}
+                >
+                  {service.title}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       )}
 
