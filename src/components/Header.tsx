@@ -19,6 +19,7 @@ const Header: React.FC = () => {
 
   const desktopDropdownRef = useRef<HTMLLIElement>(null);
   const mobileDropdownRef = useRef<HTMLDivElement>(null);
+  const mobileServicesRef = useRef<HTMLUListElement>(null);
 
   const services = [
     {
@@ -65,6 +66,7 @@ const Header: React.FC = () => {
   ];
 
   const toggleServicesDropdown = (e: React.MouseEvent) => {
+    e.preventDefault();
     e.stopPropagation();
     setIsServicesDropdownOpen(!isServicesDropdownOpen);
     setIsMenuOpen(false);
@@ -241,12 +243,6 @@ const Header: React.FC = () => {
         </div>
 
         {/* New contact info bar */}
-        <div className="mobile-contact-info">
-          <div className="phone-numbers-container">
-            <img src={callIcon} alt="Call" className="call-icon" />
-            <p className="phone-numbers">0719678943 / 0716986935</p>
-          </div>
-        </div>
       </header>
 
       <nav className="bottom-nav">
@@ -260,25 +256,15 @@ const Header: React.FC = () => {
         </Link>
         <div className="services-dropdown" ref={mobileDropdownRef}>
           <span onClick={toggleServicesDropdown}>
-            <img src={servicesIcon} className="service-icon" alt="Services" />
+            <img
+              src={servicesIcon}
+              className={`service-icon ${
+                isServicesDropdownOpen ? "active" : ""
+              }`}
+              alt="Services"
+            />
             <span>Services</span>
           </span>
-          {isServicesDropdownOpen && (
-            <ul
-              className={`dropdown-menu ${
-                isServicesDropdownOpen ? "open" : ""
-              }`}
-            >
-              {services.map((service) => (
-                <li
-                  key={service.id}
-                  onClick={() => handleServiceClick(service.path)}
-                >
-                  {service.title}
-                </li>
-              ))}
-            </ul>
-          )}
         </div>
         <Link to="/blog" className={isActive("/blog") ? "active" : ""}>
           <img src={blogIcon} alt="Blog" />
@@ -289,6 +275,31 @@ const Header: React.FC = () => {
           <span>Contact</span>
         </Link>
       </nav>
+
+      {isServicesDropdownOpen && (
+        <div className="mobile-services-menu">
+          <div className="mobile-services-header">
+            <h3>Our Services</h3>
+            <button
+              className="close-services"
+              onClick={toggleServicesDropdown}
+              aria-label="Close services menu"
+            >
+              ✕
+            </button>
+          </div>
+          <ul className="mobile-services-list" ref={mobileServicesRef}>
+            {services.map((service) => (
+              <li
+                key={service.id}
+                onClick={() => handleServiceClick(service.path)}
+              >
+                {service.title}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       {isPopupOpen && <PopupForm onClose={handleClosePopup} />}
     </>
