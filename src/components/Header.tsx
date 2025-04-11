@@ -16,7 +16,10 @@ const Header: React.FC = () => {
   const location = useLocation();
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isServicesDropdownOpen, setIsServicesDropdownOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Fixed: Changed to two separate refs for desktop and mobile dropdowns
+  const desktopDropdownRef = useRef<HTMLLIElement>(null);
+  const mobileDropdownRef = useRef<HTMLDivElement>(null);
 
   const services = [
     {
@@ -77,10 +80,16 @@ const Header: React.FC = () => {
   // Handle clicks outside of dropdown to close it
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
+      // Check both refs
+      const clickedOutsideDesktop =
+        desktopDropdownRef.current &&
+        !desktopDropdownRef.current.contains(event.target as Node);
+
+      const clickedOutsideMobile =
+        mobileDropdownRef.current &&
+        !mobileDropdownRef.current.contains(event.target as Node);
+
+      if (clickedOutsideDesktop && clickedOutsideMobile) {
         setIsServicesDropdownOpen(false);
       }
     };
@@ -164,7 +173,8 @@ const Header: React.FC = () => {
                   About Us
                 </Link>
               </li>
-              <li className="services-dropdown" ref={dropdownRef}>
+              {/* Fixed: Using the correct ref type for <li> element */}
+              <li className="services-dropdown" ref={desktopDropdownRef}>
                 <span onClick={toggleServicesDropdown}>Our Services</span>
                 <ul
                   className={`dropdown-menu ${
@@ -239,7 +249,8 @@ const Header: React.FC = () => {
           <img src={aboutIcon} alt="About" />
           <span>About</span>
         </Link>
-        <div className="services-dropdown" ref={dropdownRef}>
+        {/* Fixed: Using the correct ref type for mobile dropdown */}
+        <div className="services-dropdown" ref={mobileDropdownRef}>
           <span onClick={toggleServicesDropdown}>
             <img src={servicesIcon} className="service-icon" alt="Services" />
             <span>Services</span>
