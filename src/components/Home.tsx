@@ -64,8 +64,23 @@ class ErrorBoundary extends React.Component<
   }
 }
 
+// Define service type for better type checking
+interface Service {
+  title: string;
+  description: string;
+  icon: string;
+  path?: string;
+}
+
+// Services Menu Props Interface
+interface ServicesMenuProps {
+  isOpen: boolean;
+  onClose: () => void;
+  isMobile: boolean;
+}
+
 // Services Data - Add your actual services here
-const services = [
+const servicesList: Service[] = [
   {
     title: "Carpet Cleaning",
     description:
@@ -97,12 +112,16 @@ const services = [
 ];
 
 // Updated ServicesMenu Component
-const ServicesMenu = ({ isOpen, onClose, isMobile }) => {
-  const menuRef = useRef(null);
+const ServicesMenu: React.FC<ServicesMenuProps> = ({
+  isOpen,
+  onClose,
+  isMobile,
+}) => {
+  const menuRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate(); // Add this for navigation
 
   // Updated services data with all services and paths
-  const allServices = [
+  const allServices: Service[] = [
     {
       title: "Carpet Cleaning",
       description:
@@ -158,7 +177,7 @@ const ServicesMenu = ({ isOpen, onClose, isMobile }) => {
       icon: OfficeCleaning, // Replace with actual commercial icon when available
       path: "/cabrocleaning",
     },
-     {
+    {
       title: "Tiles and Grout Cleaning",
       description:
         "Specialized tile and grout cleaning services for residential spaces.",
@@ -169,8 +188,8 @@ const ServicesMenu = ({ isOpen, onClose, isMobile }) => {
 
   // Close when clicking outside
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
         onClose();
       }
     };
@@ -184,9 +203,11 @@ const ServicesMenu = ({ isOpen, onClose, isMobile }) => {
   }, [isOpen, onClose]);
 
   // Handle navigation to service page
-  const handleServiceClick = (path) => {
-    navigate(path);
-    onClose(); // Close the menu after navigation
+  const handleServiceClick = (path: string | undefined) => {
+    if (path) {
+      navigate(path);
+      onClose(); // Close the menu after navigation
+    }
   };
 
   if (!isOpen) return null;
