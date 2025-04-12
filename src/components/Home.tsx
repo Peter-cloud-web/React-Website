@@ -80,36 +80,7 @@ interface ServicesMenuProps {
 }
 
 // Services Data - Add your actual services here
-const servicesList: Service[] = [
-  {
-    title: "Carpet Cleaning",
-    description:
-      "Professional deep cleaning for all types of carpets and rugs.",
-    icon: CarpetCleaningIcon,
-  },
-  {
-    title: "Sofa Cleaning",
-    description:
-      "Refresh and sanitize your upholstery with our expert cleaning services.",
-    icon: SofaCleaning,
-  },
-  {
-    title: "Home Cleaning",
-    description: "Comprehensive cleaning solutions for residential spaces.",
-    icon: HomeCleaning,
-  },
-  {
-    title: "Office Cleaning",
-    description:
-      "Professional cleaning services for commercial and office spaces.",
-    icon: OfficeCleaning,
-  },
-  {
-    title: "Post-Construction Cleaning",
-    description: "Thorough cleanup after construction or renovation projects.",
-    icon: ConstructionCleaningIcon,
-  },
-];
+
 
 // Updated ServicesMenu Component
 const ServicesMenu: React.FC<ServicesMenuProps> = ({
