@@ -64,6 +64,170 @@ class ErrorBoundary extends React.Component<
   }
 }
 
+// Services Data - Add your actual services here
+const services = [
+  {
+    title: "Carpet Cleaning",
+    description:
+      "Professional deep cleaning for all types of carpets and rugs.",
+    icon: CarpetCleaningIcon,
+  },
+  {
+    title: "Sofa Cleaning",
+    description:
+      "Refresh and sanitize your upholstery with our expert cleaning services.",
+    icon: SofaCleaning,
+  },
+  {
+    title: "Home Cleaning",
+    description: "Comprehensive cleaning solutions for residential spaces.",
+    icon: HomeCleaning,
+  },
+  {
+    title: "Office Cleaning",
+    description:
+      "Professional cleaning services for commercial and office spaces.",
+    icon: OfficeCleaning,
+  },
+  {
+    title: "Post-Construction Cleaning",
+    description: "Thorough cleanup after construction or renovation projects.",
+    icon: ConstructionCleaningIcon,
+  },
+];
+
+// Updated ServicesMenu Component
+const ServicesMenu = ({ isOpen, onClose, isMobile }) => {
+  const menuRef = useRef(null);
+  const navigate = useNavigate(); // Add this for navigation
+
+  // Updated services data with all services and paths
+  const allServices = [
+    {
+      title: "Carpet Cleaning",
+      description:
+        "Professional deep cleaning for all types of carpets and rugs.",
+      icon: CarpetCleaningIcon,
+      path: "carpetcleaning",
+    },
+    {
+      title: "Sofa Cleaning",
+      description:
+        "Refresh and sanitize your upholstery with our expert cleaning services.",
+      icon: SofaCleaning,
+      path: "/sofacleaning",
+    },
+    {
+      title: "Home Cleaning",
+      description: "Comprehensive cleaning solutions for residential spaces.",
+      icon: HomeCleaning,
+      path: "/homedeepcleaning",
+    },
+    {
+      title: "Office Cleaning",
+      description:
+        "Professional cleaning services for commercial and office spaces.",
+      icon: OfficeCleaning,
+      path: "/officecleaning",
+    },
+    {
+      title: "Post-Construction Cleaning",
+      description:
+        "Thorough cleanup after construction or renovation projects.",
+      icon: ConstructionCleaningIcon,
+      path: "/services/post-construction-cleaning",
+    },
+    {
+      title: "Mattress Cleaning",
+      description:
+        "Deep cleaning and sanitizing for healthier sleep environments.",
+      icon: HomeCleaning, // Replace with actual mattress icon when available
+      path: "/mattresscleaning",
+    },
+    {
+      title: "Fumigation Services",
+      description:
+        "Specialized fumigation services for both commercial and residential spaces.",
+      icon: OfficeCleaning, // Replace with actual commercial icon when available
+      path: "/fumigationcleaning",
+    },
+    {
+      title: "Cabro Cleaning",
+      description:
+        "Specialized cabro cleaning services for both commercial and residential spaces.",
+      icon: OfficeCleaning, // Replace with actual commercial icon when available
+      path: "/cabrocleaning",
+    },
+     {
+      title: "Tiles and Grout Cleaning",
+      description:
+        "Specialized tile and grout cleaning services for residential spaces.",
+      icon: OfficeCleaning, // Replace with actual commercial icon when available
+      path: "/tilegroutcleaning",
+    },
+  ];
+
+  // Close when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        onClose();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen, onClose]);
+
+  // Handle navigation to service page
+  const handleServiceClick = (path) => {
+    navigate(path);
+    onClose(); // Close the menu after navigation
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div className={`services-menu-overlay ${isOpen ? "active" : ""}`}>
+      <div
+        ref={menuRef}
+        className={`services-menu ${isMobile ? "mobile" : "desktop"}`}
+      >
+        <div className="services-menu-header">
+          <h3>Our Services</h3>
+          <button className="close-menu-btn" onClick={onClose}>
+            ×
+          </button>
+        </div>
+        <div className="services-menu-content">
+          {allServices.map((service, index) => (
+            <div
+              key={index}
+              className="service-menu-item"
+              onClick={() => handleServiceClick(service.path)}
+              style={{ cursor: "pointer" }}
+            >
+              <img
+                src={service.icon}
+                alt={service.title}
+                className="service-icon"
+              />
+              <div className="service-menu-info">
+                <h4>{service.title}</h4>
+                <p>{service.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
 interface Review {
   name: string;
   location: string;
@@ -73,6 +237,19 @@ interface Review {
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const [isSocialMediaVisible, setIsSocialMediaVisible] = useState(false);
+  const [isServicesMenuOpen, setIsServicesMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check if the device is mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkMobile(); // Initial check
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   // Fix 1: Use HTMLDivElement instead of HTMLElement for div-specific refs
   const socialMediaSectionRef = useRef<HTMLElement>(null); // Keep HTMLElement for <section>
@@ -88,7 +265,6 @@ const Home: React.FC = () => {
   const [testimonialsSectionVisible, setTestimonialsSectionVisible] =
     useState(false);
 
-
   const cleaningImages = [
     cleaning1,
     cleaning2,
@@ -100,58 +276,58 @@ const Home: React.FC = () => {
     cleaning8,
   ];
 
-const reviews: Review[] = [
-  {
-    name: "John",
-    location: "Juja",
-    text: "My sofas dried on time without causing any inconvenience. I commend your job",
-  },
-  {
-    name: "Sarah",
-    location: "Roysambu",
-    text: "The sofas turned out so clean, I will surely refer you to my friends.",
-  },
-  {
-    name: "Mike",
-    location: "Ruiru",
-    text: "Good job on the Carpets",
-  },
-  {
-    name: "Emma",
-    location: "Kamakis",
-    text: "Job well done on the office furnitures and carpet. My boss was happy with the job",
-  },
-  {
-    name: "David",
-    location: "Kasarani",
-    text: "Nice job on the carpet and the sofas",
-  },
-  {
-    name: "Lisa",
-    location: "Thika",
-    text: "Exceptional work",
-  },
-  {
-    name: "Robert",
-    location: "Pangani",
-    text: "The seats are now dust free. Good job",
-  },
-  {
-    name: "Anna",
-    location: "Eastern-Bypass",
-    text: "They go above and beyond. Truly satisfied customer.",
-  },
-  {
-    name: "James",
-    location: "Juja farm",
-    text: "Good job on the stains, i did't expect the results",
-  },
-  {
-    name: "Olivia",
-    location: "Kenyatta - road",
-    text: "Kazi safi sana. Thank you",
-  },
-];
+  const reviews: Review[] = [
+    {
+      name: "John",
+      location: "Juja",
+      text: "My sofas dried on time without causing any inconvenience. I commend your job",
+    },
+    {
+      name: "Sarah",
+      location: "Roysambu",
+      text: "The sofas turned out so clean, I will surely refer you to my friends.",
+    },
+    {
+      name: "Mike",
+      location: "Ruiru",
+      text: "Good job on the Carpets",
+    },
+    {
+      name: "Emma",
+      location: "Kamakis",
+      text: "Job well done on the office furnitures and carpet. My boss was happy with the job",
+    },
+    {
+      name: "David",
+      location: "Kasarani",
+      text: "Nice job on the carpet and the sofas",
+    },
+    {
+      name: "Lisa",
+      location: "Thika",
+      text: "Exceptional work",
+    },
+    {
+      name: "Robert",
+      location: "Pangani",
+      text: "The seats are now dust free. Good job",
+    },
+    {
+      name: "Anna",
+      location: "Eastern-Bypass",
+      text: "They go above and beyond. Truly satisfied customer.",
+    },
+    {
+      name: "James",
+      location: "Juja farm",
+      text: "Good job on the stains, i did't expect the results",
+    },
+    {
+      name: "Olivia",
+      location: "Kenyatta - road",
+      text: "Kazi safi sana. Thank you",
+    },
+  ];
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -214,6 +390,15 @@ const reviews: Review[] = [
     };
   }, []);
 
+  // Handle services menu open/close
+  const toggleServicesMenu = () => {
+    setIsServicesMenuOpen(!isServicesMenuOpen);
+  };
+
+  const closeServicesMenu = () => {
+    setIsServicesMenuOpen(false);
+  };
+
   const sectionVariants = {
     hidden: { opacity: 0, y: 50 },
     visible: {
@@ -225,7 +410,14 @@ const reviews: Review[] = [
 
   return (
     <div className="home">
-      {/* Fix 2: Correct ref typing matches motion.div */}
+      {/* Services Menu Component */}
+      <ServicesMenu
+        isOpen={isServicesMenuOpen}
+        onClose={closeServicesMenu}
+        isMobile={isMobile}
+      />
+
+      {/* Hero Section */}
       <motion.div
         className="hero-container"
         ref={heroSectionRef}
@@ -264,7 +456,9 @@ const reviews: Review[] = [
             transition={{ delay: 0.7, duration: 0.8 }}
           >
             <button className="primary-button">Get a Quote</button>
-            <button className="secondary-button">Our Services</button>
+            <button className="secondary-button" onClick={toggleServicesMenu}>
+              Our Services
+            </button>
           </motion.div>
         </div>
         <div className="hero-illustration">
@@ -279,6 +473,7 @@ const reviews: Review[] = [
         </div>
       </motion.div>
 
+      {/* Rest of the code remains the same... */}
       <motion.section
         className="stats-section"
         ref={statsSectionRef}
@@ -320,6 +515,7 @@ const reviews: Review[] = [
         </div>
       </motion.section>
 
+      {/* Rest of your components... */}
       <motion.section
         className="our-services"
         ref={ourServicesSectionRef}
@@ -394,6 +590,7 @@ const reviews: Review[] = [
       </motion.section>
 
       <section className="social-media-section" ref={socialMediaSectionRef}>
+        {/* Social media section (unchanged) */}
         <h2>Follow Us on Social Media</h2>
         <p className="services-intro">
           Receive regular updates on cleaning hacks and tips, price offers,
@@ -462,6 +659,7 @@ const reviews: Review[] = [
         </div>
       </section>
 
+      {/* Rest of the sections (unchanged) */}
       <section className="location-section">
         <h2>Our Offices</h2>
         <p className="services-intro">
