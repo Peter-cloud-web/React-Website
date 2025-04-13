@@ -79,10 +79,7 @@ interface ServicesMenuProps {
   isMobile: boolean;
 }
 
-// Services Data - Add your actual services here
-
-
-// Updated ServicesMenu Component
+// Services Menu Component
 const ServicesMenu: React.FC<ServicesMenuProps> = ({
   isOpen,
   onClose,
@@ -220,6 +217,126 @@ const ServicesMenu: React.FC<ServicesMenuProps> = ({
   );
 };
 
+// Define the Quote Popup Component
+interface QuotePopupProps {
+  isOpen: boolean;
+  onClose: () => void;
+  isMobile: boolean;
+}
+
+const QuotePopup: React.FC<QuotePopupProps> = ({ isOpen, onClose, isMobile }) => {
+  const [name, setName] = useState<string>("");
+  const [message, setMessage] = useState<string>("");
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [submitSuccess, setSubmitSuccess] = useState<boolean>(false);
+  const popupRef = useRef<HTMLDivElement>(null);
+
+  // Close when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (popupRef.current && !popupRef.current.contains(event.target as Node)) {
+        onClose();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen, onClose]);
+
+  // Reset form when closing
+  useEffect(() => {
+    if (!isOpen) {
+      setName("");
+      setMessage("");
+      setSubmitSuccess(false);
+    }
+  }, [isOpen]);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    // Format the message for WhatsApp
+    const whatsappMessage = encodeURIComponent(`Name: ${name}\nMessage: ${message}`);
+    const whatsappNumber = "254XXXXXXXXX"; // Replace with your actual WhatsApp number
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
+    
+    // Show success state
+    setSubmitSuccess(true);
+    setIsSubmitting(false);
+    
+    // Open WhatsApp after a brief delay to show success message
+    setTimeout(() => {
+      window.open(whatsappUrl, "_blank");
+      onClose();
+    }, 1500);
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div className={`quote-popup-overlay ${isOpen ? "active" : ""}`}>
+      <div
+        ref={popupRef}
+        className={`quote-popup ${isMobile ? "mobile" : "desktop"}`}
+      >
+        <div className="quote-popup-header">
+          <h3>Request a Quotation</h3>
+          <button className="close-popup-btn" onClick={onClose}>
+            ×
+          </button>
+        </div>
+        
+        {submitSuccess ? (
+          <div className="quote-success-message">
+            <div className="success-icon">✓</div>
+            <h4>Thank you!</h4>
+            <p>We're redirecting you to WhatsApp now...</p>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="quote-form">
+            <div className="form-group">
+              <label htmlFor="name">Your Name</label>
+              <input
+                type="text"
+                id="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Enter your name"
+                required
+              />
+            </div>
+            
+            <div className="form-group">
+              <label htmlFor="message">Message</label>
+              <textarea
+                id="message"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                placeholder="Describe the cleaning service you need"
+                rows={5}
+                required
+              ></textarea>
+            </div>
+            
+            <button type="submit" className="submit-quote-btn" disabled={isSubmitting}>
+              {isSubmitting ? "Sending..." : "Send Quote Request"}
+            </button>
+            
+            <p className="quote-privacy-note">
+              By submitting this form, you'll be connected to our team via WhatsApp for a quick response.
+            </p>
+          </form>
+        )}
+      </div>
+    </div>
+  );
+};
+
 interface Review {
   name: string;
   location: string;
@@ -230,6 +347,7 @@ const Home: React.FC = () => {
   const navigate = useNavigate();
   const [isSocialMediaVisible, setIsSocialMediaVisible] = useState(false);
   const [isServicesMenuOpen, setIsServicesMenuOpen] = useState(false);
+  const [isQuotePopupOpen, setIsQuotePopupOpen] = useState(false); // New state for quote popup
   const [isMobile, setIsMobile] = useState(false);
 
   // Check if the device is mobile
@@ -391,6 +509,15 @@ const Home: React.FC = () => {
     setIsServicesMenuOpen(false);
   };
 
+  // Handle quote popup open/close
+  const toggleQuotePopup = () => {
+    setIsQuotePopupOpen(!isQuotePopupOpen);
+  };
+
+  const closeQuotePopup = () => {
+    setIsQuotePopupOpen(false);
+  };
+
   const sectionVariants = {
     hidden: { opacity: 0, y: 50 },
     visible: {
@@ -406,6 +533,13 @@ const Home: React.FC = () => {
       <ServicesMenu
         isOpen={isServicesMenuOpen}
         onClose={closeServicesMenu}
+        isMobile={isMobile}
+      />
+      
+      {/* Quote Popup Component */}
+      <QuotePopup
+        isOpen={isQuotePopupOpen}
+        onClose={closeQuotePopup}
         isMobile={isMobile}
       />
 
@@ -447,7 +581,7 @@ const Home: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7, duration: 0.8 }}
           >
-            <button className="primary-button">Get a Quote</button>
+            <button className="primary-button" onClick={toggleQuotePopup}>Get a Quote</button>
             <button className="secondary-button" onClick={toggleServicesMenu}>
               Our Services
             </button>
@@ -465,7 +599,7 @@ const Home: React.FC = () => {
         </div>
       </motion.div>
 
-      {/* Rest of the code remains the same... */}
+      {/* Stats Section */}
       <motion.section
         className="stats-section"
         ref={statsSectionRef}
@@ -507,7 +641,7 @@ const Home: React.FC = () => {
         </div>
       </motion.section>
 
-      {/* Rest of your components... */}
+      {/* Our Services Section */}
       <motion.section
         className="our-services"
         ref={ourServicesSectionRef}
@@ -549,6 +683,7 @@ const Home: React.FC = () => {
         </div>
       </motion.section>
 
+      {/* Testimonials Section */}
       <motion.section
         className="testimonials-section"
         ref={testimonialsSectionRef}
@@ -581,8 +716,8 @@ const Home: React.FC = () => {
         </div>
       </motion.section>
 
+      {/* Social Media Section */}
       <section className="social-media-section" ref={socialMediaSectionRef}>
-        {/* Social media section (unchanged) */}
         <h2>Follow Us on Social Media</h2>
         <p className="services-intro">
           Receive regular updates on cleaning hacks and tips, price offers,
@@ -651,7 +786,7 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Rest of the sections (unchanged) */}
+      {/* Location Section */}
       <section className="location-section">
         <h2>Our Offices</h2>
         <p className="services-intro">
@@ -672,6 +807,8 @@ const Home: React.FC = () => {
         </div>
         <FAQ />
       </section>
+      
+      {/* Gallery Section */}
       <section className="cleaning-gallery">
         {cleaningImages.map((img, index) => (
           <img
