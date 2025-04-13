@@ -262,7 +262,7 @@ const QuotePopup: React.FC<QuotePopupProps> = ({ isOpen, onClose, isMobile }) =>
     
     // Format the message for WhatsApp
     const whatsappMessage = encodeURIComponent(`Name: ${name}\nMessage: ${message}`);
-    const whatsappNumber = "254XXXXXXXXX"; // Replace with your actual WhatsApp number
+    const whatsappNumber = "+254759489245"; // Replace with your actual WhatsApp number
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
     
     // Show success state
