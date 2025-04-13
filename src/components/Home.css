@@ -933,7 +933,7 @@ html {
   position: fixed;
   bottom: 0;
   left: 0;
-  width: 80%;
+  width: 100%;
   max-width: 100%;
   border-radius: 12px 12px 0 0;
   animation: popup-slide-up 0.3s ease-out forwards;
