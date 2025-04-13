@@ -259,16 +259,19 @@ const QuotePopup: React.FC<QuotePopupProps> = ({ isOpen, onClose, isMobile }) =>
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     // Format the message for WhatsApp
-    const whatsappMessage = encodeURIComponent(`Name: ${name}\nMessage: ${message}`);
-    const whatsappNumber = "+254759489245"; // Replace with your actual WhatsApp number
-    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
-    
+    const whatsappMessage = encodeURIComponent(
+      `Name: ${name}\nMessage: ${message}`
+    );
+
+    // Use the working phone number format with URL encoding for the plus sign
+    const whatsappUrl = `https://api.whatsapp.com/send/?phone=254759489245&text=${whatsappMessage}`;
+
     // Show success state
     setSubmitSuccess(true);
     setIsSubmitting(false);
-    
+
     // Open WhatsApp after a brief delay to show success message
     setTimeout(() => {
       window.open(whatsappUrl, "_blank");
