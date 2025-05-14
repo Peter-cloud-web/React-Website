@@ -11,8 +11,7 @@ import cleaning5 from "../assets/c5.jpeg";
 import cleaning6 from "../assets/cleaning34.jpeg";
 import cleaning7 from "../assets/cleaning16.jpeg";
 import cleaning8 from "../assets/cleaning21.jpeg";
-
-import "./CarpetCleaning.css";
+import "./CarpetCleaning.css"; // Import your CSS file for styling
 
 const CarpetCleaning: React.FC = () => {
   const coverImageRef = useRef<HTMLImageElement | null>(null);

@@ -1,100 +1,116 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import "./Blog.css";
 import Header from "./Header";
 import Footer from "./Footer";
+import { getAllBlogPosts } from "./blogPosts";
+import "./Blog.css";
 
-const Blog: React.FC = () => {
-  const [posts, setPosts] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+// Import images directly to make them available to webpack
+import cleaning34 from "../assets/cleaning34.jpeg";
+import crop2 from "../assets/crop2.png";
+import officeCleaning from "../assets/j5.jpeg";
+import sofaCleaning from "../assets/crop.png";
+import swimmingpoolCleaning from "../assets/swimmingpoolcleaning.jpeg";
+import fumigationServices from "../assets/fumigationservices.jpeg";
 
-  useEffect(() => {
-    // Fetch blog posts with embedded featured media
-    fetch(
-      "https://pdaviescleaningservices.netlify.app/wordpress/wp-json/wp/v2/posts?_embed"
-    )
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Failed to fetch blog posts");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        console.log("Posts Data:", data); // Debugging
-        setPosts(data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        setError(error.message);
-        setLoading(false);
-      });
-  }, []);
+// Create a mapping object for image paths
+const imageMap = {
+  "/assets/cleaning34.jpeg": cleaning34,
+  "/assets/crop2.png": crop2,
+  "/assets/j5.jpeg": officeCleaning,
+  "/assets/crop.png": sofaCleaning,
+  "/assets/swimmingpoolcleaning.jpeg": swimmingpoolCleaning,
+  "/assets/fumigationservices.jpeg": fumigationServices,
+};
 
-  // Function to extract the first image URL from the post content
-  const getFirstImageUrl = (content: string) => {
-    const imgRegex = /<img[^>]+src="([^">]+)"/;
-    const match = content.match(imgRegex);
-    return match ? match[1] : null;
-  };
-
-  if (loading) {
-    return <div className="loading-message">Loading...</div>;
-  }
-
-  if (error) {
-    return <div className="error-message">Error: {error}</div>;
-  }
+const Blog = () => {
+  // Get all blog posts using the imported function
+  const posts = getAllBlogPosts();
 
   return (
     <div className="blog-container">
       <Header />
-      <main className="blog-content">
-        {posts.length > 0 ? (
-          posts.map((post) => {
-            const imageUrl =
-              post._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
-              getFirstImageUrl(post.content.rendered);
 
-            return (
-              <div key={post.id} className="blog-post">
-                {/* Display Featured Image */}
-                {imageUrl && (
-                  <div className="post-image-container">
-                    <img
-                      src={imageUrl}
-                      alt={post.title.rendered}
-                      className="post-image"
-                    />
-                  </div>
-                )}
-                <div className="post-content">
-                  <h2 className="post-title">{post.title.rendered}</h2>
-                  <div className="post-meta">
-                    <span className="post-date">
-                      {new Date(post.date).toLocaleDateString()}
-                    </span>
-                    <span className="post-author">By Admin</span>
-                  </div>
-                  <div
-                    className="post-excerpt"
-                    dangerouslySetInnerHTML={{ __html: post.excerpt.rendered }}
+      <div className="blog-hero">
+        <div className="blog-hero-content">
+          <h1>Expert Cleaning Insights</h1>
+          <p>
+            Professional tips, industry trends, and practical advice to
+            transform your spaces
+          </p>
+        </div>
+      </div>
+
+      <main className="blog-content">
+        <div className="blog-intro">
+          <h2>Our Cleaning Blog</h2>
+          <p>
+            Discover expert cleaning tips, insights, and advice from our
+            professional team at P Davies Cleaning Services. Learn how to
+            maintain a pristine environment with our industry-leading
+            techniques.
+          </p>
+        </div>
+
+        <div className="featured-posts-heading">
+          <h3>Featured Articles</h3>
+          <div className="heading-line"></div>
+        </div>
+
+        <div className="blog-grid">
+          {posts.length > 0 ? (
+            posts.map((post) => (
+              <article key={post.id} className="blog-card">
+                <div className="post-image">
+                  <img
+                    src={
+                      imageMap[post.featuredImage] || "/api/placeholder/800/400"
+                    }
+                    alt={post.title}
+                    onError={(e) => {
+                      e.currentTarget.src = "/api/placeholder/800/400";
+                    }}
                   />
-                  <Link to={`/blog/${post.slug}`} className="read-more">
-                    Read More
-                  </Link>
+                  <div className="post-category">{post.category}</div>
                 </div>
-              </div>
-            );
-          })
-        ) : (
-          <div className="blog-message">
-            <p className="message-text">
-              Sorry, we are currently curating blogs and cleaning tips which
-              will be up soon. Stay updated!
+                <div className="post-content">
+                  <div className="post-meta">
+                    <time dateTime={post.date}>
+                      {new Date(post.date).toLocaleDateString()}
+                    </time>
+                    <span className="post-author">By {post.author}</span>
+                  </div>
+                  <h2>{post.title}</h2>
+                  <p className="post-excerpt">{post.excerpt}</p>
+                  <div className="post-footer">
+                    <Link to={`/blog/${post.slug}`} className="read-more-link">
+                      Read More
+                    </Link>
+                    <div className="post-location">{post.location}</div>
+                  </div>
+                </div>
+              </article>
+            ))
+          ) : (
+            <div className="no-posts">
+              <p>No blog posts available at the moment.</p>
+            </div>
+          )}
+        </div>
+
+        <div className="newsletter-signup">
+          <div className="newsletter-content">
+            <h3>Stay Updated</h3>
+            <p>
+              Subscribe to our newsletter for the latest cleaning tips and
+              exclusive offers
             </p>
+            <div className="newsletter-form">
+              <input type="email" placeholder="Your Email Address" />
+              <button type="submit">Subscribe</button>
+            </div>
           </div>
-        )}
+        </div>
       </main>
       <Footer />
     </div>
