@@ -13,8 +13,22 @@ import sofaCleaning from "../assets/crop.png";
 import swimmingpoolCleaning from "../assets/swimmingpoolcleaning.jpeg";
 import fumigationServices from "../assets/fumigationservices.jpeg";
 
+// Define the BlogPost interface
+interface BlogPost {
+  id: string;
+  slug: string;
+  title: string;
+  author: string;
+  date: string;
+  category?: string;
+  location?: string;
+  excerpt: string;
+  content: string;
+  featuredImage: string;
+}
+
 // Create a mapping object for image paths
-const imageMap = {
+const imageMap: Record<string, string> = {
   "/assets/cleaning34.jpeg": cleaning34,
   "/assets/crop2.png": crop2,
   "/assets/j5.jpeg": officeCleaning,
@@ -23,7 +37,7 @@ const imageMap = {
   "/assets/fumigationservices.jpeg": fumigationServices,
 };
 
-const Blog = () => {
+const Blog: React.FC = () => {
   // Get all blog posts using the imported function
   const posts = getAllBlogPosts();
 
@@ -59,7 +73,7 @@ const Blog = () => {
 
         <div className="blog-grid">
           {posts.length > 0 ? (
-            posts.map((post) => (
+            posts.map((post: BlogPost) => (
               <article key={post.id} className="blog-card">
                 <div className="post-image">
                   <img
@@ -67,7 +81,7 @@ const Blog = () => {
                       imageMap[post.featuredImage] || "/api/placeholder/800/400"
                     }
                     alt={post.title}
-                    onError={(e) => {
+                    onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
                       e.currentTarget.src = "/api/placeholder/800/400";
                     }}
                   />

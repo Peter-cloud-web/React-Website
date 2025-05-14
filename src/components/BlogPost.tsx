@@ -5,12 +5,45 @@ import Footer from "./Footer";
 import { getBlogPostBySlug } from "./blogPosts";
 import "./BlogPost.css";
 
-const BlogPost = () => {
+// Define interfaces for TypeScript
+interface PostImage {
+  url: string;
+  caption?: string;
+}
+
+interface RelatedPost {
+  title: string;
+  slug: string;
+  excerpt: string;
+  image?: string;
+}
+
+interface BlogPost {
+  id: string;
+  slug: string;
+  title: string;
+  author: string;
+  authorBio?: string;
+  date: string;
+  category?: string;
+  excerpt: string;
+  content: string;
+  featuredImage: string;
+  images?: PostImage[];
+  relatedPosts?: RelatedPost[];
+}
+
+// Router params interface
+interface BlogPostParams {
+  slug: string;
+}
+
+const BlogPost: React.FC = () => {
   // Get the slug from URL parameters
-  const { slug } = useParams();
+  const { slug } = useParams<BlogPostParams>();
 
   // Get the specific blog post using the slug
-  const post = getBlogPostBySlug(slug);
+  const post = getBlogPostBySlug(slug || "");
 
   // If post is not found
   if (!post) {
@@ -33,13 +66,17 @@ const BlogPost = () => {
   }
 
   // Format date nicely
-  const formatDate = (dateString) => {
-    const options = { year: "numeric", month: "long", day: "numeric" };
+  const formatDate = (dateString: string): string => {
+    const options: Intl.DateTimeFormatOptions = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
 
   // Get author initials for avatar
-  const getAuthorInitials = (name) => {
+  const getAuthorInitials = (name: string): string => {
     return name
       .split(" ")
       .map((part) => part[0])
@@ -58,14 +95,14 @@ const BlogPost = () => {
       <div className="related-posts">
         <h2>Related Articles</h2>
         <div className="related-posts-grid">
-          {relatedPosts.map((relatedPost, index) => (
+          {relatedPosts.map((relatedPost: RelatedPost, index: number) => (
             <div className="related-post-card" key={index}>
               <div className="related-post-image">
                 <img
                   src={relatedPost.image || `/api/placeholder/400/320`}
                   alt={relatedPost.title}
-                  onError={(e) => {
-                    e.target.src = "/api/placeholder/400/320";
+                  onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
+                    e.currentTarget.src = "/api/placeholder/400/320";
                   }}
                 />
               </div>
@@ -95,8 +132,8 @@ const BlogPost = () => {
         <img
           src={post.featuredImage || `/api/placeholder/1200/600`}
           alt={post.title}
-          onError={(e) => {
-            e.target.src = "/api/placeholder/1200/600";
+          onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
+            e.currentTarget.src = "/api/placeholder/1200/600";
           }}
         />
         <div className="hero-overlay">
@@ -181,8 +218,8 @@ const BlogPost = () => {
                   <img
                     src={post.images[0].url || `/api/placeholder/800/500`}
                     alt={post.images[0].caption || post.title}
-                    onError={(e) => {
-                      e.target.src = "/api/placeholder/800/500";
+                    onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
+                      e.currentTarget.src = "/api/placeholder/800/500";
                     }}
                   />
                   {post.images[0].caption && (
