@@ -12,13 +12,13 @@ export interface BlogImage {
 }
 
 export interface RelatedPost {
-  id: string;
+  id: number | string;
   slug: string;
   title: string;
 }
 
 export interface BlogPost {
-  id: string;
+  id: number | string;
   slug: string;
   title: string;
   author: string;
@@ -32,6 +32,8 @@ export interface BlogPost {
   authorBio?: string;
   relatedPosts?: RelatedPost[];
   images?: BlogImage[];
+  metaDescription?: string;
+  schema?: any;
 }
 
 // Import images directly to make them available to webpack
@@ -89,7 +91,7 @@ const Blog: React.FC = () => {
         <div className="blog-grid">
           {posts.length > 0 ? (
             posts.map((post: BlogPost) => (
-              <article key={post.id} className="blog-card">
+              <article key={post.id.toString()} className="blog-card">
                 <div className="post-image">
                   <img
                     src={

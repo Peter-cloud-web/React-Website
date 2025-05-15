@@ -150,17 +150,26 @@ const BlogPost: React.FC = () => {
           <div className="related-posts">
             <h3>Related Articles</h3>
             <div className="related-posts-grid">
-              {relatedPosts.map((relatedPost) => (
-                <div key={relatedPost.id} className="related-post-card">
-                  <img
-                    src={`/api/placeholder/300/200`}
-                    alt={relatedPost.title}
-                    className="related-post-image"
-                  />
-                  <h4>{relatedPost.title}</h4>
-                  <Link to={`/blog/${relatedPost.slug}`}>Read more</Link>
-                </div>
-              ))}
+              {relatedPosts.map(
+                (relatedPost: {
+                  id: number | string;
+                  slug: string;
+                  title: string;
+                }) => (
+                  <div
+                    key={relatedPost.id.toString()}
+                    className="related-post-card"
+                  >
+                    <img
+                      src={`/api/placeholder/300/200`}
+                      alt={relatedPost.title}
+                      className="related-post-image"
+                    />
+                    <h4>{relatedPost.title}</h4>
+                    <Link to={`/blog/${relatedPost.slug}`}>Read more</Link>
+                  </div>
+                )
+              )}
             </div>
           </div>
         )}
