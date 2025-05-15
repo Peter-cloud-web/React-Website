@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
 import { getAllBlogPosts } from "./blogPosts";
+import { BlogPost } from "./types"; // Import from shared types
 import "./Blog.css";
 
 // Import images directly to make them available to webpack
@@ -12,20 +13,6 @@ import officeCleaning from "../assets/j5.jpeg";
 import sofaCleaning from "../assets/crop.png";
 import swimmingpoolCleaning from "../assets/swimmingpoolcleaning.jpeg";
 import fumigationServices from "../assets/fumigationservices.jpeg";
-
-// Define the BlogPost interface
-interface BlogPost {
-  id: string;
-  slug: string;
-  title: string;
-  author: string;
-  date: string;
-  category?: string;
-  location?: string;
-  excerpt: string;
-  content: string;
-  featuredImage: string;
-}
 
 // Create a mapping object for image paths
 const imageMap: Record<string, string> = {
