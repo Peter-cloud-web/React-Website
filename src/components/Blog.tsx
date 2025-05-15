@@ -3,8 +3,36 @@ import { Link } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
 import { getAllBlogPosts } from "./blogPosts";
-import { BlogPost } from "./types"; // Import from shared types
 import "./Blog.css";
+
+// Define and export the interfaces here so BlogPost.tsx can import them
+export interface BlogImage {
+  url: string;
+  caption?: string;
+}
+
+export interface RelatedPost {
+  id: string;
+  slug: string;
+  title: string;
+}
+
+export interface BlogPost {
+  id: string;
+  slug: string;
+  title: string;
+  author: string;
+  date: string;
+  category?: string;
+  location?: string;
+  excerpt: string;
+  content: string;
+  featuredImage: string;
+  tags?: string[];
+  authorBio?: string;
+  relatedPosts?: RelatedPost[];
+  images?: BlogImage[];
+}
 
 // Import images directly to make them available to webpack
 import cleaning34 from "../assets/cleaning34.jpeg";

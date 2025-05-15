@@ -3,7 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
 import { getAllBlogPosts } from "./blogPosts";
-import { BlogPost as BlogPostType } from "./types"; // Import from shared types
+import { BlogPost as BlogPostType } from "./Blog"; // Import from Blog.tsx
 import "./BlogPost.css";
 
 const BlogPost: React.FC = () => {
@@ -129,7 +129,7 @@ const BlogPost: React.FC = () => {
           <footer className="post-footer">
             <div className="post-tags">
               {post.tags &&
-                post.tags.map((tag, idx) => (
+                post.tags.map((tag: string, idx: number) => (
                   <span key={idx} className="post-tag">
                     #{tag}
                   </span>
